@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Демо-концепция сайта грузовой авиакомпании Alatau Air Cargo">
+<title>Alatau Air Cargo — демо-концепция сайта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#11171d;--ink-2:#1a232c;--slate:#2b3743;--glacier:#e9f0f4;--snow:#f7f9fa;--line:#d8e1e7;--soft:#5b6a75;
+  --orange:#f0561d;--orange-deep:#c8400c;--amber:#ffb067;--ok:#1f8a5b;--err:#b3261e;
+  --font:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --container:1200px;--r:12px;
+}
+*,*::before,*::after{box-sizing:border-box;}
+[hidden]{display:none !important;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--snow);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+ul,ol{list-style:none;margin:0;padding:0;}
+button,input,select{font-family:inherit;}
+button{cursor:pointer;}
+h1,h2,h3,h4,h5,p{margin:0;}
+h1,h2,h3,h4{line-height:1.05;letter-spacing:-0.02em;font-weight:800;}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;}
+.container{max-width:var(--container);margin:0 auto;padding:0 32px;}
+.hidden-sprite{position:absolute;width:0;height:0;overflow:hidden;}
+.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+
+section{padding:88px 0;scroll-margin-top:64px;}
+.alt{background:var(--glacier);}
+.dark{background:var(--ink);color:#eef2f5;}
+
+.tag{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.08em;color:var(--orange-deep);text-transform:uppercase;}
+.tag::before{content:"";width:22px;height:2px;background:var(--orange);}
+.dark .tag{color:var(--amber);}
+.head{max-width:700px;margin-bottom:44px;}
+.head h2{font-size:clamp(1.9rem,3.6vw,2.9rem);margin-top:14px;}
+.head p.lede{margin-top:16px;color:var(--soft);font-size:1.04rem;max-width:60ch;}
+.dark .head p.lede{color:#a7b4be;}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 22px;border-radius:10px;font-weight:700;font-size:.92rem;border:1.5px solid transparent;white-space:nowrap;transition:transform .15s ease,background .15s ease;}
+.btn:hover{transform:translateY(-1px);}
+.btn-orange{background:var(--orange);color:var(--ink);}
+.btn-orange:hover{background:#ff6a33;}
+.btn-dark{background:var(--ink);color:#fff;}
+.btn-dark:hover{background:var(--slate);}
+.btn-ghost{border-color:rgba(255,255,255,.35);color:#fff;}
+.btn-ghost:hover{border-color:#fff;}
+.btn-line{border-color:var(--line);background:#fff;color:var(--ink);}
+
+/* header */
+header.site{position:sticky;top:0;z-index:60;background:rgba(247,249,250,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:12px 0;}
+.brand{display:flex;align-items:center;gap:11px;}
+.brand svg{width:38px;height:38px;}
+.brand-text{display:flex;flex-direction:column;gap:3px;}
+.brand-name{font-weight:800;letter-spacing:.08em;font-size:1.02rem;line-height:1;}
+.brand-sub{font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;color:var(--soft);line-height:1;}
+nav.primary{display:flex;gap:26px;}
+nav.primary a{font-size:.9rem;font-weight:600;position:relative;padding:6px 0;white-space:nowrap;}
+nav.primary a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .2s ease;}
+nav.primary a:hover::after{transform:scaleX(1);}
+.nav-actions{display:flex;align-items:center;gap:14px;}
+.lang-switch{display:flex;gap:4px;}
+.lang-btn{background:none;border:none;padding:6px 7px;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--soft);border-radius:6px;}
+.lang-btn.active{color:var(--ink);background:var(--glacier);}
+.menu-toggle{display:none;width:42px;height:42px;border-radius:10px;border:1.5px solid var(--line);background:#fff;align-items:center;justify-content:center;}
+
+.drawer{position:fixed;inset:0;z-index:80;background:rgba(17,23,29,.55);opacity:0;pointer-events:none;transition:opacity .2s ease;display:none;}
+.drawer.open{opacity:1;pointer-events:auto;}
+.drawer-panel{position:absolute;top:0;right:0;height:100%;width:min(330px,86vw);background:var(--snow);padding:22px 24px;display:flex;flex-direction:column;gap:22px;transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;}
+.drawer.open .drawer-panel{transform:none;}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;}
+.drawer nav{display:flex;flex-direction:column;}
+.drawer nav a{padding:13px 2px;font-size:1.02rem;font-weight:700;border-bottom:1px solid var(--line);}
+
+/* hero */
+.hero{position:relative;overflow:hidden;color:#fff;min-height:640px;background:linear-gradient(180deg,#0b1016 0%,#141d27 42%,#3a2a2c 76%,#7a3a22 100%);padding:0;}
+.hero-art{position:absolute;inset:0;z-index:1;}
+.hero-art svg{position:absolute;inset:0;width:100%;height:100%;}
+.hero .container{position:relative;z-index:3;padding-top:96px;padding-bottom:240px;}
+.hero-copy{max-width:720px;opacity:0;transform:translateY(14px);animation:rise .9s ease forwards;}
+@keyframes rise{to{opacity:1;transform:none;}}
+.hero .tag{color:var(--amber);}
+.hero h1{font-size:clamp(2.5rem,6.2vw,5rem);margin-top:20px;letter-spacing:-0.035em;}
+.hero h1 span{display:block;}
+.hero h1 .accent{color:var(--orange);}
+.hero p.lede{margin-top:24px;font-size:1.1rem;color:#cdd6dd;max-width:56ch;}
+.hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+.facts{background:var(--ink);color:#fff;border-bottom:1px solid rgba(255,255,255,.08);}
+.facts .container{display:grid;grid-template-columns:repeat(4,1fr);}
+.fact{padding:26px 22px 26px 0;border-right:1px solid rgba(255,255,255,.12);margin-right:22px;}
+.fact:last-of-type{border-right:none;margin-right:0;}
+.fact strong{display:block;font-size:1.45rem;font-weight:800;letter-spacing:-0.02em;}
+.fact span{font-size:.82rem;color:#98a6b1;display:block;margin-top:2px;line-height:1.4;}
+.facts-src{grid-column:1/-1;padding:0 0 18px;font-size:.76rem;color:#6f808c;}
+
+/* tracking */
+.track-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;box-shadow:0 34px 60px -44px rgba(17,23,29,.4);}
+.awb-form{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;}
+.awb-field{flex:1 1 300px;}
+.awb-field label{display:block;font-size:.8rem;font-weight:700;margin-bottom:8px;}
+.awb-field input{width:100%;font-family:var(--mono);font-size:1.3rem;font-weight:700;letter-spacing:.08em;padding:15px 16px;border:1.5px solid var(--line);border-radius:10px;background:var(--snow);color:var(--ink);}
+input:focus,select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(240,86,29,.18);}
+.try-example{margin-top:12px;background:none;border:none;padding:0;font-size:.86rem;font-weight:700;color:var(--orange-deep);text-decoration:underline;text-underline-offset:3px;}
+.awb-err,.form-err{margin-top:14px;color:var(--err);font-size:.88rem;font-weight:600;}
+.result{margin-top:30px;padding-top:30px;border-top:1px dashed var(--line);display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;}
+.res-awb{font-family:var(--mono);font-weight:700;font-size:1.15rem;letter-spacing:.06em;}
+.route{display:flex;align-items:center;gap:10px;margin-top:16px;font-family:var(--mono);font-weight:700;font-size:1.5rem;flex-wrap:wrap;}
+.route i{font-style:normal;color:var(--orange);}
+.route-names{display:flex;gap:8px;margin-top:6px;font-size:.84rem;color:var(--soft);flex-wrap:wrap;}
+.res-meta{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px 28px;margin-top:26px;}
+.res-meta div span{display:block;font-size:.74rem;color:var(--soft);font-weight:600;}
+.res-meta div b{font-size:.98rem;}
+.note{margin-top:22px;font-size:.8rem;color:var(--soft);}
+.tl{position:relative;}
+.tl li{position:relative;padding:0 0 22px 38px;opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease;}
+.tl li.in{opacity:1;transform:none;}
+.tl li::before{content:"";position:absolute;left:8px;top:22px;bottom:0;width:2px;background:var(--line);}
+.tl li:last-child{padding-bottom:0;}
+.tl li:last-child::before{display:none;}
+.tl .node{position:absolute;left:0;top:3px;width:18px;height:18px;border-radius:50%;border:2px solid var(--line);background:#fff;}
+.tl li.done .node{background:var(--orange);border-color:var(--orange);}
+.tl li.done::before{background:var(--orange);}
+.tl li.current .node{border-color:var(--orange);box-shadow:0 0 0 5px rgba(240,86,29,.2);}
+.tl h5{margin:0;font-size:.95rem;font-weight:700;line-height:1.35;}
+.tl .when{font-family:var(--mono);font-size:.76rem;color:var(--soft);}
+.tl li.pending h5{color:var(--soft);font-weight:600;}
+
+/* chips, segmented */
+.pchips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px;}
+.pchip{border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:10px 16px;border-radius:999px;font-weight:700;font-size:.88rem;}
+.pchip:hover{border-color:var(--ink);}
+.pchip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+.dark .pchip{background:transparent;color:#e8eef2;border-color:rgba(255,255,255,.25);}
+.dark .pchip:hover{border-color:#fff;}
+.dark .pchip.on{background:var(--orange);color:var(--ink);border-color:var(--orange);}
+.seg{display:inline-flex;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:4px;gap:4px;margin-bottom:24px;flex-wrap:wrap;}
+.seg-btn{border:none;background:none;padding:10px 18px;border-radius:9px;font-weight:700;font-size:.9rem;color:var(--soft);}
+.seg-btn.active{background:var(--ink);color:#fff;}
+
+/* network */
+.net-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:24px;align-items:stretch;}
+.net-map{background:var(--ink-2);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:18px;}
+.net-map svg{width:100%;height:auto;}
+.net-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:.78rem;color:#9fb0bb;}
+.net-legend span{display:inline-flex;align-items:center;gap:8px;}
+.net-legend i{display:inline-block;width:26px;height:0;border-top:3px solid var(--amber);}
+.net-legend i.rail{border-top:3px dotted #5fd0c0;}
+.net-legend i.later{border-top:2px dashed rgba(255,176,103,.6);}
+.net-cap{margin-top:8px;font-size:.76rem;color:#7f909c;}
+.node-detail{background:var(--ink-2);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:14px;}
+.node-detail h3{font-size:1.6rem;}
+.status-chip{align-self:flex-start;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--ink);background:var(--amber);padding:6px 12px;border-radius:999px;}
+.node-detail p{color:#b9c6cf;font-size:.95rem;}
+.node-detail .src-line{font-size:.78rem;color:#7f909c;margin-top:auto;}
+.nd{cursor:pointer;outline:none;}
+.nd .ring{fill:none;stroke:#fff;stroke-width:2;opacity:0;transition:opacity .2s;}
+.nd.sel .ring,.nd:focus-visible .ring{opacity:1;}
+.flow{stroke-dasharray:4 10;animation:flow 1.6s linear infinite;}
+@keyframes flow{to{stroke-dashoffset:-28;}}
+.hub-ring{transform-box:fill-box;transform-origin:center;animation:ring 2.4s ease-out infinite;}
+@keyframes ring{0%{transform:scale(.6);opacity:.7;}100%{transform:scale(1.5);opacity:0;}}
+.mkt{margin-top:34px;}
+.mkt h4{font-size:.76rem;font-family:var(--mono);color:var(--amber);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;font-weight:700;}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.stat{background:var(--ink-2);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:22px 24px;}
+.stat strong{display:block;font-size:2rem;font-weight:800;color:var(--amber);letter-spacing:-0.03em;line-height:1;}
+.stat span{display:block;margin-top:10px;font-size:.86rem;color:#a7b4be;}
+.src{margin-top:16px;font-size:.78rem;color:#7f909c;}
+
+/* products */
+.ppanel{background:#fff;border:1px solid var(--line);border-radius:var(--r);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;box-shadow:0 34px 60px -46px rgba(17,23,29,.4);}
+.pp-left{padding:30px;background:var(--ink);color:#fff;}
+.pp-left h3{font-size:1.7rem;}
+.pp-left p{margin-top:12px;color:#b7c3cc;}
+.pp-left h5,.pp-right h5{margin:26px 0 10px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:700;}
+.pp-right h5{color:var(--orange-deep);margin-top:0;}
+.pp-right h5.second{margin-top:26px;}
+.pp-speeds li{display:flex;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:.9rem;}
+.pp-speeds li b{min-width:92px;color:#fff;}
+.pp-speeds li span{color:#aab7c1;}
+.pp-right{padding:30px;}
+.checklist li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-size:.92rem;}
+.checklist .icon{width:18px;height:18px;color:var(--ok);margin-top:3px;}
+.pp-eu{display:flex;gap:10px;align-items:center;margin-top:16px;font-size:.88rem;font-weight:600;cursor:pointer;}
+.pp-eu input{width:18px;height:18px;accent-color:var(--orange);}
+.pp-note{margin-top:18px;font-size:.8rem;color:var(--soft);}
+.pp-right .btn{margin-top:18px;}
+
+/* calc */
+.calc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start;}
+.calc-form{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.calc-form .two{grid-column:span 3;}
+.field label{display:block;font-size:.8rem;font-weight:700;margin-bottom:8px;}
+.field input{width:100%;font-family:var(--mono);font-size:1.05rem;font-weight:700;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--snow);color:var(--ink);}
+.calc-hint{grid-column:1/-1;font-size:.8rem;color:var(--soft);margin-top:-6px;}
+.calc-out{background:var(--ink);color:#fff;border-radius:var(--r);padding:28px;}
+.out-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:.94rem;color:#c3ced6;}
+.out-row b{font-family:var(--mono);color:#fff;font-size:1.05rem;}
+.out-row.big{border-bottom:none;padding-top:20px;color:#fff;font-weight:700;}
+.out-row.big b{font-size:2.2rem;color:var(--amber);}
+.verdict{margin-top:6px;padding:14px 16px;border-radius:10px;background:rgba(255,176,103,.12);color:var(--amber);font-size:.88rem;font-weight:600;}
+.calc-out .note{color:#8f9ea9;}
+.calc-out .btn{margin-top:20px;width:100%;}
+
+/* quote forms */
+.form-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;box-shadow:0 34px 60px -46px rgba(17,23,29,.4);max-width:860px;}
+.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+.fgrid .full{grid-column:1/-1;}
+.f label{display:block;font-size:.8rem;font-weight:700;margin-bottom:8px;}
+.f input,.f select{width:100%;font-size:1rem;font-weight:600;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--snow);color:var(--ink);}
+.form-card .btn{margin-top:22px;}
+.ok-ico{width:52px;height:52px;border-radius:50%;background:#e4f6ee;color:var(--ok);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.ok-ref{font-family:var(--mono);font-weight:700;font-size:1.25rem;margin:8px 0 4px;}
+.ok-sum{color:var(--soft);font-size:.92rem;margin-bottom:10px;}
+
+/* hub / fleet */
+.hub-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start;}
+.sub-h{font-family:var(--mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:22px;}
+.timeline{position:relative;}
+.timeline li{position:relative;padding:0 0 28px 34px;}
+.timeline li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--line);}
+.timeline li:last-child{padding-bottom:0;}
+.timeline li:last-child::before{display:none;}
+.timeline li::after{content:"";position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;background:var(--orange);}
+.timeline li.next::after{background:transparent;border:2px solid var(--orange);}
+.timeline .when{font-family:var(--mono);font-weight:700;font-size:.8rem;color:var(--orange-deep);}
+.timeline p{margin-top:4px;font-weight:700;font-size:1.02rem;line-height:1.4;}
+.dark .timeline .when{color:var(--amber);}
+.dark .timeline li::before{background:rgba(255,255,255,.18);}
+.hub-bullets{margin-top:26px;display:flex;flex-direction:column;gap:14px;}
+.hub-bullets li{display:flex;gap:12px;font-size:.95rem;color:#c3cfd8;}
+.hub-bullets li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange);margin-top:9px;flex-shrink:0;}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.about-copy p{color:var(--soft);margin-bottom:16px;font-size:1.02rem;}
+.mission{margin:8px 0 26px;padding:20px 22px;border-left:4px solid var(--orange);background:#fff;border-radius:0 var(--r) var(--r) 0;font-weight:700;font-size:1.02rem;line-height:1.5;}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:30px;}
+.value{background:#fff;padding:22px;}
+.value h4{font-size:1rem;margin-bottom:8px;}
+.value p{font-size:.86rem;color:var(--soft);margin:0;}
+
+/* news */
+.news-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+.news{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:12px;}
+.news .meta{font-family:var(--mono);font-size:.76rem;color:var(--soft);display:flex;gap:12px;font-weight:700;}
+.news h4{font-size:1.08rem;line-height:1.3;letter-spacing:-.01em;}
+.news a.read{margin-top:auto;padding-top:6px;font-weight:700;font-size:.88rem;color:var(--orange-deep);display:inline-flex;gap:8px;align-items:center;}
+.news a.read .icon{width:16px;height:16px;}
+
+/* faq */
+.faq-list{border-top:1px solid var(--line);max-width:860px;}
+details.faq{border-bottom:1px solid var(--line);}
+details.faq summary{list-style:none;display:grid;grid-template-columns:1fr 28px;gap:18px;align-items:center;padding:22px 4px;cursor:pointer;font-weight:800;font-size:1.1rem;letter-spacing:-.01em;}
+details.faq summary::-webkit-details-marker{display:none;}
+details.faq .chev{transition:transform .2s ease;color:var(--soft);}
+details[open].faq .chev{transform:rotate(90deg);color:var(--orange);}
+.faq-body{padding:0 4px 24px;color:var(--soft);max-width:70ch;}
+
+/* careers */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;max-width:860px;}
+.chips span{border:1.5px solid rgba(255,255,255,.22);border-radius:999px;padding:9px 16px;font-size:.9rem;font-weight:600;}
+.mail{font-family:var(--mono);font-size:.9rem;color:var(--amber);margin-left:6px;}
+
+/* footer */
+footer.site{background:#0b1016;color:#98a6b1;padding:56px 0 30px;font-size:.9rem;}
+.sub-band{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding-bottom:36px;margin-bottom:36px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sub-band h4{color:#fff;font-size:1.3rem;}
+.sub-form{display:flex;gap:10px;flex-wrap:wrap;flex:1 1 360px;max-width:520px;}
+.sub-form input{flex:1 1 220px;padding:13px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;font-size:.95rem;}
+.sub-msg{flex-basis:100%;font-size:.84rem;font-weight:600;}
+.foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1);}
+.foot-grid h5{font-size:.82rem;color:#fff;margin:0 0 16px;font-weight:700;}
+.foot-grid li{margin-bottom:10px;}
+.foot-grid a:hover{color:#fff;}
+.foot-about{margin-top:16px;max-width:34ch;}
+footer .brand-name{color:#fff;}
+footer .brand-sub{color:#7f909c;}
+.foot-bottom{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.8rem;color:#6f808c;}
+
+.demo-badge{position:fixed;left:18px;bottom:18px;z-index:50;background:var(--ink);color:#fff;font-size:.75rem;font-weight:700;padding:10px 15px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:0 12px 30px -10px rgba(0,0,0,.45);}
+.demo-badge i{width:7px;height:7px;border-radius:50%;background:var(--orange);}
+
+/* assistant */
+.ast-btn{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:9px;background:var(--orange);color:var(--ink);border:none;border-radius:999px;padding:13px 18px;font-weight:800;font-size:.9rem;box-shadow:0 16px 34px -12px rgba(240,86,29,.6);}
+.ast-panel{position:fixed;right:18px;bottom:78px;z-index:70;width:360px;max-height:min(560px,72vh);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 70px -20px rgba(17,23,29,.45);display:none;flex-direction:column;overflow:hidden;}
+.ast-panel.open{display:flex;}
+.ast-head{background:var(--ink);color:#fff;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;}
+.ast-head b{display:block;font-size:.98rem;}
+.ast-head span{font-size:.74rem;color:#9fb0bb;}
+.ast-x{background:none;border:none;color:#fff;width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.ast-msgs{padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;flex:1;background:var(--snow);}
+.msg{max-width:88%;padding:11px 14px;border-radius:14px;font-size:.88rem;line-height:1.45;}
+.msg.bot{background:#fff;border:1px solid var(--line);align-self:flex-start;border-top-left-radius:4px;}
+.msg.user{background:var(--ink);color:#fff;align-self:flex-end;border-top-right-radius:4px;}
+.msg a{display:block;margin-top:8px;font-weight:800;color:var(--orange-deep);font-size:.84rem;}
+.ast-chips{padding:12px 14px 14px;display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--line);background:#fff;max-height:150px;overflow-y:auto;}
+.ast-chips .pchip{padding:8px 12px;font-size:.8rem;}
+
+/* responsive */
+@media (max-width:1060px){
+  nav.primary,.nav-actions .lang-switch,.nav-actions .btn{display:none;}
+  .menu-toggle{display:flex;}
+  .drawer{display:block;}
+}
+@media (max-width:1020px){
+  .result{grid-template-columns:1fr;gap:30px;}
+  .calc-grid,.net-grid,.about-grid,.hub-grid,.ppanel{grid-template-columns:1fr;}
+  .about-grid,.hub-grid{gap:44px;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+  .facts .container{grid-template-columns:repeat(2,1fr);}
+  .fact{margin-right:0;padding:20px 16px 20px 0;border-bottom:1px solid rgba(255,255,255,.1);}
+  .fact:nth-of-type(2n){border-right:none;}
+  .fact:nth-of-type(n+3){border-bottom:none;}
+  .news-grid{grid-template-columns:1fr;}
+}
+@media (max-width:900px){
+  section{padding:60px 0;}
+  .hero .container{padding-top:60px;padding-bottom:210px;}
+  .hero{min-height:560px;}
+}
+@media (max-width:620px){
+  .container{padding:0 20px;}
+  .track-card,.calc-form,.calc-out,.form-card,.pp-left,.pp-right,.node-detail{padding:20px;}
+  .calc-form{grid-template-columns:1fr 1fr;}
+  .calc-form .two{grid-column:span 2;}
+  .res-meta{grid-template-columns:1fr 1fr;}
+  .values,.stats3,.fgrid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;gap:30px;}
+  .brand-sub{display:none;}
+  .demo-badge{left:12px;bottom:12px;font-size:.7rem;padding:9px 12px;}
+  .awb-form .btn{width:100%;}
+  .ast-btn{right:12px;bottom:12px;padding:13px;}
+  .ast-btn span{display:none;}
+  .ast-panel{right:10px;left:10px;width:auto;bottom:70px;}
+  .pp-speeds li{flex-direction:column;gap:2px;}
+  .fact strong{font-size:1.15rem;}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-copy{animation:none;opacity:1;transform:none;}
+  .flow,.hub-ring{animation:none;}
+  .tl li{transition:none;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<svg class="hidden-sprite" aria-hidden="true">
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+<symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+</svg>
+
+<!-- HEADER -->
+<header class="site">
+  <div class="container nav-wrap">
+    <a class="brand" href="#top" aria-label="Alatau Air Cargo">
+      <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="9" fill="#11171d"/><path d="M5 27L13 14l5 7 5-9 8 15z" fill="#fff"/><circle cx="26" cy="9" r="3" fill="#f0561d"/></svg>
+      <span class="brand-text"><span class="brand-name">ALATAU</span><span class="brand-sub">AIR CARGO</span></span>
+    </a>
+    <nav class="primary">
+      <a href="#products" data-i18n="nav.products">Продукты</a>
+      <a href="#track" data-i18n="nav.track">Трекинг</a>
+      <a href="#network" data-i18n="nav.network">Сеть</a>
+      <a href="#hub" data-i18n="nav.hub">Хаб и флот</a>
+      <a href="#news" data-i18n="nav.news">Новости</a>
+    </nav>
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button class="lang-btn" data-lang="kk">ҚАЗ</button>
+        <button class="lang-btn active" data-lang="ru">РУС</button>
+        <button class="lang-btn" data-lang="en">ENG</button>
+      </div>
+      <a class="btn btn-dark" href="#quote" data-i18n="nav.quote">Запросить тариф</a>
+      <button class="menu-toggle" id="menu-open" aria-label="Menu"><svg class="icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <div class="drawer-panel">
+    <div class="drawer-head">
+      <span class="brand-name" style="font-weight:800;letter-spacing:.08em;">ALATAU</span>
+      <button class="menu-toggle" style="display:flex;" id="menu-close" aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+    <nav>
+      <a href="#products" data-i18n="nav.products">Продукты</a>
+      <a href="#track" data-i18n="nav.track">Трекинг</a>
+      <a href="#network" data-i18n="nav.network">Сеть</a>
+      <a href="#quote" data-i18n="nav.quote">Запросить тариф</a>
+      <a href="#hub" data-i18n="nav.hub">Хаб и флот</a>
+      <a href="#news" data-i18n="nav.news">Новости</a>
+      <a href="#about" data-i18n="nav.about">О компании</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#careers" data-i18n="nav.careers">Карьера</a>
+    </nav>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="kk">ҚАЗ</button>
+      <button class="lang-btn active" data-lang="ru">РУС</button>
+      <button class="lang-btn" data-lang="en">ENG</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div id="top"></div>
+<section class="hero">
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 1440 640" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffb067" stop-opacity=".6"/>
+          <stop offset="55%" stop-color="#f0561d" stop-opacity=".18"/>
+          <stop offset="100%" stop-color="#f0561d" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="985" cy="410" r="380" fill="url(#glow)"/>
+      <circle cx="985" cy="392" r="44" fill="#ffb067"/>
+      <path d="M0 430L90 400 170 425 290 350 370 395 470 330 560 400 660 360 760 420 880 340 980 410 1090 345 1190 405 1300 360 1440 420V640H0Z" fill="#3c2d33"/>
+      <path d="M0 500L110 455 200 490 330 420 430 480 540 430 650 495 770 445 880 500 1000 440 1120 490 1240 450 1350 495 1440 465V640H0Z" fill="#1b2430"/>
+      <path d="M0 570L140 530 260 565 390 520 520 570 650 540 790 580 930 535 1070 575 1210 540 1330 570 1440 548V640H0Z" fill="#0d1318"/>
+      <path id="route" d="M560 250C800 90 1120 70 1460 170" fill="none" stroke="#ffb067" stroke-opacity=".75" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/>
+      <g id="plane-marker">
+        <animateMotion dur="16s" repeatCount="indefinite" rotate="auto"><mpath href="#route"/></animateMotion>
+        <g transform="rotate(90)"><path d="M12 2c.8 0 1.3 1 1.3 2.5V9L22 14v2l-8.7-2.5V19l2.7 2v1.5L12 21.5 8 22.5V21l2.7-2v-5.5L2 16v-2l8.7-5V4.5C10.7 3 11.2 2 12 2z" fill="#fff" transform="scale(1.5) translate(-12,-12)"/></g>
+      </g>
+    </svg>
+  </div>
+  <div class="container">
+    <div class="hero-copy">
+      <div class="tag" data-i18n="hero.eyebrow">Первые рейсы — начало 2027 года (план)</div>
+      <h1><span data-i18n="hero.h1a">Азия — Европа.</span><span class="accent" data-i18n="hero.h1b">Через небо Казахстана.</span></h1>
+      <p class="lede" data-i18n="hero.lede">Alatau Air Cargo — казахстанская грузовая авиакомпания с хабом в Караганде. Первое направление — Гонконг; в основе проекта — транзит между Азией и Европой с мультимодальной схемой: часть груза перегружается на железную дорогу.</p>
+      <div class="hero-ctas">
+        <a href="#track" class="btn btn-orange" data-i18n="hero.cta1">Отследить груз</a>
+        <a href="#products" class="btn btn-ghost" data-i18n="hero.cta2">Подобрать продукт</a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="facts">
+  <div class="container">
+    <div class="fact"><strong data-i18n="hero.f1v">Начало 2027</strong><span data-i18n="hero.f1l">плановый старт коммерческих рейсов</span></div>
+    <div class="fact"><strong data-i18n="hero.f2v">Гонконг</strong><span data-i18n="hero.f2l">первое направление</span></div>
+    <div class="fact"><strong data-i18n="hero.f3v">до 10</strong><span data-i18n="hero.f3l">широкофюзеляжных грузовых самолётов в перспективе</span></div>
+    <div class="fact"><strong data-i18n="hero.f4v">Караганда</strong><span data-i18n="hero.f4l">главный хаб: авиа + железная дорога</span></div>
+    <p class="facts-src" data-i18n="hero.src">Планы компании — по данным Avianews.kz (15.10.2026).</p>
+  </div>
+</div>
+
+<!-- TRACK -->
+<section id="track">
+  <div class="container">
+    <div class="head">
+      <div class="tag" data-i18n="track.tag">Демо-функция</div>
+      <h2 data-i18n="track.h2">Отследить груз по номеру AWB</h2>
+      <p class="lede" data-i18n="track.lede">Введите 11-значный номер авианакладной — покажем, как будет выглядеть статус перевозки. Все данные ниже демонстрационные.</p>
+    </div>
+
+    <div class="track-card">
+      <form class="awb-form" id="awb-form" novalidate>
+        <div class="awb-field">
+          <label for="awb" data-i18n="track.label">Номер AWB</label>
+          <input id="awb" name="awb" inputmode="numeric" autocomplete="off" placeholder="000-12345675" maxlength="13">
+        </div>
+        <button type="submit" class="btn btn-orange" data-i18n="track.btn">Отследить</button>
+      </form>
+      <button type="button" class="try-example" id="awb-example" data-i18n="track.example">Подставить пример</button>
+      <p class="awb-err" id="err-format" role="alert" hidden data-i18n="track.errFormat">Введите 11 цифр: префикс (3) + серийный номер (7) + контрольная цифра (1).</p>
+      <p class="awb-err" id="err-check" role="alert" hidden data-i18n="track.errCheck">Контрольная цифра не сходится: она должна равняться остатку от деления 7-значного серийного номера на 7. Попробуйте пример.</p>
+
+      <div class="result" id="result" hidden>
+        <div>
+          <div class="res-awb" id="res-awb">000-12345675</div>
+          <div class="route"><span>HKG</span><i>→</i><span>KGF</span><i>→</i><span>BUD</span></div>
+          <div class="route-names"><span data-i18n="track.c1">Гонконг</span><span>·</span><span data-i18n="track.c2">Караганда</span><span>·</span><span data-i18n="track.c3">Будапешт</span></div>
+          <div class="res-meta">
+            <div><span data-i18n="track.m1">Мест</span><b>12</b></div>
+            <div><span data-i18n="track.m2">Вес</span><b data-i18n="track.m2v">1 840 кг</b></div>
+            <div><span data-i18n="track.m3">Груз</span><b data-i18n="track.m3v">Электроника (демо)</b></div>
+          </div>
+          <p class="note" data-i18n="track.note">Демонстрационные данные. В рабочей версии статус подтягивается из системы управления грузами.</p>
+        </div>
+        <ol class="tl" id="tl">
+          <li class="done"><span class="node"></span><h5 data-i18n="track.s1">Груз принят в пункте отправления</h5><span class="when"><span data-i18n="track.d1">День 1</span> · 08:40</span></li>
+          <li class="done"><span class="node"></span><h5 data-i18n="track.s2">Досмотр и безопасность пройдены</h5><span class="when"><span data-i18n="track.d1">День 1</span> · 10:15</span></li>
+          <li class="done"><span class="node"></span><h5 data-i18n="track.s3">Вылет из пункта отправления</h5><span class="when"><span data-i18n="track.d1">День 1</span> · 14:05</span></li>
+          <li class="current"><span class="node"></span><h5 data-i18n="track.s4">Прибытие в хаб Караганда</h5><span class="when"><span data-i18n="track.d2">День 2</span> · 02:30</span></li>
+          <li class="pending"><span class="node"></span><h5 data-i18n="track.s5">Вылет из хаба</h5><span class="when"><span data-i18n="track.d2">День 2</span> · 06:50 · <span data-i18n="track.plan">план</span></span></li>
+          <li class="pending"><span class="node"></span><h5 data-i18n="track.s6">Прибытие в пункт назначения</h5><span class="when"><span data-i18n="track.d2">День 2</span> · 10:20 · <span data-i18n="track.plan">план</span></span></li>
+          <li class="pending"><span class="node"></span><h5 data-i18n="track.s7">Готов к выдаче получателю</h5><span class="when"><span data-i18n="track.d2">День 2</span> · 12:00 · <span data-i18n="track.plan">план</span></span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NETWORK -->
+<section id="network" class="dark">
+  <div class="container">
+    <div class="head">
+      <div class="tag" data-i18n="net.tag">Сеть и маршруты</div>
+      <h2 data-i18n="net.h2">Куда и как мы повезём груз</h2>
+      <p class="lede" data-i18n="net.lede">Нажмите на узел — покажем статус и то, что уже известно. Маршруты ниже — планы компании, а не расписание.</p>
+    </div>
+
+    <div class="pchips" id="node-chips"></div>
+
+    <div class="net-grid">
+      <div class="net-map">
+        <svg viewBox="0 0 720 380" role="img" aria-label="Network diagram">
+          <g fill="none" stroke-linecap="round">
+            <path d="M110 290C210 290 250 190 342 190" stroke="#ffb067" stroke-width="2.5" class="flow"/>
+            <path d="M120 100C220 100 260 190 342 190" stroke="rgba(255,176,103,.55)" stroke-width="2" stroke-dasharray="3 9"/>
+            <path d="M378 190C470 190 510 100 610 100" stroke="#5fd0c0" stroke-width="3" stroke-dasharray="1 8"/>
+            <path d="M378 190C470 190 510 290 610 290" stroke="rgba(95,208,192,.55)" stroke-width="3" stroke-dasharray="1 8"/>
+          </g>
+          <circle class="hub-ring" cx="360" cy="190" r="28" fill="none" stroke="#f0561d" stroke-width="2"/>
+
+          <g class="nd" data-node="hkg" tabindex="0" role="button" aria-label="Hong Kong">
+            <circle class="ring" cx="110" cy="290" r="21"/><circle cx="110" cy="290" r="10" fill="#fff"/>
+          </g>
+          <g class="nd" data-node="cn" tabindex="0" role="button" aria-label="Mainland China">
+            <circle class="ring" cx="120" cy="100" r="21"/><circle cx="120" cy="100" r="10" fill="#1a232c" stroke="#fff" stroke-width="2"/>
+          </g>
+          <g class="nd" data-node="kgf" tabindex="0" role="button" aria-label="Karaganda hub">
+            <circle class="ring" cx="360" cy="190" r="29"/><circle cx="360" cy="190" r="17" fill="#f0561d"/>
+          </g>
+          <g class="nd" data-node="eu" tabindex="0" role="button" aria-label="Europe">
+            <circle class="ring" cx="620" cy="100" r="21"/><circle cx="620" cy="100" r="10" fill="#fff"/>
+          </g>
+          <g class="nd" data-node="ca" tabindex="0" role="button" aria-label="Central Asia">
+            <circle class="ring" cx="620" cy="290" r="21"/><circle cx="620" cy="290" r="10" fill="#1a232c" stroke="#fff" stroke-width="2"/>
+          </g>
+
+          <g font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#fff" text-anchor="middle" pointer-events="none">
+            <text x="110" y="326" data-i18n="net.hkg.n">Гонконг</text>
+            <text x="120" y="68" data-i18n="net.cn.n">Материковый Китай</text>
+            <text x="360" y="240" data-i18n="net.kgf.n">Караганда (хаб)</text>
+            <text x="620" y="68" data-i18n="net.eu.n">Европа</text>
+            <text x="620" y="326" data-i18n="net.ca.n">Центральная Азия</text>
+          </g>
+        </svg>
+        <div class="net-legend">
+          <span><i></i><b data-i18n="net.legAir" style="font-weight:600;">Авиа</b></span>
+          <span><i class="later"></i><b data-i18n="net.legLater" style="font-weight:600;">Позже</b></span>
+          <span><i class="rail"></i><b data-i18n="net.legRail" style="font-weight:600;">Железная дорога / авто (концепт)</b></span>
+        </div>
+        <p class="net-cap" data-i18n="net.cap">Схема — иллюстрация, а не карта маршрутов.</p>
+      </div>
+
+      <div class="node-detail" id="node-detail">
+        <span class="status-chip" id="nd-status">—</span>
+        <h3 id="nd-name">—</h3>
+        <p id="nd-text">—</p>
+        <p class="src-line" id="nd-src">—</p>
+      </div>
+    </div>
+
+    <div class="mkt">
+      <h4 data-i18n="net.mkt">Рынок Казахстана</h4>
+      <div class="stats3">
+        <div class="stat"><strong data-i18n="cor.s1v">136,5 тыс. т</strong><span data-i18n="cor.s1l">грузов обработали аэропорты Казахстана за 9 месяцев 2026 года</span></div>
+        <div class="stat"><strong>137</strong><span data-i18n="cor.s2l">международных направлений в сети Казахстана — 31 страна</span></div>
+        <div class="stat"><strong data-i18n="cor.s3v">61 тыс. т</strong><span data-i18n="cor.s3l">прогноз грузопотока аэропорта Караганды на 2026 год (концепция QarGo Hub)</span></div>
+      </div>
+      <p class="src" data-i18n="cor.src">Источник: Комитет гражданской авиации МТ РК, форум New Silk Way, 2026.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <div class="head">
+      <div class="tag" data-i18n="prod.tag">Продукты и документы</div>
+      <h2 data-i18n="prod.h2">Подберите продукт под ваш груз</h2>
+      <p class="lede" data-i18n="prod.lede">Выберите тип груза — покажем особенности перевозки, варианты скорости и чек-лист документов. Все условия — концепт.</p>
+    </div>
+
+    <div class="pchips" id="prod-chips"></div>
+
+    <div class="ppanel">
+      <div class="pp-left">
+        <h3 id="pp-name">—</h3>
+        <p id="pp-desc">—</p>
+        <h5 data-i18n="prod.hSpeed">Варианты скорости</h5>
+        <ul class="pp-speeds" id="pp-speeds"></ul>
+      </div>
+      <div class="pp-right">
+        <h5 data-i18n="prod.hHandling">Особенности перевозки</h5>
+        <ul class="checklist" id="pp-handling"></ul>
+        <h5 class="second" data-i18n="prod.hDocs">Документы</h5>
+        <ul class="checklist" id="pp-docs"></ul>
+        <label class="pp-eu"><input type="checkbox" id="eu"><span data-i18n="prod.eu">Груз следует в страны ЕС — добавить данные ICS2</span></label>
+        <p class="pp-note" data-i18n="prod.note">Условия — концепт: итоговый набор продуктов и гарантии будут определены после получения сертификата эксплуатанта.</p>
+        <button class="btn btn-orange" id="pp-cta" data-i18n="prod.cta">Запросить тариф на этот груз</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALC -->
+<section id="calc" class="alt">
+  <div class="container">
+    <div class="head">
+      <div class="tag" data-i18n="calc.tag">Полезный инструмент</div>
+      <h2 data-i18n="calc.h2">Калькулятор расчётного веса</h2>
+      <p class="lede" data-i18n="calc.lede">Авиаперевозчики считают тариф по большему из двух весов: фактического или объёмного (Д × Ш × В в см ÷ 6000). Проверьте, как будет тарифицироваться ваша партия.</p>
+    </div>
+
+    <div class="calc-grid">
+      <div class="calc-form">
+        <div class="field two"><label for="c-pcs" data-i18n="calc.pieces">Количество мест</label><input id="c-pcs" type="number" inputmode="decimal" min="0" value="4"></div>
+        <div class="field"><label for="c-len" data-i18n="calc.len">Длина, см</label><input id="c-len" type="number" inputmode="decimal" min="0" value="120"></div>
+        <div class="field"><label for="c-wid" data-i18n="calc.wid">Ширина, см</label><input id="c-wid" type="number" inputmode="decimal" min="0" value="80"></div>
+        <div class="field"><label for="c-hei" data-i18n="calc.hei">Высота, см</label><input id="c-hei" type="number" inputmode="decimal" min="0" value="100"></div>
+        <div class="calc-hint" data-i18n="calc.hint">Размеры — на одно место.</div>
+        <div class="field two"><label for="c-wt" data-i18n="calc.weight">Фактический вес партии, кг</label><input id="c-wt" type="number" inputmode="decimal" min="0" value="350"></div>
+      </div>
+
+      <div class="calc-out">
+        <div class="out-row"><span data-i18n="calc.rActual">Фактический вес</span><span><b id="r-act">0</b> <span data-i18n="unit.kg">кг</span></span></div>
+        <div class="out-row"><span data-i18n="calc.rVol">Объёмный вес</span><span><b id="r-vol">0</b> <span data-i18n="unit.kg">кг</span></span></div>
+        <div class="out-row"><span data-i18n="calc.rDensity">Плотность груза</span><span><b id="r-den">0</b> <span data-i18n="unit.density">кг/м³</span></span></div>
+        <div class="out-row big"><span data-i18n="calc.rCharge">Расчётный вес</span><span><b id="r-chg">0</b> <span data-i18n="unit.kg">кг</span></span></div>
+        <div class="verdict" id="v-light" hidden data-i18n="calc.verdictLight">Лёгкий груз: тариф считается по объёму.</div>
+        <div class="verdict" id="v-dense" hidden data-i18n="calc.verdictDense">Плотный груз: тариф считается по фактическому весу.</div>
+        <p class="note" style="margin-top:14px;" data-i18n="calc.round">Расчётный вес округляется вверх до 0,5 кг.</p>
+        <a class="btn btn-orange" href="#quote" data-i18n="calc.cta">Запросить тариф</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE / CHARTER -->
+<section id="quote">
+  <div class="container">
+    <div class="head">
+      <div class="tag" data-i18n="q.tag">Запрос</div>
+      <h2 data-i18n="q.h2">Запросить тариф или чартер</h2>
+      <p class="lede" data-i18n="q.lede">Заполните форму — в демо-версии данные никуда не отправляются, но вы увидите весь сценарий.</p>
+    </div>
+
+    <div class="seg" id="q-tabs">
+      <button class="seg-btn active" data-tab="quote" data-i18n="q.tabQ">Тариф на перевозку</button>
+      <button class="seg-btn" data-tab="charter" data-i18n="q.tabC">Чартерный рейс</button>
+    </div>
+
+    <div class="form-card">
+      <form id="form-quote" novalidate>
+        <div class="fgrid">
+          <div class="f"><label for="qf-from" data-i18n="q.from">Откуда</label><input id="qf-from" list="places" placeholder="Hong Kong"></div>
+          <div class="f"><label for="qf-to" data-i18n="q.to">Куда</label><input id="qf-to" list="places" placeholder="Karaganda"></div>
+          <div class="f"><label for="q-cargo" data-i18n="q.cargo">Тип груза</label><select id="q-cargo"></select></div>
+          <div class="f"><label for="qf-weight" data-i18n="q.weight">Вес, кг</label><input id="qf-weight" type="number" inputmode="decimal" min="0" placeholder="500"></div>
+          <div class="f full"><label for="qf-email" data-i18n="q.email">Эл. почта</label><input id="qf-email" type="email" placeholder="name@company.com"></div>
+        </div>
+        <p class="form-err" id="qe-req" role="alert" hidden data-i18n="q.errReq">Заполните все обязательные поля.</p>
+        <p class="form-err" id="qe-mail" role="alert" hidden data-i18n="q.errMail">Проверьте адрес электронной почты.</p>
+        <button type="submit" class="btn btn-orange" data-i18n="q.submit">Отправить запрос</button>
+      </form>
+
+      <form id="form-charter" novalidate hidden>
+        <div class="fgrid">
+          <div class="f"><label for="cf-from" data-i18n="q.from">Откуда</label><input id="cf-from" list="places" placeholder="Hong Kong"></div>
+          <div class="f"><label for="cf-to" data-i18n="q.to">Куда</label><input id="cf-to" list="places" placeholder="Karaganda"></div>
+          <div class="f"><label for="cf-date" data-i18n="q.date">Желаемая дата</label><input id="cf-date" type="date"></div>
+          <div class="f"><label for="cf-payload" data-i18n="q.payload">Загрузка, т</label><input id="cf-payload" type="number" inputmode="decimal" min="0" placeholder="40"></div>
+          <div class="f"><label for="cf-ac" data-i18n="q.aircraft">Тип самолёта</label><select id="cf-ac"><option value="any" data-i18n="q.acAny">Подберёт Alatau</option><option value="767" data-i18n="q.ac767">Boeing 767F (планируется)</option></select></div>
+          <div class="f"><label for="cf-email" data-i18n="q.email">Эл. почта</label><input id="cf-email" type="email" placeholder="name@company.com"></div>
+        </div>
+        <p class="form-err" id="ce-req" role="alert" hidden data-i18n="q.errReq">Заполните все обязательные поля.</p>
+        <p class="form-err" id="ce-mail" role="alert" hidden data-i18n="q.errMail">Проверьте адрес электронной почты.</p>
+        <button type="submit" class="btn btn-orange" data-i18n="q.submit">Отправить запрос</button>
+      </form>
+
+      <div id="q-ok" hidden>
+        <div class="ok-ico"><svg class="icon" style="width:26px;height:26px;"><use href="#i-check"/></svg></div>
+        <h3 style="font-size:1.5rem;" data-i18n="q.okT">Запрос принят (демо)</h3>
+        <p class="ok-ref"><span data-i18n="q.okRef">Номер заявки:</span> <span id="q-ref">DEMO-000000</span></p>
+        <p class="ok-sum" id="q-sum">—</p>
+        <p class="note" style="margin-top:0;" data-i18n="q.okNote">Это демонстрация: данные никуда не отправлены. В рабочей версии заявка попадёт в CRM, а менеджер свяжется с вами.</p>
+        <button class="btn btn-dark" id="q-new" data-i18n="q.okNew">Новый запрос</button>
+      </div>
+    </div>
+    <datalist id="places"><option value="Hong Kong"></option><option value="Karaganda"></option><option value="Astana"></option><option value="Almaty"></option><option value="Budapest"></option><option value="Frankfurt"></option><option value="Shanghai"></option></datalist>
+  </div>
+</section>
+
+<!-- HUB & FLEET -->
+<section id="hub" class="dark">
+  <div class="container">
+    <div class="head">
+      <div class="tag" data-i18n="hub.tag">Хаб и флот</div>
+      <h2 data-i18n="hub.h2">Караганда — узел, где авиа встречается с рельсами</h2>
+      <p class="lede" data-i18n="hub.lede">Основной хаб авиакомпании — Караганда; часть грузов планируется перегружать с самолёта на железную дорогу.</p>
+    </div>
+
+    <div class="hub-grid">
+      <div>
+        <div class="sub-h" data-i18n="fl.h">План по флоту</div>
+        <ul class="timeline">
+          <li><span class="when" data-i18n="fl.1d">Конец 2026</span><p data-i18n="fl.1t">Ожидается первый грузовой Boeing 767 (по данным Министерства транспорта)</p></li>
+          <li><span class="when" data-i18n="fl.2d">Начало 2027</span><p data-i18n="fl.2t">Старт коммерческих рейсов — первое направление Гонконг</p></li>
+          <li class="next"><span class="when" data-i18n="fl.3d">Затем</span><p data-i18n="fl.3t">Направления материкового Китая — им нужно больше времени из-за разрешений</p></li>
+          <li class="next"><span class="when" data-i18n="fl.4d">Перспектива</span><p data-i18n="fl.4t">До 10 широкофюзеляжных самолётов</p></li>
+        </ul>
+      </div>
+      <div>
+        <div class="stats3" style="grid-template-columns:repeat(3,1fr);">
+          <div class="stat"><strong data-i18n="hub.k1v">15 → 200 тыс. т</strong><span data-i18n="hub.k1l">грузов в год через аэропорт Караганды: сегодня и цель программы до 2030 года (акимат, 2024)</span></div>
+          <div class="stat"><strong data-i18n="hub.k2v">~2 000</strong><span data-i18n="hub.k2l">постоянных рабочих мест от проекта хаба (оценка акимата)</span></div>
+          <div class="stat"><strong>2030</strong><span data-i18n="hub.k3l">горизонт программы мультимодального аэрохаба</span></div>
+        </div>
+        <ul class="hub-bullets">
+          <li data-i18n="hub.b1">Мультимодальная схема: часть грузов с самолёта перегружается на железную дорогу и едет дальше.</li>
+          <li data-i18n="hub.b2">Задача проекта — собственные провозные мощности Казахстана и меньшая зависимость от тарифов иностранных перевозчиков.</li>
+          <li data-i18n="hub.b3">Партнёры: грузоотправители, логистические компании, железнодорожные, автомобильные и морские перевозчики.</li>
+          <li data-i18n="hub.b4">Концепт: документы и анализ рисков оформляются ещё во время полёта — груз проводит меньше времени на земле.</li>
+        </ul>
+        <p class="src" data-i18n="hub.src">Источники: Avianews.kz (15.10.2026), Advantix (31.07.2026), акимат Карагандинской области (03.06.2024).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="tag" data-i18n="about.tag">О компании</div>
+        <h2 style="font-size:clamp(1.9rem,3.6vw,2.9rem);margin:14px 0 22px;" data-i18n="about.h2">Авиакомпания, которую строят с нуля</h2>
+        <div class="about-copy">
+          <p data-i18n="about.p1">Alatau Air Cargo — казахстанский грузовой авиаперевозчик. Компания основана в октябре 2025 года как KTZ Air Cargo, а 10 июня 2026 года получила нынешнее название и перешла на регистрацию в Карагандинской области.</p>
+          <div class="mission" data-i18n="about.mission">Миссия: создать собственные провозные мощности Казахстана, чтобы страна меньше зависела от тарифов иностранных перевозчиков, и вырастить новое поколение авиаспециалистов — лётчиков и инженеров.</div>
+          <p data-i18n="about.p2">Сегодня команда выстраивает операционный фундамент: системы, процессы и профессиональные стандарты для безопасной и надёжной работы ещё до первого рейса.</p>
+        </div>
+        <div class="values">
+          <div class="value"><h4 data-i18n="about.v1t">Безопасность</h4><p data-i18n="about.v1d">Культура безопасности закладывается до первого вылета: ясные стандарты и ответственные решения.</p></div>
+          <div class="value"><h4 data-i18n="about.v2t">Операционное совершенство</h4><p data-i18n="about.v2d">Чёткие процессы между лётной, технической, наземной и грузовой службами.</p></div>
+          <div class="value"><h4 data-i18n="about.v3t">Надёжность</h4><p data-i18n="about.v3d">Предсказуемые сроки и прозрачный статус груза на каждом этапе.</p></div>
+          <div class="value"><h4 data-i18n="about.v4t">Партнёрства</h4><p data-i18n="about.v4d">Долгосрочные отношения с грузовладельцами, экспедиторами и аэропортами.</p></div>
+        </div>
+      </div>
+      <ul class="timeline">
+        <li><span class="when" data-i18n="tl.1d">Окт 2025</span><p data-i18n="tl.1t">Основана как KTZ Air Cargo</p></li>
+        <li><span class="when" data-i18n="tl.2d">Мар 2026</span><p data-i18n="tl.2t">Контрольный пакет перешёл к частному инвестору, проект сохранил стратегический статус</p></li>
+        <li><span class="when" data-i18n="tl.3d">10 июн 2026</span><p data-i18n="tl.3t">Переименована в Alatau Air Cargo, регистрация — в Карагандинской области</p></li>
+        <li><span class="when" data-i18n="tl.4d">Сен 2026</span><p data-i18n="tl.4t">Назначен генеральный директор — Блэр Т. Поллок</p></li>
+        <li class="next"><span class="when" data-i18n="tl.5d">Далее</span><p data-i18n="tl.5t">Сертификация, получение первого самолёта и запуск рейсов — начало 2027 года (план)</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news" class="alt">
+  <div class="container">
+    <div class="head">
+      <div class="tag" data-i18n="news.tag">Новости</div>
+      <h2 data-i18n="news.h2">О компании и отрасли</h2>
+    </div>
+    <div class="news-grid">
+      <article class="news">
+        <div class="meta"><span>15.10.2026</span><span>Avianews.kz</span></div>
+        <h4 data-i18n="news.n1">Alatau Air Cargo планирует начать полёты в начале 2027 года: первое направление — Гонконг, а флот может вырасти до десяти широкофюзеляжных самолётов</h4>
+        <a class="read" href="https://avianews.kz/grazhdanskaya-aviacziya/alatau-air-cargo-planiruet-zapustit-rejsy-v-gonkong-i-sobrat-flot-iz-10-shirokofyuzelyazhnyh-samoletov/" target="_blank" rel="noopener"><span data-i18n="news.read">Читать источник</span><svg class="icon"><use href="#i-ext"/></svg></a>
+      </article>
+      <article class="news">
+        <div class="meta"><span>31.07.2026</span><span>Advantix</span></div>
+        <h4 data-i18n="news.n2">Казахстан строит авиационную экосистему: программа включает национального грузового перевозчика, хабы на базе шести аэропортов и беспошлинный ввоз грузовых самолётов на 12 лет</h4>
+        <a class="read" href="https://www.advantix.kz/news/u9d8mbsra1-kazahstan-perehodit-k-sozdaniyu-aviatsio" target="_blank" rel="noopener"><span data-i18n="news.read">Читать источник</span><svg class="icon"><use href="#i-ext"/></svg></a>
+      </article>
+      <article class="news">
+        <div class="meta"><span>17.06.2026</span><span>Forbes Kazakhstan</span></div>
+        <h4 data-i18n="news.n3">KTZ Air Cargo сменила название на Alatau Air Cargo и переехала в Карагандинскую область</h4>
+        <a class="read" href="https://forbes.kz/articles/aviakompaniya-alatau-air-cargo-poyavilas-v-kazahstane-2bd388" target="_blank" rel="noopener"><span data-i18n="news.read">Читать источник</span><svg class="icon"><use href="#i-ext"/></svg></a>
+      </article>
+      <article class="news">
+        <div class="meta"><span>03.06.2024</span><span>gov.kz · Карагандинская область</span></div>
+        <h4 data-i18n="news.n4">Аэропорт Караганды хотят превратить в мультимодальный аэрохаб: СЭЗ на территории аэропорта и до 200 тыс. тонн грузов к 2030 году</h4>
+        <a class="read" href="https://www.gov.kz/org/karaganda/press/news/details/783886?lang=ru" target="_blank" rel="noopener"><span data-i18n="news.read">Читать источник</span><svg class="icon"><use href="#i-ext"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="head">
+      <div class="tag" data-i18n="faq.tag">Частые вопросы</div>
+      <h2 data-i18n="faq.h2">Вопросы и ответы</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq" name="faq" open><summary><span data-i18n="faq1.q">Когда начнутся рейсы?</span><svg class="icon chev"><use href="#i-chev"/></svg></summary><div class="faq-body" data-i18n="faq1.a">По планам компании, коммерческие полёты начнутся в начале 2027 года; первое направление — Гонконг. Расписание и даты пока не опубликованы.</div></details>
+      <details class="faq" name="faq"><summary><span data-i18n="faq2.q">Откуда будут летать самолёты?</span><svg class="icon chev"><use href="#i-chev"/></svg></summary><div class="faq-body" data-i18n="faq2.a">Главный хаб — Караганда. Часть грузов планируется перегружать с самолёта на железную дорогу.</div></details>
+      <details class="faq" name="faq"><summary><span data-i18n="faq3.q">Какие документы нужны для отправки?</span><svg class="icon chev"><use href="#i-chev"/></svg></summary><div class="faq-body" data-i18n="faq3.a">Базовый комплект: авиагрузовая накладная (AWB), коммерческий инвойс и упаковочный лист. Для особых грузов добавляются свои документы — чек-лист по типу груза есть в разделе «Продукты».</div></details>
+      <details class="faq" name="faq"><summary><span data-i18n="faq4.q">Как считается тариф по весу?</span><svg class="icon chev"><use href="#i-chev"/></svg></summary><div class="faq-body" data-i18n="faq4.a">По большему из фактического и объёмного веса (Д × Ш × В в см ÷ 6000). Проверьте партию в калькуляторе.</div></details>
+      <details class="faq" name="faq"><summary><span data-i18n="faq5.q">Можно ли отправить опасные грузы или скоропортящиеся продукты?</span><svg class="icon chev"><use href="#i-chev"/></svg></summary><div class="faq-body" data-i18n="faq5.a">Такие продукты входят в концепцию, но потребуют отдельных процедур и сертификации. Условия объявят после запуска.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section id="careers" class="dark">
+  <div class="container">
+    <div class="head">
+      <div class="tag" data-i18n="car.tag">Мы набираем команду</div>
+      <h2 data-i18n="car.h2">Постройте авиакомпанию с первого рейса</h2>
+      <p class="lede" data-i18n="car.lede">Мы приглашаем авиационных профессионалов, для которых безопасность и операционное совершенство — не слова, а ежедневная практика.</p>
+    </div>
+    <div class="chips">
+      <span data-i18n="car.c1">Лётная эксплуатация</span>
+      <span data-i18n="car.c2">Инженерия и техническое обслуживание</span>
+      <span data-i18n="car.c3">Поддержание лётной годности (CAMO)</span>
+      <span data-i18n="car.c4">Наземное и грузовое обслуживание</span>
+      <span data-i18n="car.c5">Безопасность и качество</span>
+      <span data-i18n="car.c6">Лётная годность и технические услуги</span>
+    </div>
+    <a class="btn btn-orange" href="mailto:career@alatauaircargo.kz"><svg class="icon"><use href="#i-mail"/></svg><span data-i18n="car.btn">Отправить резюме</span></a>
+    <span class="mail">career@alatauaircargo.kz</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="container">
+    <div class="sub-band">
+      <h4 data-i18n="foot.subT">Новости компании</h4>
+      <form class="sub-form" id="sub-form" novalidate>
+        <input id="sub-email" type="email" placeholder="name@company.com" aria-label="Email">
+        <button type="submit" class="btn btn-orange" data-i18n="foot.subBtn">Подписаться</button>
+        <p class="sub-msg" id="sub-ok" hidden style="color:#7fe0b0;" data-i18n="foot.subOk">Спасибо! Это демо — адрес не сохранён.</p>
+        <p class="sub-msg" id="sub-err" hidden style="color:#ff8f86;" data-i18n="foot.subErr">Проверьте адрес электронной почты.</p>
+      </form>
+    </div>
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="9" fill="#1a232c"/><path d="M5 27L13 14l5 7 5-9 8 15z" fill="#fff"/><circle cx="26" cy="9" r="3" fill="#f0561d"/></svg>
+          <span class="brand-text"><span class="brand-name">ALATAU</span><span class="brand-sub">AIR CARGO</span></span>
+        </a>
+        <p class="foot-about" data-i18n="foot.about">Демо-концепция сайта грузовой авиакомпании. Не является официальным сайтом АО «Alatau Air Cargo».</p>
+      </div>
+      <div>
+        <h5 data-i18n="foot.h1">Компания</h5>
+        <ul><li><a href="#about" data-i18n="foot.l1">О компании</a></li><li><a href="#news" data-i18n="foot.l2">Новости</a></li><li><a href="#careers" data-i18n="foot.l3">Карьера</a></li></ul>
+      </div>
+      <div>
+        <h5 data-i18n="foot.h2">Сервисы</h5>
+        <ul><li><a href="#products" data-i18n="foot.l4">Продукты и документы</a></li><li><a href="#track" data-i18n="foot.l5">Трекинг груза</a></li><li><a href="#calc" data-i18n="foot.l6">Калькулятор веса</a></li><li><a href="#quote" data-i18n="foot.l7">Запрос тарифа</a></li></ul>
+      </div>
+      <div>
+        <h5 data-i18n="foot.h3">Контакты</h5>
+        <ul><li data-i18n="foot.addr">Карагандинская область, Бухар-Жырауский район, с. Уштобе</li><li><a href="https://www.linkedin.com/company/alatau-air-cargo/" target="_blank" rel="noopener">LinkedIn</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom"><span data-i18n="foot.copy">© 2026 Демо-концепция. Все названия принадлежат их владельцам.</span></div>
+  </div>
+</footer>
+
+<div class="demo-badge"><i></i><span data-i18n="badge">Демо-концепция · неофициальный сайт</span></div>
+
+<!-- ASSISTANT -->
+<button class="ast-btn" id="ast-btn" aria-label="Assistant"><svg class="icon"><use href="#i-chat"/></svg><span data-i18n="ast.label">Помощник</span></button>
+<div class="ast-panel" id="ast-panel" role="dialog" aria-label="Assistant">
+  <div class="ast-head">
+    <div><b data-i18n="ast.t">Демо-помощник</b><span data-i18n="ast.s">Готовые сценарии, не ИИ</span></div>
+    <button class="ast-x" id="ast-x" aria-label="Close"><svg class="icon" style="width:17px;height:17px;"><use href="#i-close"/></svg></button>
+  </div>
+  <div class="ast-msgs" id="ast-msgs">
+    <div class="msg bot" data-i18n="ast.hi">Здравствуйте! Подскажу, где что найти на сайте. Выберите вопрос:</div>
+  </div>
+  <div class="ast-chips" id="ast-chips"></div>
+</div>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var lang = 'ru';
+  var LOCALES = {ru:'ru-RU', kk:'kk-KZ', en:'en-US'};
+
+  /* ====================== DICTIONARIES ====================== */
+  var T = {
+  ru: {
+    /* products */
+    "p.gen.n":"Генеральные грузы","p.gen.d":"Стандартные партии без особых условий хранения и перевозки — основа коммерческой загрузки.","p.gen.h1":"Обработка по стандартным процедурам","p.gen.h2":"Подходит для консолидации в хабе",
+    "p.exp.n":"Срочные грузы","p.exp.d":"Критичные по времени отправки: запчасти, документы, срочные партии.","p.exp.h1":"Приоритетная загрузка и сокращённое время стыковки","p.exp.h2":"Контроль статуса на каждом этапе",
+    "p.eco.n":"E-commerce","p.eco.d":"Большие потоки мелких отправлений из Азии в Европу.","p.eco.h1":"Консолидация и быстрая обработка в хабе","p.eco.h2":"Сквозной трекинг каждого отправления",
+    "p.per.n":"Скоропортящиеся грузы","p.per.d":"Цветы, фрукты, овощи, рыба и другие продукты с ограниченным сроком хранения.","p.per.h1":"Минимальное время на земле","p.per.h2":"Температурный режим по требованиям груза",
+    "p.pha.n":"Фарма и медицина","p.pha.d":"Лекарства и медицинские изделия, требующие контроля температуры и документов.","p.pha.h1":"Контроль температуры на всём пути","p.pha.h2":"Строгое соблюдение документарных требований",
+    "p.dgr.n":"Опасные грузы","p.dgr.d":"Грузы, перевозка которых регулируется правилами по опасным грузам (DGR).","p.dgr.h1":"Допуск только сертифицированными специалистами","p.dgr.h2":"Особые требования к упаковке и маркировке",
+    "p.val.n":"Ценные грузы","p.val.d":"Драгоценности, дорогая электроника и другие ценные отправления.","p.val.h1":"Усиленная охрана на всех этапах","p.val.h2":"Ограниченный круг допущенных сотрудников",
+    "p.ovs.n":"Негабарит и тяжеловесы","p.ovs.d":"Крупные и тяжёлые грузы, для которых нужен отдельный план загрузки или чартер.","p.ovs.h1":"Индивидуальный план загрузки и крепления","p.ovs.h2":"Возможна перевозка чартерным рейсом",
+    "doc.awb":"Авиагрузовая накладная (AWB)","doc.inv":"Коммерческий инвойс","doc.pl":"Упаковочный лист","doc.exp":"Экспортная декларация","doc.phy":"Фитосанитарный сертификат (для растительной продукции)","doc.temp":"Требования к температуре и датчик (логгер)","doc.lic":"Лицензии и разрешения на фармпродукцию","doc.dgd":"Декларация грузоотправителя об опасных грузах","doc.sds":"Паспорт безопасности вещества (SDS)","doc.pack":"Упаковка и маркировка по правилам DGR","doc.val":"Объявленная ценность и страхование","doc.sec":"План охраны и сопровождения","doc.dim":"Габариты и вес каждого места, схема крепления","doc.ens":"Данные для предварительного уведомления ЕС (ICS2)",
+    "sp.std":"Стандарт","sp.std.d":"Стандартная загрузка и сроки","sp.pri":"Приоритет","sp.pri.d":"Приоритетная загрузка, короткое время стыковки","sp.urg":"Срочно","sp.urg.d":"Наивысший приоритет и поддержка 24/7",
+    /* network nodes */
+    "net.hkg.n":"Гонконг","net.hkg.s":"Первое направление · план: начало 2027","net.hkg.t":"Гонконг назван первым направлением: полёты планируется начать в начале 2027 года. Расписание и частота пока не объявлены.","net.hkg.r":"Источник: Avianews.kz, 15.10.2026",
+    "net.cn.n":"Материковый Китай","net.cn.s":"Следующий этап · нужны разрешения","net.cn.t":"Выход на направления материкового Китая займёт больше времени из-за необходимости получения соответствующих разрешений.","net.cn.r":"Источник: Avianews.kz, 15.10.2026",
+    "net.kgf.n":"Караганда (хаб)","net.kgf.s":"Главный хаб","net.kgf.t":"Основной узел компании — Караганда. Через город строится мультимодальная схема: часть грузов с самолёта перегружается на железную дорогу.","net.kgf.r":"Источник: Avianews.kz, 15.10.2026",
+    "net.eu.n":"Европа","net.eu.s":"Через мультимодальную схему","net.eu.t":"Транзит между Азией и Европой — ключевая идея проекта. Схема: авиаплечо до Караганды, дальше часть грузов может идти по железной дороге.","net.eu.r":"Источники: Forbes Kazakhstan (12.2025), Avianews.kz (10.2026)",
+    "net.ca.n":"Центральная Азия","net.ca.s":"Концепт","net.ca.t":"Распределение грузов из хаба по региону наземным транспортом — логичное продолжение мультимодальной схемы; детали пока не объявлены.","net.ca.r":"Источник: концепция демо-сайта",
+    /* assistant */
+    "ast.q1":"Когда начнутся полёты?","ast.a1":"По планам компании — в начале 2027 года, первое направление — Гонконг. Расписание пока не опубликовано.",
+    "ast.q2":"Как отследить груз?","ast.a2":"Введите 11-значный номер AWB в разделе «Трекинг». В демо сработает кнопка «Подставить пример».",
+    "ast.q3":"Какие нужны документы?","ast.a3":"Выберите тип груза в разделе «Продукты» — покажу чек-лист документов.",
+    "ast.q4":"Как считается вес?","ast.a4":"По большему из фактического и объёмного веса (Д × Ш × В в см ÷ 6000). Проверьте партию в калькуляторе.",
+    "ast.q5":"Как запросить тариф?","ast.a5":"Заполните форму в разделе «Запрос». В демо данные никуда не отправляются.",
+    "ast.go":"Перейти к разделу"
+  },
+  kk: {
+    "p.gen.n":"Жалпы жүктер","p.gen.d":"Сақтау мен тасымалдауда ерекше талаптары жоқ стандартты партиялар — коммерциялық жүктеменің негізі.","p.gen.h1":"Стандартты рәсімдер бойынша өңдеу","p.gen.h2":"Хабта шоғырландыруға ыңғайлы",
+    "p.exp.n":"Шұғыл жүктер","p.exp.d":"Уақыт бойынша маңызды жөнелтімдер: қосалқы бөлшектер, құжаттар, шұғыл партиялар.","p.exp.h1":"Басымдықпен тиеу және қысқа ауыстыру уақыты","p.exp.h2":"Әр кезеңде мәртебені бақылау",
+    "p.eco.n":"E-commerce","p.eco.d":"Азиядан Еуропаға ұсақ жөнелтімдердің үлкен ағындары.","p.eco.h1":"Хабта шоғырландыру және жылдам өңдеу","p.eco.h2":"Әр жөнелтімді бастан-аяқ бақылау",
+    "p.per.n":"Тез бұзылатын жүктер","p.per.d":"Гүлдер, жемістер, көкөністер, балық және сақтау мерзімі шектеулі басқа өнімдер.","p.per.h1":"Жерде болу уақыты ең аз","p.per.h2":"Жүк талабына сай температура режимі",
+    "p.pha.n":"Фарма және медицина","p.pha.d":"Температура мен құжаттарды бақылауды қажет ететін дәрілер мен медициналық бұйымдар.","p.pha.h1":"Бүкіл жол бойы температураны бақылау","p.pha.h2":"Құжаттық талаптарды қатаң сақтау",
+    "p.dgr.n":"Қауіпті жүктер","p.dgr.d":"Тасымалы қауіпті жүктер жөніндегі ережелермен (DGR) реттелетін жүктер.","p.dgr.h1":"Тек сертификатталған мамандарға рұқсат","p.dgr.h2":"Қаптама мен таңбалауға ерекше талаптар",
+    "p.val.n":"Құнды жүктер","p.val.d":"Зергерлік бұйымдар, қымбат электроника және басқа құнды жөнелтімдер.","p.val.h1":"Барлық кезеңде күшейтілген күзет","p.val.h2":"Рұқсат етілген қызметкерлердің шектеулі тобы",
+    "p.ovs.n":"Габаритті және ауыр жүктер","p.ovs.d":"Жеке тиеу жоспары немесе чартер қажет ірі әрі ауыр жүктер.","p.ovs.h1":"Тиеу және бекітудің жеке жоспары","p.ovs.h2":"Чартерлік рейспен тасымалдау мүмкін",
+    "doc.awb":"Әуе жүкқұжаты (AWB)","doc.inv":"Коммерциялық инвойс","doc.pl":"Қаптама парағы","doc.exp":"Экспорттық декларация","doc.phy":"Фитосанитарлық сертификат (өсімдік өнімдері үшін)","doc.temp":"Температура талаптары және датчик (логгер)","doc.lic":"Фармөнімге лицензиялар мен рұқсаттар","doc.dgd":"Жүк жөнелтушінің қауіпті жүктер туралы декларациясы","doc.sds":"Заттың қауіпсіздік паспорты (SDS)","doc.pack":"DGR ережелері бойынша қаптама және таңбалау","doc.val":"Жарияланған құн және сақтандыру","doc.sec":"Күзет және алып жүру жоспары","doc.dim":"Әр орынның габариті мен салмағы, бекіту сызбасы","doc.ens":"ЕО алдын ала хабарлау деректері (ICS2)",
+    "sp.std":"Стандарт","sp.std.d":"Стандартты тиеу және мерзімдер","sp.pri":"Басымдық","sp.pri.d":"Басымдықпен тиеу, қысқа ауыстыру уақыты","sp.urg":"Шұғыл","sp.urg.d":"Ең жоғары басымдық және тәулік бойы қолдау",
+    "net.hkg.n":"Гонконг","net.hkg.s":"Алғашқы бағыт · жоспар: 2027 басы","net.hkg.t":"Гонконг алғашқы бағыт ретінде аталды: ұшуларды 2027 жылдың басында бастау жоспарланған. Кесте мен жиілік әзірге жарияланбаған.","net.hkg.r":"Дереккөз: Avianews.kz, 15.10.2026",
+    "net.cn.n":"Материктік Қытай","net.cn.s":"Келесі кезең · рұқсаттар қажет","net.cn.t":"Материктік Қытай бағыттарына шығу тиісті рұқсаттарды алу қажеттігіне байланысты көбірек уақыт алады.","net.cn.r":"Дереккөз: Avianews.kz, 15.10.2026",
+    "net.kgf.n":"Қарағанды (хаб)","net.kgf.s":"Басты хаб","net.kgf.t":"Компанияның негізгі торабы — Қарағанды. Қала арқылы мультимодальды схема құрылады: жүктің бір бөлігі ұшақтан теміржолға қайта тиеледі.","net.kgf.r":"Дереккөз: Avianews.kz, 15.10.2026",
+    "net.eu.n":"Еуропа","net.eu.s":"Мультимодальды схема арқылы","net.eu.t":"Азия мен Еуропа арасындағы транзит — жобаның негізгі идеясы. Схема: Қарағандыға дейін әуе иіні, әрі қарай жүктің бір бөлігі теміржолмен жүруі мүмкін.","net.eu.r":"Дереккөздер: Forbes Kazakhstan (12.2025), Avianews.kz (10.2026)",
+    "net.ca.n":"Орталық Азия","net.ca.s":"Тұжырымдама","net.ca.t":"Жүктерді хабтан өңір бойынша жер үсті көлігімен тарату — мультимодальды схеманың заңды жалғасы; егжей-тегжейі әзірге жарияланбаған.","net.ca.r":"Дереккөз: демо-сайт тұжырымдамасы",
+    "ast.q1":"Ұшулар қашан басталады?","ast.a1":"Компания жоспары бойынша — 2027 жылдың басында, алғашқы бағыт — Гонконг. Кесте әзірге жарияланбаған.",
+    "ast.q2":"Жүкті қалай бақылауға болады?","ast.a2":"«Бақылау» бөлімінде 11 таңбалы AWB нөмірін енгізіңіз. Демода «Мысалды қою» түймесі жұмыс істейді.",
+    "ast.q3":"Қандай құжаттар қажет?","ast.a3":"«Өнімдер» бөлімінде жүк түрін таңдаңыз — құжаттар чек-тізімін көрсетемін.",
+    "ast.q4":"Салмақ қалай есептеледі?","ast.a4":"Нақты және көлемдік салмақтың үлкені бойынша (Ұ × Е × Б см ÷ 6000). Партияңызды калькулятормен тексеріңіз.",
+    "ast.q5":"Тарифті қалай сұрауға болады?","ast.a5":"«Сұрау» бөлімінде форманы толтырыңыз. Демода деректер ешқайда жіберілмейді.",
+    "ast.go":"Бөлімге өту",
+    "nav.products":"Өнімдер","nav.track":"Жүкті бақылау","nav.network":"Желі","nav.hub":"Хаб және флот","nav.news":"Жаңалықтар","nav.quote":"Тариф сұрау","nav.about":"Компания туралы","nav.faq":"FAQ","nav.careers":"Мансап",
+    "hero.eyebrow":"Алғашқы рейстер — 2027 жылдың басы (жоспар)","hero.h1a":"Азиядан Еуропаға.","hero.h1b":"Қазақстан аспаны арқылы.",
+    "hero.lede":"Alatau Air Cargo — Қарағандыда хабы бар қазақстандық жүк авиакомпаниясы. Алғашқы бағыт — Гонконг; жобаның негізі — Азия мен Еуропа арасындағы транзит, мультимодальды схема: жүктің бір бөлігі теміржолға қайта тиеледі.",
+    "hero.cta1":"Жүкті бақылау","hero.cta2":"Өнімді таңдау",
+    "hero.f1v":"2027 басы","hero.f1l":"коммерциялық рейстердің жоспарлы басталуы","hero.f2v":"Гонконг","hero.f2l":"алғашқы бағыт","hero.f3v":"10-ға дейін","hero.f3l":"перспективада кең фюзеляжды жүк ұшақтары","hero.f4v":"Қарағанды","hero.f4l":"басты хаб: авиа + теміржол","hero.src":"Компания жоспарлары — Avianews.kz деректері бойынша (15.10.2026).",
+    "track.tag":"Демо-функция","track.h2":"Жүкті AWB нөмірі бойынша бақылау","track.lede":"Әуе жүкқұжатының 11 таңбалы нөмірін енгізіңіз — тасымал мәртебесі қалай көрінетінін көрсетеміз. Төмендегі барлық дерек — демонстрациялық.",
+    "track.label":"AWB нөмірі","track.btn":"Бақылау","track.example":"Мысалды қою",
+    "track.errFormat":"11 цифр енгізіңіз: префикс (3) + сериялық нөмір (7) + бақылау цифры (1).",
+    "track.errCheck":"Бақылау цифры сәйкес емес: ол 7 таңбалы сериялық нөмірді 7-ге бөлгендегі қалдыққа тең болуы керек. Мысалды қолданып көріңіз.",
+    "track.c1":"Гонконг","track.c2":"Қарағанды","track.c3":"Будапешт",
+    "track.m1":"Орын саны","track.m2":"Салмағы","track.m2v":"1 840 кг","track.m3":"Жүк","track.m3v":"Электроника (демо)",
+    "track.note":"Демонстрациялық деректер. Жұмыс нұсқасында мәртебе жүктерді басқару жүйесінен алынады.",
+    "track.s1":"Жүк жөнелту пунктінде қабылданды","track.s2":"Қарап тексеру және қауіпсіздік өтті","track.s3":"Жөнелту пунктінен ұшты","track.s4":"Қарағанды хабына келді","track.s5":"Хабтан ұшу","track.s6":"Межелі жерге келу","track.s7":"Алушыға беруге дайын",
+    "track.d1":"1-күн","track.d2":"2-күн","track.plan":"жоспар",
+    "net.tag":"Желі және бағыттар","net.h2":"Жүкті қайда және қалай тасымалдаймыз","net.lede":"Түйінді басыңыз — мәртебесін және белгілі деректерді көрсетеміз. Төмендегі бағыттар — компания жоспарлары, кесте емес.",
+    "net.legAir":"Авиа","net.legLater":"Кейінірек","net.legRail":"Теміржол / автокөлік (тұжырымдама)","net.cap":"Сызба — иллюстрация, маршруттар картасы емес.","net.mkt":"Қазақстан нарығы",
+    "cor.s1v":"136,5 мың т","cor.s1l":"жүкті 2026 жылғы 9 айда Қазақстан әуежайлары өңдеді","cor.s2l":"Қазақстанның халықаралық желісіндегі бағыттар — 31 ел","cor.s3v":"61 мың т","cor.s3l":"Қарағанды әуежайының 2026 жылға жүк ағыны болжамы (QarGo Hub тұжырымдамасы)",
+    "cor.src":"Дереккөз: ҚР Көлік министрлігінің Азаматтық авиация комитеті, New Silk Way форумы, 2026.",
+    "prod.tag":"Өнімдер және құжаттар","prod.h2":"Жүгіңізге өнімді таңдаңыз","prod.lede":"Жүк түрін таңдаңыз — тасымал ерекшеліктерін, жылдамдық нұсқаларын және құжаттар чек-тізімін көрсетеміз. Барлық шарттар — тұжырымдама.",
+    "prod.hSpeed":"Жылдамдық нұсқалары","prod.hHandling":"Тасымал ерекшеліктері","prod.hDocs":"Құжаттар","prod.eu":"Жүк ЕО елдеріне бағытталған — ICS2 деректерін қосу",
+    "prod.note":"Шарттар — тұжырымдама: өнімдердің түпкілікті жиынтығы мен кепілдіктер оператор сертификатын алғаннан кейін айқындалады.","prod.cta":"Осы жүкке тариф сұрау",
+    "calc.tag":"Пайдалы құрал","calc.h2":"Есептік салмақ калькуляторы","calc.lede":"Әуе тасымалдаушылары тарифті екі салмақтың үлкені бойынша есептейді: нақты немесе көлемдік (Ұ × Е × Б см ÷ 6000). Партияңыз қалай тарифтелетінін тексеріңіз.",
+    "calc.pieces":"Орын саны","calc.len":"Ұзындығы, см","calc.wid":"Ені, см","calc.hei":"Биіктігі, см","calc.weight":"Партияның нақты салмағы, кг","calc.hint":"Өлшемдер — бір орынға.",
+    "calc.rActual":"Нақты салмақ","calc.rVol":"Көлемдік салмақ","calc.rDensity":"Жүк тығыздығы","calc.rCharge":"Есептік салмақ","unit.kg":"кг","unit.density":"кг/м³",
+    "calc.verdictLight":"Жеңіл жүк: тариф көлем бойынша есептеледі.","calc.verdictDense":"Тығыз жүк: тариф нақты салмақ бойынша есептеледі.","calc.round":"Есептік салмақ 0,5 кг-ға дейін жоғары қарай дөңгелектенеді.","calc.cta":"Тариф сұрау",
+    "q.tag":"Сұрау","q.h2":"Тариф немесе чартер сұрау","q.lede":"Форманы толтырыңыз — демо-нұсқада деректер ешқайда жіберілмейді, бірақ бүкіл сценарийді көресіз.",
+    "q.tabQ":"Тасымал тарифі","q.tabC":"Чартерлік рейс","q.from":"Қайдан","q.to":"Қайда","q.cargo":"Жүк түрі","q.weight":"Салмағы, кг","q.email":"Эл. пошта","q.date":"Қалаулы күн","q.payload":"Жүктеме, т","q.aircraft":"Ұшақ түрі","q.acAny":"Alatau таңдайды","q.ac767":"Boeing 767F (жоспарланған)",
+    "q.submit":"Сұрауды жіберу","q.errReq":"Барлық міндетті өрістерді толтырыңыз.","q.errMail":"Электрондық пошта мекенжайын тексеріңіз.","q.okT":"Сұрау қабылданды (демо)","q.okRef":"Өтінім нөмірі:","q.okNote":"Бұл — демонстрация: деректер ешқайда жіберілмеген. Жұмыс нұсқасында өтінім CRM-ге түседі, менеджер сізбен байланысады.","q.okNew":"Жаңа сұрау",
+    "hub.tag":"Хаб және флот","hub.h2":"Қарағанды — авиа мен рельс түйісетін торап","hub.lede":"Авиакомпанияның негізгі хабы — Қарағанды; жүктің бір бөлігін ұшақтан теміржолға қайта тиеу жоспарланған.",
+    "fl.h":"Флот жоспары","fl.1d":"2026 соңы","fl.1t":"Алғашқы жүк Boeing 767 күтілуде (Көлік министрлігі деректері бойынша)","fl.2d":"2027 басы","fl.2t":"Коммерциялық рейстер басталады — алғашқы бағыт Гонконг","fl.3d":"Содан кейін","fl.3t":"Материктік Қытай бағыттары — рұқсаттарға байланысты көбірек уақыт қажет","fl.4d":"Перспектива","fl.4t":"10-ға дейін кең фюзеляжды ұшақ",
+    "hub.k1v":"15 → 200 мың т","hub.k1l":"жылына Қарағанды әуежайы арқылы өтетін жүк: бүгінгі көрсеткіш және 2030 жылға дейінгі бағдарлама мақсаты (әкімдік, 2024)","hub.k2v":"~2 000","hub.k2l":"хаб жобасынан тұрақты жұмыс орындары (әкімдік бағасы)","hub.k3l":"мультимодальды аэрохаб бағдарламасының көкжиегі",
+    "hub.b1":"Мультимодальды схема: жүктің бір бөлігі ұшақтан теміржолға қайта тиеліп, әрі қарай жүреді.","hub.b2":"Жобаның міндеті — Қазақстанның өз тасымал қуаттары және шетелдік тасымалдаушылар тарифтеріне тәуелділікті азайту.","hub.b3":"Серіктестер: жүк жөнелтушілер, логистикалық компаниялар, теміржол, автомобиль және теңіз тасымалдаушылары.","hub.b4":"Тұжырымдама: құжаттар мен тәуекелдер талдауы ұшу кезінде-ақ рәсімделеді — жүк жерде аз уақыт болады.",
+    "hub.src":"Дереккөздер: Avianews.kz (15.10.2026), Advantix (31.07.2026), Қарағанды облысының әкімдігі (03.06.2024).",
+    "about.tag":"Компания туралы","about.h2":"Нөлден құрылып жатқан авиакомпания",
+    "about.p1":"Alatau Air Cargo — қазақстандық жүк авиатасымалдаушысы. Компания 2025 жылғы қазанда KTZ Air Cargo ретінде құрылып, 2026 жылғы 10 маусымда қазіргі атауын алды және Қарағанды облысында тіркелді.",
+    "about.mission":"Миссия: Қазақстанның өз тасымалдау қуаттарын құру — ел шетелдік тасымалдаушылар тарифтеріне аз тәуелді болуы үшін — және авиамамандардың, ұшқыштар мен инженерлердің жаңа буынын өсіру.",
+    "about.p2":"Бүгінде команда операциялық іргетасты қалап жатыр: алғашқы рейске дейін қауіпсіз және сенімді жұмысқа арналған жүйелер, процестер мен кәсіби стандарттар.",
+    "about.v1t":"Қауіпсіздік","about.v1d":"Қауіпсіздік мәдениеті алғашқы ұшудан бұрын қалыптасады: айқын стандарттар мен жауапты шешімдер.",
+    "about.v2t":"Операциялық үздіктік","about.v2d":"Ұшу, техникалық, жер және жүк қызметтері арасындағы нақты процестер.",
+    "about.v3t":"Сенімділік","about.v3d":"Болжамды мерзімдер және әр кезеңдегі жүктің ашық мәртебесі.",
+    "about.v4t":"Серіктестік","about.v4d":"Жүк иелерімен, экспедиторлармен және әуежайлармен ұзақ мерзімді қарым-қатынас.",
+    "tl.1d":"2025 қаз.","tl.1t":"KTZ Air Cargo ретінде құрылды","tl.2d":"2026 нау.","tl.2t":"Бақылау пакеті жеке инвесторға өтті, жоба стратегиялық мәртебесін сақтады","tl.3d":"2026 · 10 маус.","tl.3t":"Alatau Air Cargo болып аталды, Қарағанды облысында тіркелді","tl.4d":"2026 қыр.","tl.4t":"Бас директор тағайындалды — Блэр Т. Поллок","tl.5d":"Алда","tl.5t":"Сертификаттау, алғашқы ұшақты алу және рейстерді іске қосу — 2027 жылдың басы (жоспар)",
+    "news.tag":"Жаңалықтар","news.h2":"Компания және сала туралы","news.read":"Дереккөзді оқу",
+    "news.n1":"Alatau Air Cargo ұшуларды 2027 жылдың басында бастауды жоспарлап отыр: алғашқы бағыт — Гонконг, ал флот он кең фюзеляжды ұшаққа дейін өсуі мүмкін",
+    "news.n2":"Қазақстан авиациялық экожүйе құрып жатыр: бағдарлама ұлттық жүк тасымалдаушысын, алты әуежай негізіндегі хабтарды және жүк ұшақтарын 12 жылға кедендік баждарсыз әкелуді қамтиды",
+    "news.n3":"KTZ Air Cargo атауын Alatau Air Cargo деп өзгертті және Қарағанды облысына көшті",
+    "news.n4":"Қарағанды әуежайын мультимодальды аэрохабқа айналдырғысы келеді: әуежай аумағындағы ЕЭА және 2030 жылға қарай 200 мың тоннаға дейін жүк",
+    "faq.tag":"Жиі қойылатын сұрақтар","faq.h2":"Сұрақтар мен жауаптар",
+    "faq1.q":"Рейстер қашан басталады?","faq1.a":"Компания жоспары бойынша коммерциялық ұшулар 2027 жылдың басында басталады; алғашқы бағыт — Гонконг. Кесте мен күндер әзірге жарияланбаған.",
+    "faq2.q":"Ұшақтар қайдан ұшады?","faq2.a":"Басты хаб — Қарағанды. Жүктің бір бөлігін ұшақтан теміржолға қайта тиеу жоспарланған.",
+    "faq3.q":"Жөнелту үшін қандай құжаттар қажет?","faq3.a":"Негізгі жиынтық: әуе жүкқұжаты (AWB), коммерциялық инвойс және қаптама парағы. Ерекше жүктерге өз құжаттары қосылады — «Өнімдер» бөлімінде жүк түрі бойынша чек-тізім бар.",
+    "faq4.q":"Салмақ бойынша тариф қалай есептеледі?","faq4.a":"Нақты және көлемдік салмақтың үлкені бойынша (Ұ × Е × Б см ÷ 6000). Партияңызды калькулятормен тексеріңіз.",
+    "faq5.q":"Қауіпті немесе тез бұзылатын жүктерді жіберуге бола ма?","faq5.a":"Мұндай өнімдер тұжырымдамаға кіреді, бірақ жеке рәсімдер мен сертификаттауды қажет етеді. Шарттар іске қосылғаннан кейін жарияланады.",
+    "car.tag":"Командаға адам іздеудеміз","car.h2":"Авиакомпанияны алғашқы рейстен бастап бірге құрыңыз","car.lede":"Қауіпсіздік пен операциялық үздіктік сіз үшін сөз емес, күнделікті тәжірибе болатын авиациялық мамандарды шақырамыз.",
+    "car.c1":"Ұшу пайдалануы","car.c2":"Инженерия және техникалық қызмет көрсету","car.c3":"Ұшуға жарамдылықты қолдау (CAMO)","car.c4":"Жер және жүк қызметтері","car.c5":"Қауіпсіздік және сапа","car.c6":"Ұшуға жарамдылық және техникалық қызметтер","car.btn":"Түйіндеме жіберу",
+    "foot.subT":"Компания жаңалықтары","foot.subBtn":"Жазылу","foot.subOk":"Рахмет! Бұл демо — мекенжай сақталмады.","foot.subErr":"Электрондық пошта мекенжайын тексеріңіз.",
+    "foot.about":"Жүк авиакомпаниясы сайтының демо-тұжырымдамасы. «Alatau Air Cargo» АҚ-ның ресми сайты емес.","foot.h1":"Компания","foot.l1":"Компания туралы","foot.l2":"Жаңалықтар","foot.l3":"Мансап","foot.h2":"Қызметтер","foot.l4":"Өнімдер және құжаттар","foot.l5":"Жүкті бақылау","foot.l6":"Салмақ калькуляторы","foot.l7":"Тариф сұрау","foot.h3":"Байланыс","foot.addr":"Қарағанды облысы, Бұқар жырау ауданы, Үштөбе ауылы",
+    "foot.copy":"© 2026 Демо-тұжырымдама. Барлық атаулар өз иелеріне тиесілі.","badge":"Демо-тұжырымдама · бейресми сайт",
+    "ast.label":"Көмекші","ast.t":"Демо-көмекші","ast.s":"Дайын сценарийлер, ЖИ емес","ast.hi":"Сәлеметсіз бе! Сайттан не қайдан табуға болатынын айтамын. Сұрақты таңдаңыз:"
+  },
+  en: {
+    "p.gen.n":"General cargo","p.gen.d":"Standard consignments with no special handling needs — the backbone of commercial load.","p.gen.h1":"Handled under standard procedures","p.gen.h2":"Suitable for consolidation at the hub",
+    "p.exp.n":"Urgent cargo","p.exp.d":"Time-critical shipments: spare parts, documents, urgent consignments.","p.exp.h1":"Priority loading and shorter connection times","p.exp.h2":"Status monitoring at every stage",
+    "p.eco.n":"E-commerce","p.eco.d":"High volumes of small parcels from Asia to Europe.","p.eco.h1":"Consolidation and fast handling at the hub","p.eco.h2":"End-to-end tracking of each parcel",
+    "p.per.n":"Perishables","p.per.d":"Flowers, fruit, vegetables, fish and other products with a limited shelf life.","p.per.h1":"Minimal time on the ground","p.per.h2":"Temperature regime to match the cargo",
+    "p.pha.n":"Pharma & healthcare","p.pha.d":"Medicines and medical devices that need temperature and paperwork control.","p.pha.h1":"Temperature control along the whole journey","p.pha.h2":"Strict compliance with documentation rules",
+    "p.dgr.n":"Dangerous goods","p.dgr.d":"Cargo whose carriage is governed by dangerous goods regulations (DGR).","p.dgr.h1":"Accepted only by certified specialists","p.dgr.h2":"Special packaging and marking requirements",
+    "p.val.n":"Valuable cargo","p.val.d":"Jewellery, high-value electronics and other valuable consignments.","p.val.h1":"Enhanced security at every stage","p.val.h2":"A limited circle of authorised staff",
+    "p.ovs.n":"Outsized & heavy","p.ovs.d":"Large and heavy cargo that needs a dedicated loading plan or a charter.","p.ovs.h1":"Individual loading and securing plan","p.ovs.h2":"Can be carried on a charter flight",
+    "doc.awb":"Air waybill (AWB)","doc.inv":"Commercial invoice","doc.pl":"Packing list","doc.exp":"Export declaration","doc.phy":"Phytosanitary certificate (for plant products)","doc.temp":"Temperature requirements and data logger","doc.lic":"Licences and permits for pharmaceuticals","doc.dgd":"Shipper's declaration for dangerous goods","doc.sds":"Safety data sheet (SDS)","doc.pack":"DGR packaging and marking","doc.val":"Declared value and insurance","doc.sec":"Security and escort plan","doc.dim":"Dimensions and weight of each piece, securing plan","doc.ens":"EU pre-arrival data (ICS2)",
+    "sp.std":"Standard","sp.std.d":"Standard loading and transit times","sp.pri":"Priority","sp.pri.d":"Priority loading, short connection time","sp.urg":"Urgent","sp.urg.d":"Highest priority and 24/7 support",
+    "net.hkg.n":"Hong Kong","net.hkg.s":"First destination · planned: early 2027","net.hkg.t":"Hong Kong has been named as the first destination, with flights planned to start in early 2027. The schedule and frequency have not been announced yet.","net.hkg.r":"Source: Avianews.kz, 15.10.2026",
+    "net.cn.n":"Mainland China","net.cn.s":"Next stage · permits required","net.cn.t":"Entering mainland China routes will take longer because the relevant permits have to be obtained.","net.cn.r":"Source: Avianews.kz, 15.10.2026",
+    "net.kgf.n":"Karaganda (hub)","net.kgf.s":"Main hub","net.kgf.t":"The company's main node is Karaganda. A multimodal scheme is being built around it: part of the cargo is transferred from aircraft to rail.","net.kgf.r":"Source: Avianews.kz, 15.10.2026",
+    "net.eu.n":"Europe","net.eu.s":"Via the multimodal scheme","net.eu.t":"Transit between Asia and Europe is the project's key idea. The scheme: an air leg to Karaganda, then part of the cargo can continue by rail.","net.eu.r":"Sources: Forbes Kazakhstan (12.2025), Avianews.kz (10.2026)",
+    "net.ca.n":"Central Asia","net.ca.s":"Concept","net.ca.t":"Distributing cargo from the hub across the region by ground transport is a logical extension of the multimodal scheme; details have not been announced.","net.ca.r":"Source: demo site concept",
+    "ast.q1":"When will flights start?","ast.a1":"Per the company's plans, in early 2027, with Hong Kong as the first destination. The schedule has not been published yet.",
+    "ast.q2":"How do I track a shipment?","ast.a2":"Enter an 11-digit AWB number in the Tracking section. In this demo, the Use an example button works.",
+    "ast.q3":"What documents do I need?","ast.a3":"Pick a cargo type in the Products section and I will show a document checklist.",
+    "ast.q4":"How is weight calculated?","ast.a4":"By the greater of actual and volumetric weight (L × W × H in cm ÷ 6000). Check your shipment in the calculator.",
+    "ast.q5":"How do I request a quote?","ast.a5":"Fill in the form in the Request section. In this demo no data is sent anywhere.",
+    "ast.go":"Go to section",
+    "nav.products":"Products","nav.track":"Tracking","nav.network":"Network","nav.hub":"Hub & fleet","nav.news":"News","nav.quote":"Request a quote","nav.about":"Company","nav.faq":"FAQ","nav.careers":"Careers",
+    "hero.eyebrow":"First flights — early 2027 (planned)","hero.h1a":"Asia to Europe.","hero.h1b":"Through the skies of Kazakhstan.",
+    "hero.lede":"Alatau Air Cargo is a Kazakhstan-based cargo airline with a hub in Karaganda. Hong Kong is the first destination; the project is built around Asia–Europe transit with a multimodal scheme — part of the cargo is transferred to rail.",
+    "hero.cta1":"Track a shipment","hero.cta2":"Find a product",
+    "hero.f1v":"Early 2027","hero.f1l":"planned start of commercial flights","hero.f2v":"Hong Kong","hero.f2l":"first destination","hero.f3v":"up to 10","hero.f3l":"widebody freighters in the longer term","hero.f4v":"Karaganda","hero.f4l":"main hub: air + rail","hero.src":"Company plans — per Avianews.kz (15.10.2026).",
+    "track.tag":"Demo feature","track.h2":"Track a shipment by AWB number","track.lede":"Enter an 11-digit air waybill number and see how shipment status will look. All data below is for demonstration.",
+    "track.label":"AWB number","track.btn":"Track","track.example":"Use an example",
+    "track.errFormat":"Enter 11 digits: prefix (3) + serial number (7) + check digit (1).",
+    "track.errCheck":"Check digit does not match: it must equal the 7-digit serial number modulo 7. Try the example.",
+    "track.c1":"Hong Kong","track.c2":"Karaganda","track.c3":"Budapest",
+    "track.m1":"Pieces","track.m2":"Weight","track.m2v":"1,840 kg","track.m3":"Cargo","track.m3v":"Electronics (demo)",
+    "track.note":"Demo data. In the live version, status is pulled from the cargo management system.",
+    "track.s1":"Accepted at origin","track.s2":"Security screening completed","track.s3":"Departed origin","track.s4":"Arrived at Karaganda hub","track.s5":"Departed hub","track.s6":"Arrived at destination","track.s7":"Ready for pickup by consignee",
+    "track.d1":"Day 1","track.d2":"Day 2","track.plan":"planned",
+    "net.tag":"Network & routes","net.h2":"Where and how we will move cargo","net.lede":"Tap a node to see its status and what is already known. The routes below are company plans, not a schedule.",
+    "net.legAir":"Air","net.legLater":"Later","net.legRail":"Rail / road (concept)","net.cap":"Diagram — an illustration, not a route map.","net.mkt":"Kazakhstan market",
+    "cor.s1v":"136.5k t","cor.s1l":"of cargo handled by Kazakhstan's airports in the first 9 months of 2026","cor.s2l":"international destinations in Kazakhstan's network — 31 countries","cor.s3v":"61k t","cor.s3l":"forecast cargo flow at Karaganda Airport in 2026 (QarGo Hub concept)",
+    "cor.src":"Source: Civil Aviation Committee of Kazakhstan's Ministry of Transport, New Silk Way forum, 2026.",
+    "prod.tag":"Products & documents","prod.h2":"Find the right product for your cargo","prod.lede":"Pick a cargo type to see handling notes, speed options and a document checklist. All terms are a concept.",
+    "prod.hSpeed":"Speed options","prod.hHandling":"Handling","prod.hDocs":"Documents","prod.eu":"Cargo is going to the EU — add ICS2 data",
+    "prod.note":"Terms are a concept: the final product set and any guarantees will be defined once the air operator certificate is obtained.","prod.cta":"Request a quote for this cargo",
+    "calc.tag":"Handy tool","calc.h2":"Chargeable weight calculator","calc.lede":"Airlines price cargo by the greater of two weights: actual or volumetric (L × W × H in cm ÷ 6000). Check how your shipment will be charged.",
+    "calc.pieces":"Number of pieces","calc.len":"Length, cm","calc.wid":"Width, cm","calc.hei":"Height, cm","calc.weight":"Actual shipment weight, kg","calc.hint":"Dimensions are per piece.",
+    "calc.rActual":"Actual weight","calc.rVol":"Volumetric weight","calc.rDensity":"Cargo density","calc.rCharge":"Chargeable weight","unit.kg":"kg","unit.density":"kg/m³",
+    "calc.verdictLight":"Light cargo: charged by volume.","calc.verdictDense":"Dense cargo: charged by actual weight.","calc.round":"Chargeable weight is rounded up to the nearest 0.5 kg.","calc.cta":"Request a quote",
+    "q.tag":"Request","q.h2":"Request a quote or a charter","q.lede":"Fill in the form — in this demo nothing is sent anywhere, but you will see the whole flow.",
+    "q.tabQ":"Freight quote","q.tabC":"Charter flight","q.from":"From","q.to":"To","q.cargo":"Cargo type","q.weight":"Weight, kg","q.email":"Email","q.date":"Preferred date","q.payload":"Payload, t","q.aircraft":"Aircraft type","q.acAny":"Alatau will propose","q.ac767":"Boeing 767F (planned)",
+    "q.submit":"Send request","q.errReq":"Please fill in all required fields.","q.errMail":"Please check the email address.","q.okT":"Request received (demo)","q.okRef":"Request number:","q.okNote":"This is a demonstration: nothing was sent. In the live version the request goes to the CRM and a manager gets in touch.","q.okNew":"New request",
+    "hub.tag":"Hub & fleet","hub.h2":"Karaganda — where air meets rail","hub.lede":"The airline's main hub is Karaganda; part of the cargo is planned to move from aircraft to rail.",
+    "fl.h":"Fleet plan","fl.1d":"End of 2026","fl.1t":"First Boeing 767 freighter expected (per the Ministry of Transport)","fl.2d":"Early 2027","fl.2t":"Commercial flights start — Hong Kong first","fl.3d":"Then","fl.3t":"Mainland China routes — these need more time because of permits","fl.4d":"Longer term","fl.4t":"Up to 10 widebody aircraft",
+    "hub.k1v":"15 → 200k t","hub.k1l":"of cargo a year through Karaganda Airport: today and the programme target to 2030 (regional akimat, 2024)","hub.k2v":"~2,000","hub.k2l":"permanent jobs from the hub project (akimat estimate)","hub.k3l":"horizon of the multimodal air hub programme",
+    "hub.b1":"Multimodal scheme: part of the cargo is transferred from aircraft to rail and continues on.","hub.b2":"The project's goal is Kazakhstan's own cargo capacity and less dependence on foreign carriers' tariffs.","hub.b3":"Partners: shippers, logistics companies, and rail, road and sea carriers.","hub.b4":"Concept: documents and risk analysis are processed while the aircraft is still in flight — cargo spends less time on the ground.",
+    "hub.src":"Sources: Avianews.kz (15.10.2026), Advantix (31.07.2026), Karaganda region akimat (03.06.2024).",
+    "about.tag":"Company","about.h2":"An airline built from scratch",
+    "about.p1":"Alatau Air Cargo is a Kazakhstan-based cargo airline. It was founded in October 2025 as KTZ Air Cargo and took its current name on 10 June 2026, moving its registration to the Karaganda region.",
+    "about.mission":"Mission: to create Kazakhstan's own cargo capacity, so the country depends less on foreign carriers' tariffs, and to grow a new generation of aviation specialists — pilots and engineers.",
+    "about.p2":"Today the team is laying the operational foundation: the systems, processes and professional standards for safe, reliable operations before the first flight.",
+    "about.v1t":"Safety","about.v1d":"A safety culture is built before the first departure: clear standards and responsible decisions.",
+    "about.v2t":"Operational excellence","about.v2d":"Clear processes between flight, technical, ground and cargo operations.",
+    "about.v3t":"Reliability","about.v3d":"Predictable timelines and transparent shipment status at every stage.",
+    "about.v4t":"Partnerships","about.v4d":"Long-term relationships with cargo owners, forwarders and airports.",
+    "tl.1d":"Oct 2025","tl.1t":"Founded as KTZ Air Cargo","tl.2d":"Mar 2026","tl.2t":"Controlling stake passed to a private investor; the project kept its strategic status","tl.3d":"10 Jun 2026","tl.3t":"Renamed Alatau Air Cargo, registered in the Karaganda region","tl.4d":"Sep 2026","tl.4t":"General Director appointed — Blair T. Pollock","tl.5d":"Next","tl.5t":"Certification, first aircraft and launch of flights — early 2027 (planned)",
+    "news.tag":"News","news.h2":"About the company and the industry","news.read":"Read the source",
+    "news.n1":"Alatau Air Cargo plans to start flying in early 2027: Hong Kong first, and the fleet could grow to ten widebody aircraft",
+    "news.n2":"Kazakhstan is building an aviation ecosystem: the programme includes a national cargo carrier, hubs based on six airports, and 12 years of duty-free import of cargo aircraft",
+    "news.n3":"KTZ Air Cargo renamed Alatau Air Cargo and moved to the Karaganda region",
+    "news.n4":"Karaganda airport is to become a multimodal air hub: a special economic zone on site and up to 200,000 tonnes of cargo by 2030",
+    "faq.tag":"FAQ","faq.h2":"Questions and answers",
+    "faq1.q":"When will flights start?","faq1.a":"Per the company's plans, commercial flights will start in early 2027, with Hong Kong as the first destination. The schedule and dates have not been published yet.",
+    "faq2.q":"Where will the aircraft fly from?","faq2.a":"The main hub is Karaganda. Part of the cargo is planned to be transferred from aircraft to rail.",
+    "faq3.q":"What documents do I need to ship?","faq3.a":"The basic set: air waybill (AWB), commercial invoice and packing list. Special cargo adds its own documents — see the checklist by cargo type in the Products section.",
+    "faq4.q":"How is the weight-based rate calculated?","faq4.a":"By the greater of actual and volumetric weight (L × W × H in cm ÷ 6000). Check your shipment in the calculator.",
+    "faq5.q":"Can I ship dangerous goods or perishables?","faq5.a":"Such products are part of the concept but will need dedicated procedures and certification. Terms will be announced after launch.",
+    "car.tag":"We are hiring","car.h2":"Build an airline from the first flight","car.lede":"We invite aviation professionals for whom safety and operational excellence are daily practice, not slogans.",
+    "car.c1":"Flight Operations","car.c2":"Engineering & Maintenance","car.c3":"Continuing Airworthiness (CAMO)","car.c4":"Ground & Cargo Operations","car.c5":"Safety & Quality","car.c6":"Airworthiness & Technical Services","car.btn":"Send your CV",
+    "foot.subT":"Company news","foot.subBtn":"Subscribe","foot.subOk":"Thank you! This is a demo — the address was not saved.","foot.subErr":"Please check the email address.",
+    "foot.about":"A demo concept for a cargo airline website. Not the official website of JSC Alatau Air Cargo.","foot.h1":"Company","foot.l1":"About","foot.l2":"News","foot.l3":"Careers","foot.h2":"Services","foot.l4":"Products & documents","foot.l5":"Shipment tracking","foot.l6":"Weight calculator","foot.l7":"Request a quote","foot.h3":"Contact","foot.addr":"Karaganda region, Bukhar-Zhyrau district, Ushtobe village",
+    "foot.copy":"© 2026 Demo concept. All names belong to their respective owners.","badge":"Demo concept · unofficial site",
+    "ast.label":"Assistant","ast.t":"Demo assistant","ast.s":"Scripted answers, not AI","ast.hi":"Hello! I can point you to the right place on this site. Pick a question:"
+  }};
+
+  /* ====================== i18n core ====================== */
+  var originals = {};
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if(!(k in originals)) originals[k] = el.textContent;
+  });
+  function tr(k){
+    if(lang !== 'ru' && T[lang] && T[lang][k] !== undefined) return T[lang][k];
+    if(T.ru[k] !== undefined) return T.ru[k];
+    return originals[k] !== undefined ? originals[k] : k;
+  }
+  function setKey(el,k){ el.setAttribute('data-i18n',k); el.textContent = tr(k); return el; }
+  function mk(tag,cls,key){ var e = document.createElement(tag); if(cls) e.className = cls; if(key) setKey(e,key); return e; }
+
+  /* ====================== drawer ====================== */
+  var drawer = $('drawer');
+  $('menu-open').addEventListener('click', function(){ drawer.classList.add('open'); });
+  $('menu-close').addEventListener('click', function(){ drawer.classList.remove('open'); });
+  drawer.addEventListener('click', function(e){ if(e.target === drawer) drawer.classList.remove('open'); });
+  drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ drawer.classList.remove('open'); }); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ drawer.classList.remove('open'); $('ast-panel').classList.remove('open'); } });
+
+  /* reduced motion: stop SMIL plane */
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var am = document.querySelector('#plane-marker animateMotion');
+    if(am){ am.parentNode.removeChild(am); }
+    var pm = $('plane-marker');
+    if(pm){ pm.setAttribute('transform','translate(1000,110) rotate(8)'); }
+  }
+
+  /* ====================== AWB tracking ====================== */
+  var input = $('awb');
+  function track(){
+    var d = input.value.replace(/\D/g,'');
+    $('err-format').hidden = true; $('err-check').hidden = true;
+    var res = $('result');
+    if(d.length !== 11){ res.hidden = true; $('err-format').hidden = false; return; }
+    var serial = parseInt(d.slice(3,10),10), chk = parseInt(d.charAt(10),10);
+    if(serial % 7 !== chk){ res.hidden = true; $('err-check').hidden = false; return; }
+    $('res-awb').textContent = d.slice(0,3) + '-' + d.slice(3);
+    res.hidden = false;
+    var items = Array.prototype.slice.call($('tl').children);
+    items.forEach(function(li){ li.classList.remove('in'); });
+    items.forEach(function(li,i){ setTimeout(function(){ li.classList.add('in'); }, 120 + i*160); });
+    res.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  $('awb-form').addEventListener('submit', function(e){ e.preventDefault(); track(); });
+  $('awb-example').addEventListener('click', function(){ input.value = '000-12345675'; track(); });
+
+  /* ====================== network ====================== */
+  var NODES = ['hkg','cn','kgf','eu','ca'];
+  var nodeChips = $('node-chips');
+  NODES.forEach(function(id){
+    var b = mk('button','pchip','net.'+id+'.n'); b.type = 'button'; b.setAttribute('data-node', id);
+    b.addEventListener('click', function(){ selectNode(id); });
+    nodeChips.appendChild(b);
+  });
+  function selectNode(id){
+    nodeChips.querySelectorAll('.pchip').forEach(function(c){ c.classList.toggle('on', c.getAttribute('data-node') === id); });
+    document.querySelectorAll('.nd').forEach(function(g){ g.classList.toggle('sel', g.getAttribute('data-node') === id); });
+    setKey($('nd-name'),'net.'+id+'.n'); setKey($('nd-status'),'net.'+id+'.s'); setKey($('nd-text'),'net.'+id+'.t'); setKey($('nd-src'),'net.'+id+'.r');
+  }
+  document.querySelectorAll('.nd').forEach(function(g){
+    var id = g.getAttribute('data-node');
+    g.addEventListener('click', function(){ selectNode(id); });
+    g.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); selectNode(id); } });
+  });
+  selectNode('hkg');
+
+  /* ====================== products ====================== */
+  var PRODUCTS = [
+    {id:'gen', sp:['std','pri'], docs:['awb','inv','pl','exp']},
+    {id:'exp', sp:['pri','urg'], docs:['awb','inv','pl','exp']},
+    {id:'eco', sp:['std','pri'], docs:['awb','inv','pl','exp']},
+    {id:'per', sp:['pri','urg'], docs:['awb','inv','pl','phy','temp']},
+    {id:'pha', sp:['pri','urg'], docs:['awb','inv','pl','temp','lic']},
+    {id:'dgr', sp:['std','pri'], docs:['awb','inv','dgd','sds','pack']},
+    {id:'val', sp:['pri','urg'], docs:['awb','inv','val','sec']},
+    {id:'ovs', sp:['std','pri'], docs:['awb','inv','pl','dim']}
+  ];
+  var curProd = 'gen';
+  var prodChips = $('prod-chips');
+  var qCargo = $('q-cargo');
+  PRODUCTS.forEach(function(p){
+    var b = mk('button','pchip','p.'+p.id+'.n'); b.type = 'button'; b.setAttribute('data-prod', p.id);
+    b.addEventListener('click', function(){ renderProduct(p.id); });
+    prodChips.appendChild(b);
+    var o = mk('option','','p.'+p.id+'.n'); o.value = p.id; qCargo.appendChild(o);
+  });
+  function li(icon, key){
+    var el = document.createElement('li');
+    if(icon) el.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>';
+    el.appendChild(mk('span','',key));
+    return el;
+  }
+  function renderProduct(id){
+    curProd = id;
+    var P = PRODUCTS.filter(function(x){ return x.id === id; })[0];
+    prodChips.querySelectorAll('.pchip').forEach(function(c){ c.classList.toggle('on', c.getAttribute('data-prod') === id); });
+    setKey($('pp-name'),'p.'+id+'.n'); setKey($('pp-desc'),'p.'+id+'.d');
+    var sp = $('pp-speeds'); sp.innerHTML = '';
+    P.sp.forEach(function(s){
+      var l = document.createElement('li');
+      l.appendChild(mk('b','','sp.'+s)); l.appendChild(mk('span','','sp.'+s+'.d')); sp.appendChild(l);
+    });
+    var h = $('pp-handling'); h.innerHTML = '';
+    h.appendChild(li(true,'p.'+id+'.h1')); h.appendChild(li(true,'p.'+id+'.h2'));
+    var d = $('pp-docs'); d.innerHTML = '';
+    var docs = P.docs.slice(); if($('eu').checked) docs.push('ens');
+    docs.forEach(function(k){ d.appendChild(li(true,'doc.'+k)); });
+  }
+  $('eu').addEventListener('change', function(){ renderProduct(curProd); });
+  $('pp-cta').addEventListener('click', function(){
+    qCargo.value = curProd; setTab('quote');
+    $('quote').scrollIntoView({behavior:'smooth'});
+  });
+  renderProduct('gen');
+
+  /* ====================== chargeable weight ====================== */
+  function calc(){
+    var n = Math.max(0, parseFloat($('c-pcs').value) || 0);
+    var L = Math.max(0, parseFloat($('c-len').value) || 0);
+    var W = Math.max(0, parseFloat($('c-wid').value) || 0);
+    var H = Math.max(0, parseFloat($('c-hei').value) || 0);
+    var act = Math.max(0, parseFloat($('c-wt').value) || 0);
+    var cm3 = n * L * W * H;
+    var vol = cm3 / 6000;
+    var chg = Math.ceil(Math.max(act, vol) * 2) / 2;
+    var fmt = new Intl.NumberFormat(LOCALES[lang], {maximumFractionDigits:1});
+    $('r-act').textContent = fmt.format(act);
+    $('r-vol').textContent = fmt.format(vol);
+    $('r-chg').textContent = fmt.format(chg);
+    $('r-den').textContent = cm3 > 0 ? fmt.format(act / (cm3 / 1e6)) : '—';
+    var none = act === 0 && vol === 0;
+    $('v-light').hidden = none || !(vol > act);
+    $('v-dense').hidden = none || (vol > act);
+  }
+  ['c-pcs','c-len','c-wid','c-hei','c-wt'].forEach(function(id){ $(id).addEventListener('input', calc); });
+  calc();
+
+  /* ====================== quote / charter ====================== */
+  var curTab = 'quote';
+  function setTab(t){
+    curTab = t;
+    document.querySelectorAll('#q-tabs .seg-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-tab') === t); });
+    $('form-quote').hidden = (t !== 'quote'); $('form-charter').hidden = (t !== 'charter'); $('q-ok').hidden = true;
+  }
+  document.querySelectorAll('#q-tabs .seg-btn').forEach(function(b){ b.addEventListener('click', function(){ setTab(b.getAttribute('data-tab')); }); });
+  var mailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function done(summary){
+    $('q-ref').textContent = 'DEMO-' + (100000 + Math.floor(Math.random() * 900000));
+    $('q-sum').textContent = summary;
+    $('form-quote').hidden = true; $('form-charter').hidden = true; $('q-ok').hidden = false;
+  }
+  $('form-quote').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = $('qf-from').value.trim(), t = $('qf-to').value.trim(), w = parseFloat($('qf-weight').value), m = $('qf-email').value.trim();
+    $('qe-req').hidden = true; $('qe-mail').hidden = true;
+    if(!f || !t || !(w > 0) || !m){ $('qe-req').hidden = false; return; }
+    if(!mailRe.test(m)){ $('qe-mail').hidden = false; return; }
+    done(f + ' → ' + t + ' · ' + tr('p.'+$('q-cargo').value+'.n') + ' · ' + w + ' ' + tr('unit.kg'));
+  });
+  $('form-charter').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = $('cf-from').value.trim(), t = $('cf-to').value.trim(), dt = $('cf-date').value, p = parseFloat($('cf-payload').value), m = $('cf-email').value.trim();
+    $('ce-req').hidden = true; $('ce-mail').hidden = true;
+    if(!f || !t || !dt || !(p > 0) || !m){ $('ce-req').hidden = false; return; }
+    if(!mailRe.test(m)){ $('ce-mail').hidden = false; return; }
+    done(f + ' → ' + t + ' · ' + dt + ' · ' + p + ' t');
+  });
+  $('q-new').addEventListener('click', function(){
+    $('form-quote').reset(); $('form-charter').reset(); setTab(curTab);
+  });
+
+  /* ====================== subscribe ====================== */
+  $('sub-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = $('sub-email').value.trim();
+    $('sub-ok').hidden = true; $('sub-err').hidden = true;
+    if(!mailRe.test(v)){ $('sub-err').hidden = false; return; }
+    $('sub-email').value = ''; $('sub-ok').hidden = false;
+  });
+
+  /* ====================== assistant ====================== */
+  var QA = [
+    {q:'ast.q1', a:'ast.a1', href:'#network'},
+    {q:'ast.q2', a:'ast.a2', href:'#track'},
+    {q:'ast.q3', a:'ast.a3', href:'#products'},
+    {q:'ast.q4', a:'ast.a4', href:'#calc'},
+    {q:'ast.q5', a:'ast.a5', href:'#quote'}
+  ];
+  var astPanel = $('ast-panel'), msgs = $('ast-msgs'), chipsWrap = $('ast-chips');
+  $('ast-btn').addEventListener('click', function(){ astPanel.classList.toggle('open'); });
+  $('ast-x').addEventListener('click', function(){ astPanel.classList.remove('open'); });
+  QA.forEach(function(item){
+    var b = mk('button','pchip',item.q); b.type = 'button';
+    b.addEventListener('click', function(){
+      msgs.appendChild(mk('div','msg user',item.q));
+      var bot = document.createElement('div'); bot.className = 'msg bot';
+      bot.appendChild(mk('span','',item.a));
+      var a = mk('a','','ast.go'); a.href = item.href;
+      a.addEventListener('click', function(){ if(window.innerWidth < 620) astPanel.classList.remove('open'); });
+      bot.appendChild(a);
+      msgs.appendChild(bot);
+      msgs.scrollTop = msgs.scrollHeight;
+    });
+    chipsWrap.appendChild(b);
+  });
+
+  /* ====================== language switch ====================== */
+  function apply(l){
+    lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){ el.textContent = tr(el.getAttribute('data-i18n')); });
+    document.documentElement.lang = l;
+    document.querySelectorAll('.lang-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-lang') === l); });
+    calc();
+  }
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+})();
+</script>
+</body>
+</html>
