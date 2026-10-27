@@ -3,163 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f151a">
 <meta name="description" content="Демо-концепция сайта грузовой авиакомпании Alatau Air Cargo">
 <title>Alatau Air Cargo — демо-концепция сайта</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#11171d;--ink-2:#1a232c;--slate:#2b3743;--glacier:#e9f0f4;--snow:#f7f9fa;--line:#d8e1e7;--soft:#5b6a75;
-  --orange:#f0561d;--orange-deep:#c8400c;--amber:#ffb067;--ok:#1f8a5b;--err:#b3261e;
-  --font:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
-  --container:1200px;--r:12px;
+  --paper:#f2f4f5;--white:#fff;--ink:#0f151a;--ink-2:#18212a;--ink-3:#222d38;
+  --rule:#cdd6dc;--rule-d:rgba(255,255,255,.16);
+  --soft:#56646f;--soft-d:#a3b0ba;
+  --orange:#f0561d;--orange-deep:#b73a08;--amber:#ffb067;--ok:#1a7f52;--err:#b3261e;
+  --display:'IBM Plex Sans Condensed','IBM Plex Sans',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --container:1240px;--r:8px;--header:64px;
 }
 *,*::before,*::after{box-sizing:border-box;}
 [hidden]{display:none !important;}
 html{scroll-behavior:smooth;}
-body{margin:0;font-family:var(--font);color:var(--ink);background:var(--snow);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{margin:0;font-family:var(--body);font-size:16px;color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 img,svg{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
 ul,ol{list-style:none;margin:0;padding:0;}
-button,input,select{font-family:inherit;}
+button,input,select,textarea{font-family:inherit;font-size:inherit;}
 button{cursor:pointer;}
 h1,h2,h3,h4,h5,p{margin:0;}
-h1,h2,h3,h4{line-height:1.05;letter-spacing:-0.02em;font-weight:800;}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-0.012em;line-height:.98;}
+h4,h5{font-weight:600;line-height:1.3;}
 :focus-visible{outline:2px solid var(--orange);outline-offset:3px;}
 .container{max-width:var(--container);margin:0 auto;padding:0 32px;}
 .hidden-sprite{position:absolute;width:0;height:0;overflow:hidden;}
 .icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 
-section{padding:88px 0;scroll-margin-top:64px;}
-.alt{background:var(--glacier);}
+section{padding:112px 0;scroll-margin-top:calc(var(--header) + 4px);}
+.bg-paper{background:var(--paper);}
 .dark{background:var(--ink);color:#eef2f5;}
 
-.tag{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.08em;color:var(--orange-deep);text-transform:uppercase;}
-.tag::before{content:"";width:22px;height:2px;background:var(--orange);}
-.dark .tag{color:var(--amber);}
-.head{max-width:700px;margin-bottom:44px;}
-.head h2{font-size:clamp(1.9rem,3.6vw,2.9rem);margin-top:14px;}
-.head p.lede{margin-top:16px;color:var(--soft);font-size:1.04rem;max-width:60ch;}
-.dark .head p.lede{color:#a7b4be;}
+/* section head: title left, lede right, one rule above */
+.head{display:grid;grid-template-columns:1.2fr .8fr;gap:20px 64px;align-items:end;margin-bottom:56px;padding-top:24px;border-top:1px solid var(--rule);}
+.dark .head{border-top-color:var(--rule-d);}
+.head h2{font-size:clamp(2.5rem,5.4vw,4.6rem);}
+.head .lede{color:var(--soft);font-size:1.06rem;max-width:48ch;}
+.dark .head .lede{color:var(--soft-d);}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 22px;border-radius:10px;font-weight:700;font-size:.92rem;border:1.5px solid transparent;white-space:nowrap;transition:transform .15s ease,background .15s ease;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 24px;border-radius:var(--r);font-weight:600;font-size:.95rem;border:1.5px solid transparent;white-space:nowrap;transition:transform .15s ease,background .15s ease,border-color .15s ease;}
 .btn:hover{transform:translateY(-1px);}
 .btn-orange{background:var(--orange);color:var(--ink);}
 .btn-orange:hover{background:#ff6a33;}
 .btn-dark{background:var(--ink);color:#fff;}
-.btn-dark:hover{background:var(--slate);}
-.btn-ghost{border-color:rgba(255,255,255,.35);color:#fff;}
-.btn-ghost:hover{border-color:#fff;}
-.btn-line{border-color:var(--line);background:#fff;color:var(--ink);}
+.btn-dark:hover{background:var(--ink-3);}
+.btn-line{border-color:var(--rule);background:var(--white);color:var(--ink);}
+.btn-line:hover{border-color:var(--ink);}
+.linkbtn{background:none;border:none;padding:0;font-weight:600;font-size:.92rem;color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.4);text-underline-offset:4px;}
+.linkbtn:hover{text-decoration-color:currentColor;}
 
-/* header */
-header.site{position:sticky;top:0;z-index:60;background:rgba(247,249,250,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
-.nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:12px 0;}
+/* ---------- header ---------- */
+header.site{position:sticky;top:0;z-index:60;height:var(--header);background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);}
+.nav-wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;}
 .brand{display:flex;align-items:center;gap:11px;}
-.brand svg{width:38px;height:38px;}
-.brand-text{display:flex;flex-direction:column;gap:3px;}
-.brand-name{font-weight:800;letter-spacing:.08em;font-size:1.02rem;line-height:1;}
-.brand-sub{font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;color:var(--soft);line-height:1;}
-nav.primary{display:flex;gap:26px;}
-nav.primary a{font-size:.9rem;font-weight:600;position:relative;padding:6px 0;white-space:nowrap;}
+.brand svg{width:34px;height:34px;}
+.brand-name{font-family:var(--display);font-size:1.3rem;font-weight:700;letter-spacing:-0.005em;line-height:1;}
+.brand-name span{font-weight:500;color:var(--soft);}
+nav.primary{display:flex;gap:30px;}
+nav.primary a{font-size:.92rem;font-weight:500;position:relative;padding:6px 0;white-space:nowrap;}
 nav.primary a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .2s ease;}
 nav.primary a:hover::after{transform:scaleX(1);}
 .nav-actions{display:flex;align-items:center;gap:14px;}
-.lang-switch{display:flex;gap:4px;}
-.lang-btn{background:none;border:none;padding:6px 7px;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--soft);border-radius:6px;}
-.lang-btn.active{color:var(--ink);background:var(--glacier);}
-.menu-toggle{display:none;width:42px;height:42px;border-radius:10px;border:1.5px solid var(--line);background:#fff;align-items:center;justify-content:center;}
+.lang-switch{display:flex;gap:2px;}
+.lang-btn{background:none;border:none;padding:6px 8px;font-size:.78rem;font-weight:600;color:var(--soft);border-radius:6px;}
+.lang-btn.active{color:var(--ink);background:var(--paper);}
+.nav-actions .btn{padding:10px 18px;font-size:.88rem;}
+.menu-toggle{display:none;width:42px;height:42px;border-radius:8px;border:1.5px solid var(--rule);background:#fff;align-items:center;justify-content:center;}
 
-.drawer{position:fixed;inset:0;z-index:80;background:rgba(17,23,29,.55);opacity:0;pointer-events:none;transition:opacity .2s ease;display:none;}
+.drawer{position:fixed;inset:0;z-index:80;background:rgba(15,21,26,.55);opacity:0;pointer-events:none;transition:opacity .2s ease;display:none;}
 .drawer.open{opacity:1;pointer-events:auto;}
-.drawer-panel{position:absolute;top:0;right:0;height:100%;width:min(330px,86vw);background:var(--snow);padding:22px 24px;display:flex;flex-direction:column;gap:22px;transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;}
+.drawer-panel{position:absolute;top:0;right:0;height:100%;width:min(340px,88vw);background:#fff;padding:20px 24px;display:flex;flex-direction:column;gap:20px;transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;}
 .drawer.open .drawer-panel{transform:none;}
 .drawer-head{display:flex;justify-content:space-between;align-items:center;}
 .drawer nav{display:flex;flex-direction:column;}
-.drawer nav a{padding:13px 2px;font-size:1.02rem;font-weight:700;border-bottom:1px solid var(--line);}
+.drawer nav a{padding:14px 2px;font-family:var(--display);font-size:1.5rem;font-weight:600;border-bottom:1px solid var(--rule);}
 
-/* hero */
-.hero{position:relative;overflow:hidden;color:#fff;min-height:640px;background:linear-gradient(180deg,#0b1016 0%,#141d27 42%,#3a2a2c 76%,#7a3a22 100%);padding:0;}
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;color:#fff;min-height:640px;min-height:max(640px,min(calc(100svh - var(--header)),880px));background:linear-gradient(180deg,#0a0f14 0%,#121a23 44%,#33272a 78%,#733820 100%);padding:0;display:flex;}
 .hero-art{position:absolute;inset:0;z-index:1;}
 .hero-art svg{position:absolute;inset:0;width:100%;height:100%;}
-.hero .container{position:relative;z-index:3;padding-top:96px;padding-bottom:240px;}
-.hero-copy{max-width:720px;opacity:0;transform:translateY(14px);animation:rise .9s ease forwards;}
-@keyframes rise{to{opacity:1;transform:none;}}
-.hero .tag{color:var(--amber);}
-.hero h1{font-size:clamp(2.5rem,6.2vw,5rem);margin-top:20px;letter-spacing:-0.035em;}
+.hero-in{position:relative;z-index:3;display:flex;flex-direction:column;justify-content:space-between;padding-top:72px;padding-bottom:64px;width:100%;}
+.hero h1{font-size:clamp(3rem,10vw,7.6rem);line-height:.92;letter-spacing:-0.02em;max-width:14ch;opacity:0;transform:translateY(14px);animation:rise .9s ease forwards;}
 .hero h1 span{display:block;}
-.hero h1 .accent{color:var(--orange);}
-.hero p.lede{margin-top:24px;font-size:1.1rem;color:#cdd6dd;max-width:56ch;}
-.hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
-.facts{background:var(--ink);color:#fff;border-bottom:1px solid rgba(255,255,255,.08);}
-.facts .container{display:grid;grid-template-columns:repeat(4,1fr);}
-.fact{padding:26px 22px 26px 0;border-right:1px solid rgba(255,255,255,.12);margin-right:22px;}
-.fact:last-of-type{border-right:none;margin-right:0;}
-.fact strong{display:block;font-size:1.45rem;font-weight:800;letter-spacing:-0.02em;}
-.fact span{font-size:.82rem;color:#98a6b1;display:block;margin-top:2px;line-height:1.4;}
-.facts-src{grid-column:1/-1;padding:0 0 18px;font-size:.76rem;color:#6f808c;}
+.hero h1 span+span{opacity:.72;}
+@keyframes rise{to{opacity:1;transform:none;}}
+.hero-lower{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:40px 72px;align-items:end;margin-top:48px;}
+.hero .lede{font-size:1.1rem;color:#cdd6dd;max-width:50ch;}
+.hero-track label{display:block;font-weight:600;font-size:.95rem;margin-bottom:10px;}
+.hero-row{display:flex;gap:10px;}
+.hero-row input{flex:1;min-width:0;font-family:var(--mono);font-size:1.15rem;font-weight:600;letter-spacing:.04em;padding:15px 16px;border:1.5px solid rgba(255,255,255,.28);border-radius:var(--r);background:rgba(10,15,20,.55);color:#fff;}
+.hero-row input::placeholder{color:#7f8e99;}
+.hero-row input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(240,86,29,.28);}
+.hero-links{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap;}
 
-/* tracking */
-.track-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;box-shadow:0 34px 60px -44px rgba(17,23,29,.4);}
+.facts{background:var(--ink);color:#fff;}
+.facts .container{display:grid;grid-template-columns:repeat(4,1fr);}
+.cell{padding:28px 24px 28px 0;margin-right:24px;border-right:1px solid var(--rule-d);display:flex;flex-direction:column;gap:8px;}
+.cell:nth-of-type(4){border-right:none;margin-right:0;}
+.cell span{font-size:.84rem;color:var(--soft-d);line-height:1.4;}
+.cell strong{font-family:var(--display);font-size:2rem;font-weight:700;letter-spacing:-0.01em;line-height:1;}
+.facts-src{grid-column:1/-1;padding:0 0 20px;font-size:.78rem;color:#7a8996;}
+
+/* ---------- tracking ---------- */
+.track-panel{border:1px solid var(--rule);border-radius:var(--r);padding:32px;background:var(--white);}
 .awb-form{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;}
-.awb-field{flex:1 1 300px;}
-.awb-field label{display:block;font-size:.8rem;font-weight:700;margin-bottom:8px;}
-.awb-field input{width:100%;font-family:var(--mono);font-size:1.3rem;font-weight:700;letter-spacing:.08em;padding:15px 16px;border:1.5px solid var(--line);border-radius:10px;background:var(--snow);color:var(--ink);}
-input:focus,select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(240,86,29,.18);}
-.try-example{margin-top:12px;background:none;border:none;padding:0;font-size:.86rem;font-weight:700;color:var(--orange-deep);text-decoration:underline;text-underline-offset:3px;}
-.awb-err,.form-err{margin-top:14px;color:var(--err);font-size:.88rem;font-weight:600;}
-.result{margin-top:30px;padding-top:30px;border-top:1px dashed var(--line);display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;}
-.res-awb{font-family:var(--mono);font-weight:700;font-size:1.15rem;letter-spacing:.06em;}
-.route{display:flex;align-items:center;gap:10px;margin-top:16px;font-family:var(--mono);font-weight:700;font-size:1.5rem;flex-wrap:wrap;}
-.route i{font-style:normal;color:var(--orange);}
-.route-names{display:flex;gap:8px;margin-top:6px;font-size:.84rem;color:var(--soft);flex-wrap:wrap;}
-.res-meta{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px 28px;margin-top:26px;}
-.res-meta div span{display:block;font-size:.74rem;color:var(--soft);font-weight:600;}
-.res-meta div b{font-size:.98rem;}
-.note{margin-top:22px;font-size:.8rem;color:var(--soft);}
+.awb-field{flex:1 1 320px;}
+.awb-field label{display:block;font-size:.86rem;font-weight:600;margin-bottom:8px;}
+.awb-field input{width:100%;font-family:var(--mono);font-size:1.5rem;font-weight:600;letter-spacing:.04em;padding:16px 18px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--paper);color:var(--ink);}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(240,86,29,.18);}
+.try-example{margin-top:14px;background:none;border:none;padding:0;font-size:.9rem;font-weight:600;color:var(--orange-deep);text-decoration:underline;text-underline-offset:4px;}
+.awb-err,.form-err{margin-top:14px;color:var(--err);font-size:.9rem;font-weight:600;}
+.result{margin-top:32px;padding-top:32px;border-top:1px solid var(--rule);display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;}
+.res-awb{font-family:var(--mono);font-weight:600;font-size:1.1rem;letter-spacing:.04em;color:var(--soft);}
+.route{display:flex;align-items:center;gap:12px;margin-top:10px;font-family:var(--display);font-weight:700;font-size:3.2rem;line-height:1;flex-wrap:wrap;}
+.route i{font-style:normal;color:var(--orange);font-weight:500;}
+.route-names{display:flex;gap:8px;margin-top:10px;font-size:.9rem;color:var(--soft);flex-wrap:wrap;}
+.res-meta{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px 36px;margin-top:28px;padding-top:20px;border-top:1px solid var(--rule);}
+.res-meta div span{display:block;font-size:.8rem;color:var(--soft);}
+.res-meta div b{font-weight:600;font-size:1rem;}
+.note{margin-top:22px;font-size:.84rem;color:var(--soft);}
 .tl{position:relative;}
 .tl li{position:relative;padding:0 0 22px 38px;opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease;}
 .tl li.in{opacity:1;transform:none;}
-.tl li::before{content:"";position:absolute;left:8px;top:22px;bottom:0;width:2px;background:var(--line);}
+.tl li::before{content:"";position:absolute;left:8px;top:22px;bottom:0;width:2px;background:var(--rule);}
 .tl li:last-child{padding-bottom:0;}
 .tl li:last-child::before{display:none;}
-.tl .node{position:absolute;left:0;top:3px;width:18px;height:18px;border-radius:50%;border:2px solid var(--line);background:#fff;}
+.tl .node{position:absolute;left:0;top:3px;width:18px;height:18px;border-radius:50%;border:2px solid var(--rule);background:#fff;}
 .tl li.done .node{background:var(--orange);border-color:var(--orange);}
 .tl li.done::before{background:var(--orange);}
 .tl li.current .node{border-color:var(--orange);box-shadow:0 0 0 5px rgba(240,86,29,.2);}
-.tl h5{margin:0;font-size:.95rem;font-weight:700;line-height:1.35;}
-.tl .when{font-family:var(--mono);font-size:.76rem;color:var(--soft);}
-.tl li.pending h5{color:var(--soft);font-weight:600;}
+.tl h5{font-size:1rem;font-weight:600;}
+.tl .when{font-family:var(--mono);font-size:.78rem;color:var(--soft);}
+.tl li.pending h5{color:var(--soft);font-weight:500;}
 
-/* chips, segmented */
-.pchips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px;}
-.pchip{border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:10px 16px;border-radius:999px;font-weight:700;font-size:.88rem;}
+/* ---------- chips / segmented ---------- */
+.pchips{display:flex;flex-wrap:wrap;gap:8px;}
+.pchip{border:1.5px solid var(--rule);background:#fff;color:var(--ink);padding:10px 16px;border-radius:999px;font-weight:600;font-size:.9rem;}
 .pchip:hover{border-color:var(--ink);}
 .pchip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
-.dark .pchip{background:transparent;color:#e8eef2;border-color:rgba(255,255,255,.25);}
+.dark .pchip{background:transparent;color:#e8eef2;border-color:rgba(255,255,255,.28);}
 .dark .pchip:hover{border-color:#fff;}
 .dark .pchip.on{background:var(--orange);color:var(--ink);border-color:var(--orange);}
-.seg{display:inline-flex;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:4px;gap:4px;margin-bottom:24px;flex-wrap:wrap;}
-.seg-btn{border:none;background:none;padding:10px 18px;border-radius:9px;font-weight:700;font-size:.9rem;color:var(--soft);}
+.seg{display:inline-flex;background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:4px;gap:4px;margin-bottom:24px;flex-wrap:wrap;}
+.seg-btn{border:none;background:none;padding:10px 20px;border-radius:7px;font-weight:600;font-size:.92rem;color:var(--soft);}
 .seg-btn.active{background:var(--ink);color:#fff;}
 
-/* network */
-.net-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:24px;align-items:stretch;}
-.net-map{background:var(--ink-2);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:18px;}
+/* ---------- network (dark) ---------- */
+#node-chips{margin-bottom:28px;}
+.net-grid{display:grid;grid-template-columns:1.5fr .8fr;gap:48px;align-items:start;}
+.net-map{background:var(--ink-2);border-radius:var(--r);padding:20px;}
 .net-map svg{width:100%;height:auto;}
-.net-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:.78rem;color:#9fb0bb;}
+.net-legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:12px;font-size:.82rem;color:var(--soft-d);}
 .net-legend span{display:inline-flex;align-items:center;gap:8px;}
 .net-legend i{display:inline-block;width:26px;height:0;border-top:3px solid var(--amber);}
 .net-legend i.rail{border-top:3px dotted #5fd0c0;}
 .net-legend i.later{border-top:2px dashed rgba(255,176,103,.6);}
-.net-cap{margin-top:8px;font-size:.76rem;color:#7f909c;}
-.node-detail{background:var(--ink-2);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:14px;}
-.node-detail h3{font-size:1.6rem;}
-.status-chip{align-self:flex-start;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--ink);background:var(--amber);padding:6px 12px;border-radius:999px;}
-.node-detail p{color:#b9c6cf;font-size:.95rem;}
-.node-detail .src-line{font-size:.78rem;color:#7f909c;margin-top:auto;}
+.net-cap{margin-top:6px;font-size:.8rem;color:#7a8996;}
+.node-detail{display:flex;flex-direction:column;gap:16px;padding-top:4px;}
+.node-detail h3{font-size:3rem;}
+.status-chip{display:inline-flex;align-items:center;gap:9px;font-size:.92rem;font-weight:600;color:var(--amber);}
+.status-chip::before{content:"";width:9px;height:9px;background:var(--orange);}
+.node-detail p{color:#b9c6cf;font-size:1rem;}
+.node-detail .src-line{font-size:.82rem;color:#7a8996;margin-top:8px;padding-top:16px;border-top:1px solid var(--rule-d);}
 .nd{cursor:pointer;outline:none;}
 .nd .ring{fill:none;stroke:#fff;stroke-width:2;opacity:0;transition:opacity .2s;}
 .nd.sel .ring,.nd:focus-visible .ring{opacity:1;}
@@ -167,187 +179,213 @@ input:focus,select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 
 @keyframes flow{to{stroke-dashoffset:-28;}}
 .hub-ring{transform-box:fill-box;transform-origin:center;animation:ring 2.4s ease-out infinite;}
 @keyframes ring{0%{transform:scale(.6);opacity:.7;}100%{transform:scale(1.5);opacity:0;}}
-.mkt{margin-top:34px;}
-.mkt h4{font-size:.76rem;font-family:var(--mono);color:var(--amber);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;font-weight:700;}
-.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.stat{background:var(--ink-2);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:22px 24px;}
-.stat strong{display:block;font-size:2rem;font-weight:800;color:var(--amber);letter-spacing:-0.03em;line-height:1;}
-.stat span{display:block;margin-top:10px;font-size:.86rem;color:#a7b4be;}
-.src{margin-top:16px;font-size:.78rem;color:#7f909c;}
 
-/* products */
-.ppanel{background:#fff;border:1px solid var(--line);border-radius:var(--r);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;box-shadow:0 34px 60px -46px rgba(17,23,29,.4);}
-.pp-left{padding:30px;background:var(--ink);color:#fff;}
-.pp-left h3{font-size:1.7rem;}
-.pp-left p{margin-top:12px;color:#b7c3cc;}
-.pp-left h5,.pp-right h5{margin:26px 0 10px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:700;}
-.pp-right h5{color:var(--orange-deep);margin-top:0;}
-.pp-right h5.second{margin-top:26px;}
-.pp-speeds li{display:flex;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:.9rem;}
-.pp-speeds li b{min-width:92px;color:#fff;}
-.pp-speeds li span{color:#aab7c1;}
-.pp-right{padding:30px;}
-.checklist li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-size:.92rem;}
+.numrow{display:grid;grid-template-columns:repeat(3,1fr);margin-top:72px;border-top:1px solid var(--rule-d);}
+.num{padding:32px 32px 0 0;margin-right:32px;border-right:1px solid var(--rule-d);}
+.num:last-child{border-right:none;margin-right:0;}
+.num strong{display:block;font-family:var(--display);font-size:clamp(2.6rem,5vw,4rem);font-weight:700;line-height:1;letter-spacing:-0.02em;}
+.num span{display:block;margin-top:12px;font-size:.92rem;color:var(--soft-d);max-width:30ch;}
+.numrow-h{margin-top:72px;font-weight:600;font-size:1rem;color:#fff;}
+.numrow-h + .numrow{margin-top:20px;}
+.src{margin-top:24px;font-size:.8rem;color:#7a8996;}
+.light .num,.numrow.light{border-color:var(--rule);}
+.numrow.light{border-top-color:var(--rule);margin-top:0;}
+.numrow.light .num{border-right-color:var(--rule);}
+.numrow.light .num span{color:var(--soft);}
+
+/* ---------- products ---------- */
+.prod-wrap{display:grid;grid-template-columns:300px 1fr;gap:0 72px;align-items:start;}
+#prod-chips{flex-direction:column;flex-wrap:nowrap;gap:0;border-top:1px solid var(--rule);position:sticky;top:calc(var(--header) + 24px);}
+#prod-chips .pchip{border:none;border-bottom:1px solid var(--rule);background:none;border-radius:0;text-align:left;padding:16px 8px 16px 20px;font-size:1.02rem;font-weight:500;position:relative;color:var(--ink);}
+#prod-chips .pchip:hover{background:var(--white);}
+#prod-chips .pchip.on{font-weight:700;background:var(--white);}
+#prod-chips .pchip.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--orange);}
+.pd h3{font-size:clamp(2.4rem,4.6vw,3.6rem);}
+.pd .pd-desc{margin-top:14px;color:var(--soft);font-size:1.08rem;max-width:52ch;}
+.pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px 56px;margin-top:40px;}
+.pd h5{font-size:.95rem;margin-bottom:6px;padding-bottom:10px;border-bottom:2px solid var(--ink);}
+.pp-speeds li{display:flex;gap:16px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--rule);font-size:.95rem;}
+.pp-speeds li b{min-width:96px;font-weight:600;}
+.pp-speeds li span{color:var(--soft);}
+.checklist li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--rule);font-size:.95rem;}
 .checklist .icon{width:18px;height:18px;color:var(--ok);margin-top:3px;}
-.pp-eu{display:flex;gap:10px;align-items:center;margin-top:16px;font-size:.88rem;font-weight:600;cursor:pointer;}
-.pp-eu input{width:18px;height:18px;accent-color:var(--orange);}
-.pp-note{margin-top:18px;font-size:.8rem;color:var(--soft);}
-.pp-right .btn{margin-top:18px;}
+.pp-eu{display:flex;gap:12px;align-items:flex-start;margin-top:18px;font-size:.92rem;font-weight:500;cursor:pointer;}
+.pp-eu input{width:19px;height:19px;accent-color:var(--orange);margin-top:2px;flex-shrink:0;}
+.pp-note{margin-top:20px;font-size:.84rem;color:var(--soft);}
+.pd-cta{margin-top:36px;}
 
-/* calc */
-.calc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start;}
-.calc-form{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+/* ---------- calc ---------- */
+.calc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start;}
+.calc-form{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .calc-form .two{grid-column:span 3;}
-.field label{display:block;font-size:.8rem;font-weight:700;margin-bottom:8px;}
-.field input{width:100%;font-family:var(--mono);font-size:1.05rem;font-weight:700;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--snow);color:var(--ink);}
-.calc-hint{grid-column:1/-1;font-size:.8rem;color:var(--soft);margin-top:-6px;}
-.calc-out{background:var(--ink);color:#fff;border-radius:var(--r);padding:28px;}
-.out-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:.94rem;color:#c3ced6;}
-.out-row b{font-family:var(--mono);color:#fff;font-size:1.05rem;}
-.out-row.big{border-bottom:none;padding-top:20px;color:#fff;font-weight:700;}
-.out-row.big b{font-size:2.2rem;color:var(--amber);}
-.verdict{margin-top:6px;padding:14px 16px;border-radius:10px;background:rgba(255,176,103,.12);color:var(--amber);font-size:.88rem;font-weight:600;}
-.calc-out .note{color:#8f9ea9;}
-.calc-out .btn{margin-top:20px;width:100%;}
+.field label{display:block;font-size:.86rem;font-weight:600;margin-bottom:8px;}
+.field input{width:100%;font-family:var(--mono);font-size:1.15rem;font-weight:600;padding:14px 16px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--white);color:var(--ink);}
+.calc-hint{grid-column:1/-1;font-size:.84rem;color:var(--soft);margin-top:-8px;}
+.calc-out{background:var(--ink);color:#fff;border-radius:var(--r);padding:32px;}
+.out-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule-d);font-size:.98rem;color:#c3ced6;}
+.out-row b{font-family:var(--mono);color:#fff;font-size:1.1rem;font-weight:600;}
+.out-row.big{border-bottom:none;padding-top:24px;color:#fff;font-weight:600;}
+.out-row.big b{font-family:var(--display);font-size:3.2rem;font-weight:700;color:var(--amber);line-height:1;}
+.verdict{margin-top:8px;font-size:.92rem;font-weight:600;color:var(--amber);padding-top:16px;border-top:1px solid var(--rule-d);}
+.calc-out .note{color:#8f9ea9;margin-top:14px;}
+.calc-out .btn{margin-top:22px;width:100%;}
 
-/* quote forms */
-.form-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;box-shadow:0 34px 60px -46px rgba(17,23,29,.4);max-width:860px;}
-.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+/* ---------- quote ---------- */
+.form-wrap{max-width:900px;}
+.form-card{border:1px solid var(--rule);border-radius:var(--r);padding:32px;background:var(--white);}
+.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
 .fgrid .full{grid-column:1/-1;}
-.f label{display:block;font-size:.8rem;font-weight:700;margin-bottom:8px;}
-.f input,.f select{width:100%;font-size:1rem;font-weight:600;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--snow);color:var(--ink);}
-.form-card .btn{margin-top:22px;}
-.ok-ico{width:52px;height:52px;border-radius:50%;background:#e4f6ee;color:var(--ok);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
-.ok-ref{font-family:var(--mono);font-weight:700;font-size:1.25rem;margin:8px 0 4px;}
-.ok-sum{color:var(--soft);font-size:.92rem;margin-bottom:10px;}
+.f label{display:block;font-size:.86rem;font-weight:600;margin-bottom:8px;}
+.f input,.f select{width:100%;font-size:1rem;font-weight:500;padding:14px 16px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--paper);color:var(--ink);}
+.form-card .btn-orange[type=submit]{margin-top:24px;}
+#q-ok h3{font-size:2.4rem;}
+#q-ok .note{margin-top:10px;max-width:60ch;}
+#q-draft{width:100%;margin-top:20px;font-family:var(--mono);font-size:.9rem;line-height:1.6;padding:16px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--paper);color:var(--ink);resize:vertical;}
+.draft-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
 
-/* hub / fleet */
-.hub-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start;}
-.sub-h{font-family:var(--mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:22px;}
+/* ---------- hub ---------- */
+.hub-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:start;}
+.sub-h{font-weight:600;font-size:1rem;margin-bottom:22px;padding-bottom:10px;border-bottom:2px solid var(--ink);}
 .timeline{position:relative;}
-.timeline li{position:relative;padding:0 0 28px 34px;}
-.timeline li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--line);}
+.timeline li{position:relative;padding:0 0 30px 36px;}
+.timeline li::before{content:"";position:absolute;left:6px;top:22px;bottom:0;width:2px;background:var(--rule);}
 .timeline li:last-child{padding-bottom:0;}
 .timeline li:last-child::before{display:none;}
-.timeline li::after{content:"";position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;background:var(--orange);}
-.timeline li.next::after{background:transparent;border:2px solid var(--orange);}
-.timeline .when{font-family:var(--mono);font-weight:700;font-size:.8rem;color:var(--orange-deep);}
-.timeline p{margin-top:4px;font-weight:700;font-size:1.02rem;line-height:1.4;}
-.dark .timeline .when{color:var(--amber);}
-.dark .timeline li::before{background:rgba(255,255,255,.18);}
-.hub-bullets{margin-top:26px;display:flex;flex-direction:column;gap:14px;}
-.hub-bullets li{display:flex;gap:12px;font-size:.95rem;color:#c3cfd8;}
-.hub-bullets li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange);margin-top:9px;flex-shrink:0;}
+.timeline li::after{content:"";position:absolute;left:0;top:6px;width:14px;height:14px;background:var(--orange);}
+.timeline li.next::after{background:#fff;border:2px solid var(--orange);}
+.timeline .when{font-family:var(--mono);font-weight:600;font-size:.82rem;color:var(--orange-deep);}
+.timeline p{margin-top:4px;font-family:var(--display);font-weight:600;font-size:1.35rem;line-height:1.25;}
+.hub-bullets{margin-top:40px;}
+.hub-bullets li{padding:16px 0;border-bottom:1px solid var(--rule);font-size:1rem;color:var(--ink);display:flex;gap:16px;}
+.hub-bullets li::before{content:"";width:8px;height:8px;background:var(--orange);margin-top:9px;flex-shrink:0;}
+.hub-bullets li:first-child{border-top:1px solid var(--rule);}
+.hub .src{color:var(--soft);}
 
-/* about */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
-.about-copy p{color:var(--soft);margin-bottom:16px;font-size:1.02rem;}
-.mission{margin:8px 0 26px;padding:20px 22px;border-left:4px solid var(--orange);background:#fff;border-radius:0 var(--r) var(--r) 0;font-weight:700;font-size:1.02rem;line-height:1.5;}
-.values{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:30px;}
-.value{background:#fff;padding:22px;}
-.value h4{font-size:1rem;margin-bottom:8px;}
-.value p{font-size:.86rem;color:var(--soft);margin:0;}
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:start;}
+.about-copy p{color:var(--soft);font-size:1.06rem;max-width:56ch;}
+.mission{font-family:var(--display);font-weight:600;font-size:clamp(1.7rem,2.8vw,2.3rem);line-height:1.15;letter-spacing:-0.01em;margin:28px 0;max-width:24ch;}
+.values{display:grid;grid-template-columns:1fr 1fr;margin-top:48px;border-top:1px solid var(--rule);}
+.value{padding:24px 24px 24px 0;border-bottom:1px solid var(--rule);}
+.value:nth-child(odd){border-right:1px solid var(--rule);margin-right:24px;}
+.value h4{font-size:1.05rem;margin-bottom:6px;}
+.value p{font-size:.92rem;color:var(--soft);}
 
-/* news */
-.news-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
-.news{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:12px;}
-.news .meta{font-family:var(--mono);font-size:.76rem;color:var(--soft);display:flex;gap:12px;font-weight:700;}
-.news h4{font-size:1.08rem;line-height:1.3;letter-spacing:-.01em;}
-.news a.read{margin-top:auto;padding-top:6px;font-weight:700;font-size:.88rem;color:var(--orange-deep);display:inline-flex;gap:8px;align-items:center;}
+/* ---------- news ---------- */
+.news-list{border-top:1px solid var(--ink);}
+.news{display:grid;grid-template-columns:150px 1fr 190px;gap:16px 40px;padding:30px 0;border-bottom:1px solid var(--rule);align-items:start;}
+.news .meta{font-size:.9rem;color:var(--soft);display:flex;flex-direction:column;gap:2px;}
+.news .meta span:first-child{font-family:var(--mono);font-weight:600;color:var(--ink);font-size:.92rem;}
+.news h4{font-family:var(--display);font-size:clamp(1.4rem,2.2vw,1.8rem);font-weight:600;line-height:1.15;letter-spacing:-0.005em;}
+.news a.read{font-weight:600;font-size:.92rem;color:var(--orange-deep);display:inline-flex;gap:8px;align-items:center;justify-self:end;}
 .news a.read .icon{width:16px;height:16px;}
+.news a.read:hover{text-decoration:underline;text-underline-offset:4px;}
 
-/* faq */
-.faq-list{border-top:1px solid var(--line);max-width:860px;}
-details.faq{border-bottom:1px solid var(--line);}
-details.faq summary{list-style:none;display:grid;grid-template-columns:1fr 28px;gap:18px;align-items:center;padding:22px 4px;cursor:pointer;font-weight:800;font-size:1.1rem;letter-spacing:-.01em;}
+/* ---------- faq ---------- */
+.faq-list{border-top:1px solid var(--ink);}
+details.faq{border-bottom:1px solid var(--rule);}
+details.faq summary{list-style:none;display:grid;grid-template-columns:1fr 28px;gap:18px;align-items:center;padding:26px 4px;cursor:pointer;font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.15;}
 details.faq summary::-webkit-details-marker{display:none;}
 details.faq .chev{transition:transform .2s ease;color:var(--soft);}
-details[open].faq .chev{transform:rotate(90deg);color:var(--orange);}
-.faq-body{padding:0 4px 24px;color:var(--soft);max-width:70ch;}
+details[open].faq .chev{transform:rotate(90deg);color:var(--orange-deep);}
+.faq-body{padding:0 4px 28px;color:var(--soft);max-width:72ch;font-size:1.02rem;}
 
-/* careers */
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;max-width:860px;}
-.chips span{border:1.5px solid rgba(255,255,255,.22);border-radius:999px;padding:9px 16px;font-size:.9rem;font-weight:600;}
-.mail{font-family:var(--mono);font-size:.9rem;color:var(--amber);margin-left:6px;}
+/* ---------- careers (orange) ---------- */
+.careers{background:var(--orange);color:var(--ink);}
+.careers .head{border-top-color:rgba(15,21,26,.35);}
+.careers .head .lede{color:rgba(15,21,26,.85);}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;max-width:900px;}
+.chips span{border:1.5px solid var(--ink);border-radius:999px;padding:9px 18px;font-size:.95rem;font-weight:600;}
+.careers .btn-dark{margin-right:14px;}
+.mail{font-family:var(--mono);font-weight:600;font-size:.95rem;}
 
-/* footer */
-footer.site{background:#0b1016;color:#98a6b1;padding:56px 0 30px;font-size:.9rem;}
-.sub-band{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding-bottom:36px;margin-bottom:36px;border-bottom:1px solid rgba(255,255,255,.1);}
-.sub-band h4{color:#fff;font-size:1.3rem;}
-.sub-form{display:flex;gap:10px;flex-wrap:wrap;flex:1 1 360px;max-width:520px;}
-.sub-form input{flex:1 1 220px;padding:13px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;font-size:.95rem;}
-.sub-msg{flex-basis:100%;font-size:.84rem;font-weight:600;}
-.foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1);}
-.foot-grid h5{font-size:.82rem;color:#fff;margin:0 0 16px;font-weight:700;}
+/* ---------- footer ---------- */
+footer.site{background:#0a0f14;color:var(--soft-d);padding:72px 0 32px;font-size:.94rem;}
+.foot-grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:48px;padding-bottom:48px;border-bottom:1px solid var(--rule-d);}
+.foot-grid h5{font-size:.95rem;color:#fff;margin:0 0 16px;}
 .foot-grid li{margin-bottom:10px;}
-.foot-grid a:hover{color:#fff;}
-.foot-about{margin-top:16px;max-width:34ch;}
+.foot-grid a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px;}
+.foot-about{margin-top:18px;max-width:36ch;}
 footer .brand-name{color:#fff;}
-footer .brand-sub{color:#7f909c;}
-.foot-bottom{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.8rem;color:#6f808c;}
+footer .brand-name span{color:var(--soft-d);}
+.foot-bottom{padding-top:24px;font-size:.84rem;color:#7a8996;}
 
-.demo-badge{position:fixed;left:18px;bottom:18px;z-index:50;background:var(--ink);color:#fff;font-size:.75rem;font-weight:700;padding:10px 15px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:0 12px 30px -10px rgba(0,0,0,.45);}
-.demo-badge i{width:7px;height:7px;border-radius:50%;background:var(--orange);}
+.demo-badge{position:fixed;left:18px;bottom:18px;z-index:50;background:var(--ink);color:#fff;font-size:.78rem;font-weight:600;padding:10px 15px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:0 12px 30px -10px rgba(0,0,0,.45);}
+.demo-badge i{width:7px;height:7px;background:var(--orange);}
 
-/* assistant */
-.ast-btn{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:9px;background:var(--orange);color:var(--ink);border:none;border-radius:999px;padding:13px 18px;font-weight:800;font-size:.9rem;box-shadow:0 16px 34px -12px rgba(240,86,29,.6);}
-.ast-panel{position:fixed;right:18px;bottom:78px;z-index:70;width:360px;max-height:min(560px,72vh);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 70px -20px rgba(17,23,29,.45);display:none;flex-direction:column;overflow:hidden;}
+/* ---------- assistant ---------- */
+.ast-btn{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:9px;background:var(--orange);color:var(--ink);border:none;border-radius:999px;padding:13px 18px;font-weight:700;font-size:.92rem;box-shadow:0 16px 34px -12px rgba(240,86,29,.6);}
+.ast-panel{position:fixed;right:18px;bottom:78px;z-index:70;width:360px;max-height:min(560px,72vh);background:#fff;border:1px solid var(--rule);border-radius:14px;box-shadow:0 30px 70px -20px rgba(15,21,26,.45);display:none;flex-direction:column;overflow:hidden;}
 .ast-panel.open{display:flex;}
 .ast-head{background:var(--ink);color:#fff;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;}
-.ast-head b{display:block;font-size:.98rem;}
-.ast-head span{font-size:.74rem;color:#9fb0bb;}
+.ast-head b{display:block;font-size:1rem;}
+.ast-head span{font-size:.78rem;color:var(--soft-d);}
 .ast-x{background:none;border:none;color:#fff;width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
-.ast-msgs{padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;flex:1;background:var(--snow);}
-.msg{max-width:88%;padding:11px 14px;border-radius:14px;font-size:.88rem;line-height:1.45;}
-.msg.bot{background:#fff;border:1px solid var(--line);align-self:flex-start;border-top-left-radius:4px;}
+.ast-msgs{padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;flex:1;background:var(--paper);}
+.msg{max-width:88%;padding:11px 14px;border-radius:12px;font-size:.9rem;line-height:1.45;}
+.msg.bot{background:#fff;border:1px solid var(--rule);align-self:flex-start;border-top-left-radius:4px;}
 .msg.user{background:var(--ink);color:#fff;align-self:flex-end;border-top-right-radius:4px;}
-.msg a{display:block;margin-top:8px;font-weight:800;color:var(--orange-deep);font-size:.84rem;}
-.ast-chips{padding:12px 14px 14px;display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--line);background:#fff;max-height:150px;overflow-y:auto;}
-.ast-chips .pchip{padding:8px 12px;font-size:.8rem;}
+.msg a{display:block;margin-top:8px;font-weight:600;color:var(--orange-deep);font-size:.86rem;}
+.ast-chips{padding:12px 14px 14px;display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--rule);background:#fff;max-height:150px;overflow-y:auto;}
+.ast-chips .pchip{padding:8px 12px;font-size:.82rem;}
 
-/* responsive */
+/* ---------- responsive ---------- */
 @media (max-width:1060px){
   nav.primary,.nav-actions .lang-switch,.nav-actions .btn{display:none;}
   .menu-toggle{display:flex;}
   .drawer{display:block;}
 }
 @media (max-width:1020px){
-  .result{grid-template-columns:1fr;gap:30px;}
-  .calc-grid,.net-grid,.about-grid,.hub-grid,.ppanel{grid-template-columns:1fr;}
-  .about-grid,.hub-grid{gap:44px;}
-  .foot-grid{grid-template-columns:1fr 1fr;}
+  section{padding:80px 0;}
+  .head{grid-template-columns:1fr;gap:16px;margin-bottom:40px;}
+  .result,.calc-grid,.net-grid,.about-grid,.hub-grid{grid-template-columns:1fr;gap:40px;}
+  .prod-wrap{grid-template-columns:1fr;gap:28px;}
+  #prod-chips{flex-direction:row;flex-wrap:nowrap;overflow-x:auto;border-top:none;gap:8px;position:static;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
+  #prod-chips .pchip{border:1.5px solid var(--rule);border-radius:999px;background:#fff;padding:10px 16px;white-space:nowrap;}
+  #prod-chips .pchip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  #prod-chips .pchip.on::before{display:none;}
+  .hero-lower{grid-template-columns:1fr;gap:28px;}
   .facts .container{grid-template-columns:repeat(2,1fr);}
-  .fact{margin-right:0;padding:20px 16px 20px 0;border-bottom:1px solid rgba(255,255,255,.1);}
-  .fact:nth-of-type(2n){border-right:none;}
-  .fact:nth-of-type(n+3){border-bottom:none;}
-  .news-grid{grid-template-columns:1fr;}
-}
-@media (max-width:900px){
-  section{padding:60px 0;}
-  .hero .container{padding-top:60px;padding-bottom:210px;}
-  .hero{min-height:560px;}
+  .cell{margin-right:0;padding:22px 16px 22px 0;border-bottom:1px solid var(--rule-d);}
+  .cell:nth-of-type(2n){border-right:none;}
+  .cell:nth-of-type(n+3){border-bottom:none;}
+  .numrow{grid-template-columns:1fr;margin-top:48px;}
+  .num{border-right:none;margin-right:0;padding:24px 0;border-bottom:1px solid var(--rule-d);}
+  .numrow.light .num{border-bottom-color:var(--rule);}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+  .news{grid-template-columns:1fr;gap:10px;}
+  .news a.read{justify-self:start;}
 }
 @media (max-width:620px){
   .container{padding:0 20px;}
-  .track-card,.calc-form,.calc-out,.form-card,.pp-left,.pp-right,.node-detail{padding:20px;}
+  section{padding:64px 0;}
+  .hero-in{padding-top:44px;padding-bottom:40px;}
+  .hero-row{flex-direction:column;}
+  .hero-row .btn{width:100%;}
+  .track-panel,.form-card,.calc-out{padding:20px;}
   .calc-form{grid-template-columns:1fr 1fr;}
   .calc-form .two{grid-column:span 2;}
   .res-meta{grid-template-columns:1fr 1fr;}
-  .values,.stats3,.fgrid{grid-template-columns:1fr;}
-  .foot-grid{grid-template-columns:1fr;gap:30px;}
-  .brand-sub{display:none;}
-  .demo-badge{left:12px;bottom:12px;font-size:.7rem;padding:9px 12px;}
+  .route{font-size:2.4rem;}
+  .pd-grid,.fgrid{grid-template-columns:1fr;}
+  .values{grid-template-columns:1fr;}
+  .value:nth-child(odd){border-right:none;margin-right:0;}
+  .foot-grid{grid-template-columns:1fr;gap:32px;}
+  .demo-badge{left:12px;bottom:12px;font-size:.72rem;padding:9px 12px;}
   .awb-form .btn{width:100%;}
   .ast-btn{right:12px;bottom:12px;padding:13px;}
   .ast-btn span{display:none;}
   .ast-panel{right:10px;left:10px;width:auto;bottom:70px;}
   .pp-speeds li{flex-direction:column;gap:2px;}
-  .fact strong{font-size:1.15rem;}
+  .cell strong{font-size:1.5rem;}
+  .node-detail h3{font-size:2.4rem;}
+  .careers .btn-dark{margin-bottom:14px;}
 }
 @media (prefers-reduced-motion:reduce){
-  .hero-copy{animation:none;opacity:1;transform:none;}
+  .hero h1{animation:none;opacity:1;transform:none;}
   .flow,.hub-ring{animation:none;}
   .tl li{transition:none;}
+  .btn{transition:none;}
   html{scroll-behavior:auto;}
 }
 </style>
@@ -368,8 +406,8 @@ footer .brand-sub{color:#7f909c;}
 <header class="site">
   <div class="container nav-wrap">
     <a class="brand" href="#top" aria-label="Alatau Air Cargo">
-      <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="9" fill="#11171d"/><path d="M5 27L13 14l5 7 5-9 8 15z" fill="#fff"/><circle cx="26" cy="9" r="3" fill="#f0561d"/></svg>
-      <span class="brand-text"><span class="brand-name">ALATAU</span><span class="brand-sub">AIR CARGO</span></span>
+      <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="#0f151a"/><path d="M5 27L13 14l5 7 5-9 8 15z" fill="#fff"/><circle cx="26" cy="9" r="3" fill="#f0561d"/></svg>
+      <span class="brand-name">Alatau <span>Air Cargo</span></span>
     </a>
     <nav class="primary">
       <a href="#products" data-i18n="nav.products">Продукты</a>
@@ -393,7 +431,7 @@ footer .brand-sub{color:#7f909c;}
 <div class="drawer" id="drawer">
   <div class="drawer-panel">
     <div class="drawer-head">
-      <span class="brand-name" style="font-weight:800;letter-spacing:.08em;">ALATAU</span>
+      <span class="brand-name">Alatau <span>Air Cargo</span></span>
       <button class="menu-toggle" style="display:flex;" id="menu-close" aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
     </div>
     <nav>
@@ -439,24 +477,32 @@ footer .brand-sub{color:#7f909c;}
       </g>
     </svg>
   </div>
-  <div class="container">
-    <div class="hero-copy">
-      <div class="tag" data-i18n="hero.eyebrow">Первые рейсы — начало 2027 года (план)</div>
-      <h1><span data-i18n="hero.h1a">Азия — Европа.</span><span class="accent" data-i18n="hero.h1b">Через небо Казахстана.</span></h1>
+  <div class="container hero-in">
+    <h1><span data-i18n="hero.h1a">Азия — Европа.</span><span data-i18n="hero.h1b">Через небо Казахстана.</span></h1>
+    <div class="hero-lower">
       <p class="lede" data-i18n="hero.lede">Alatau Air Cargo — казахстанская грузовая авиакомпания с хабом в Караганде. Первое направление — Гонконг; в основе проекта — транзит между Азией и Европой с мультимодальной схемой: часть груза перегружается на железную дорогу.</p>
-      <div class="hero-ctas">
-        <a href="#track" class="btn btn-orange" data-i18n="hero.cta1">Отследить груз</a>
-        <a href="#products" class="btn btn-ghost" data-i18n="hero.cta2">Подобрать продукт</a>
+      <div class="hero-track">
+        <form id="hero-form" novalidate>
+          <label for="hero-awb" data-i18n="hero.cta1">Отследить груз</label>
+          <div class="hero-row">
+            <input id="hero-awb" inputmode="numeric" autocomplete="off" placeholder="000-12345675" maxlength="13">
+            <button type="submit" class="btn btn-orange" data-i18n="track.btn">Отследить</button>
+          </div>
+        </form>
+        <div class="hero-links">
+          <button type="button" class="linkbtn" id="hero-example" data-i18n="track.example">Подставить пример</button>
+          <a href="#products" class="linkbtn" data-i18n="hero.cta2">Подобрать продукт</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 <div class="facts">
   <div class="container">
-    <div class="fact"><strong data-i18n="hero.f1v">Начало 2027</strong><span data-i18n="hero.f1l">плановый старт коммерческих рейсов</span></div>
-    <div class="fact"><strong data-i18n="hero.f2v">Гонконг</strong><span data-i18n="hero.f2l">первое направление</span></div>
-    <div class="fact"><strong data-i18n="hero.f3v">до 10</strong><span data-i18n="hero.f3l">широкофюзеляжных грузовых самолётов в перспективе</span></div>
-    <div class="fact"><strong data-i18n="hero.f4v">Караганда</strong><span data-i18n="hero.f4l">главный хаб: авиа + железная дорога</span></div>
+    <div class="cell"><span data-i18n="hero.f1l">плановый старт коммерческих рейсов</span><strong data-i18n="hero.f1v">Начало 2027</strong></div>
+    <div class="cell"><span data-i18n="hero.f2l">первое направление</span><strong data-i18n="hero.f2v">Гонконг</strong></div>
+    <div class="cell"><span data-i18n="hero.f3l">широкофюзеляжных грузовых самолётов в перспективе</span><strong data-i18n="hero.f3v">до 10</strong></div>
+    <div class="cell"><span data-i18n="hero.f4l">главный хаб: авиа + железная дорога</span><strong data-i18n="hero.f4v">Караганда</strong></div>
     <p class="facts-src" data-i18n="hero.src">Планы компании — по данным Avianews.kz (15.10.2026).</p>
   </div>
 </div>
@@ -465,12 +511,11 @@ footer .brand-sub{color:#7f909c;}
 <section id="track">
   <div class="container">
     <div class="head">
-      <div class="tag" data-i18n="track.tag">Демо-функция</div>
       <h2 data-i18n="track.h2">Отследить груз по номеру AWB</h2>
       <p class="lede" data-i18n="track.lede">Введите 11-значный номер авианакладной — покажем, как будет выглядеть статус перевозки. Все данные ниже демонстрационные.</p>
     </div>
 
-    <div class="track-card">
+    <div class="track-panel">
       <form class="awb-form" id="awb-form" novalidate>
         <div class="awb-field">
           <label for="awb" data-i18n="track.label">Номер AWB</label>
@@ -512,7 +557,6 @@ footer .brand-sub{color:#7f909c;}
 <section id="network" class="dark">
   <div class="container">
     <div class="head">
-      <div class="tag" data-i18n="net.tag">Сеть и маршруты</div>
       <h2 data-i18n="net.h2">Куда и как мы повезём груз</h2>
       <p class="lede" data-i18n="net.lede">Нажмите на узел — покажем статус и то, что уже известно. Маршруты ниже — планы компании, а не расписание.</p>
     </div>
@@ -520,44 +564,46 @@ footer .brand-sub{color:#7f909c;}
     <div class="pchips" id="node-chips"></div>
 
     <div class="net-grid">
-      <div class="net-map">
-        <svg viewBox="0 0 720 380" role="img" aria-label="Network diagram">
-          <g fill="none" stroke-linecap="round">
-            <path d="M110 290C210 290 250 190 342 190" stroke="#ffb067" stroke-width="2.5" class="flow"/>
-            <path d="M120 100C220 100 260 190 342 190" stroke="rgba(255,176,103,.55)" stroke-width="2" stroke-dasharray="3 9"/>
-            <path d="M378 190C470 190 510 100 610 100" stroke="#5fd0c0" stroke-width="3" stroke-dasharray="1 8"/>
-            <path d="M378 190C470 190 510 290 610 290" stroke="rgba(95,208,192,.55)" stroke-width="3" stroke-dasharray="1 8"/>
-          </g>
-          <circle class="hub-ring" cx="360" cy="190" r="28" fill="none" stroke="#f0561d" stroke-width="2"/>
+      <div>
+        <div class="net-map">
+          <svg viewBox="0 0 720 380" role="img" aria-label="Network diagram">
+            <g fill="none" stroke-linecap="round">
+              <path d="M110 290C210 290 250 190 342 190" stroke="#ffb067" stroke-width="2.5" class="flow"/>
+              <path d="M120 100C220 100 260 190 342 190" stroke="rgba(255,176,103,.55)" stroke-width="2" stroke-dasharray="3 9"/>
+              <path d="M378 190C470 190 510 100 610 100" stroke="#5fd0c0" stroke-width="3" stroke-dasharray="1 8"/>
+              <path d="M378 190C470 190 510 290 610 290" stroke="rgba(95,208,192,.55)" stroke-width="3" stroke-dasharray="1 8"/>
+            </g>
+            <circle class="hub-ring" cx="360" cy="190" r="28" fill="none" stroke="#f0561d" stroke-width="2"/>
 
-          <g class="nd" data-node="hkg" tabindex="0" role="button" aria-label="Hong Kong">
-            <circle class="ring" cx="110" cy="290" r="21"/><circle cx="110" cy="290" r="10" fill="#fff"/>
-          </g>
-          <g class="nd" data-node="cn" tabindex="0" role="button" aria-label="Mainland China">
-            <circle class="ring" cx="120" cy="100" r="21"/><circle cx="120" cy="100" r="10" fill="#1a232c" stroke="#fff" stroke-width="2"/>
-          </g>
-          <g class="nd" data-node="kgf" tabindex="0" role="button" aria-label="Karaganda hub">
-            <circle class="ring" cx="360" cy="190" r="29"/><circle cx="360" cy="190" r="17" fill="#f0561d"/>
-          </g>
-          <g class="nd" data-node="eu" tabindex="0" role="button" aria-label="Europe">
-            <circle class="ring" cx="620" cy="100" r="21"/><circle cx="620" cy="100" r="10" fill="#fff"/>
-          </g>
-          <g class="nd" data-node="ca" tabindex="0" role="button" aria-label="Central Asia">
-            <circle class="ring" cx="620" cy="290" r="21"/><circle cx="620" cy="290" r="10" fill="#1a232c" stroke="#fff" stroke-width="2"/>
-          </g>
+            <g class="nd" data-node="hkg" tabindex="0" role="button" aria-label="Hong Kong">
+              <circle class="ring" cx="110" cy="290" r="21"/><circle cx="110" cy="290" r="10" fill="#fff"/>
+            </g>
+            <g class="nd" data-node="cn" tabindex="0" role="button" aria-label="Mainland China">
+              <circle class="ring" cx="120" cy="100" r="21"/><circle cx="120" cy="100" r="10" fill="#18212a" stroke="#fff" stroke-width="2"/>
+            </g>
+            <g class="nd" data-node="kgf" tabindex="0" role="button" aria-label="Karaganda hub">
+              <circle class="ring" cx="360" cy="190" r="29"/><circle cx="360" cy="190" r="17" fill="#f0561d"/>
+            </g>
+            <g class="nd" data-node="eu" tabindex="0" role="button" aria-label="Europe">
+              <circle class="ring" cx="620" cy="100" r="21"/><circle cx="620" cy="100" r="10" fill="#fff"/>
+            </g>
+            <g class="nd" data-node="ca" tabindex="0" role="button" aria-label="Central Asia">
+              <circle class="ring" cx="620" cy="290" r="21"/><circle cx="620" cy="290" r="10" fill="#18212a" stroke="#fff" stroke-width="2"/>
+            </g>
 
-          <g font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#fff" text-anchor="middle" pointer-events="none">
-            <text x="110" y="326" data-i18n="net.hkg.n">Гонконг</text>
-            <text x="120" y="68" data-i18n="net.cn.n">Материковый Китай</text>
-            <text x="360" y="240" data-i18n="net.kgf.n">Караганда (хаб)</text>
-            <text x="620" y="68" data-i18n="net.eu.n">Европа</text>
-            <text x="620" y="326" data-i18n="net.ca.n">Центральная Азия</text>
-          </g>
-        </svg>
+            <g font-family="IBM Plex Sans Condensed, IBM Plex Sans, sans-serif" font-size="19" font-weight="600" fill="#fff" text-anchor="middle" pointer-events="none">
+              <text x="110" y="328" data-i18n="net.hkg.n">Гонконг</text>
+              <text x="120" y="66" data-i18n="net.cn.n">Материковый Китай</text>
+              <text x="360" y="242" data-i18n="net.kgf.n">Караганда (хаб)</text>
+              <text x="620" y="66" data-i18n="net.eu.n">Европа</text>
+              <text x="620" y="328" data-i18n="net.ca.n">Центральная Азия</text>
+            </g>
+          </svg>
+        </div>
         <div class="net-legend">
-          <span><i></i><b data-i18n="net.legAir" style="font-weight:600;">Авиа</b></span>
-          <span><i class="later"></i><b data-i18n="net.legLater" style="font-weight:600;">Позже</b></span>
-          <span><i class="rail"></i><b data-i18n="net.legRail" style="font-weight:600;">Железная дорога / авто (концепт)</b></span>
+          <span><i></i><b data-i18n="net.legAir" style="font-weight:500;">Авиа</b></span>
+          <span><i class="later"></i><b data-i18n="net.legLater" style="font-weight:500;">Позже</b></span>
+          <span><i class="rail"></i><b data-i18n="net.legRail" style="font-weight:500;">Железная дорога / авто (концепт)</b></span>
         </div>
         <p class="net-cap" data-i18n="net.cap">Схема — иллюстрация, а не карта маршрутов.</p>
       </div>
@@ -570,54 +616,54 @@ footer .brand-sub{color:#7f909c;}
       </div>
     </div>
 
-    <div class="mkt">
-      <h4 data-i18n="net.mkt">Рынок Казахстана</h4>
-      <div class="stats3">
-        <div class="stat"><strong data-i18n="cor.s1v">136,5 тыс. т</strong><span data-i18n="cor.s1l">грузов обработали аэропорты Казахстана за 9 месяцев 2026 года</span></div>
-        <div class="stat"><strong>137</strong><span data-i18n="cor.s2l">международных направлений в сети Казахстана — 31 страна</span></div>
-        <div class="stat"><strong data-i18n="cor.s3v">61 тыс. т</strong><span data-i18n="cor.s3l">прогноз грузопотока аэропорта Караганды на 2026 год (концепция QarGo Hub)</span></div>
-      </div>
-      <p class="src" data-i18n="cor.src">Источник: Комитет гражданской авиации МТ РК, форум New Silk Way, 2026.</p>
+    <h4 class="numrow-h" data-i18n="net.mkt">Рынок Казахстана</h4>
+    <div class="numrow">
+      <div class="num"><strong data-i18n="cor.s1v">136,5 тыс. т</strong><span data-i18n="cor.s1l">грузов обработали аэропорты Казахстана за 9 месяцев 2026 года</span></div>
+      <div class="num"><strong>137</strong><span data-i18n="cor.s2l">международных направлений в сети Казахстана — 31 страна</span></div>
+      <div class="num"><strong data-i18n="cor.s3v">61 тыс. т</strong><span data-i18n="cor.s3l">прогноз грузопотока аэропорта Караганды на 2026 год (концепция QarGo Hub)</span></div>
     </div>
+    <p class="src" data-i18n="cor.src">Источник: Комитет гражданской авиации МТ РК, форум New Silk Way, 2026.</p>
   </div>
 </section>
 
 <!-- PRODUCTS -->
-<section id="products">
+<section id="products" class="bg-paper">
   <div class="container">
     <div class="head">
-      <div class="tag" data-i18n="prod.tag">Продукты и документы</div>
       <h2 data-i18n="prod.h2">Подберите продукт под ваш груз</h2>
       <p class="lede" data-i18n="prod.lede">Выберите тип груза — покажем особенности перевозки, варианты скорости и чек-лист документов. Все условия — концепт.</p>
     </div>
 
-    <div class="pchips" id="prod-chips"></div>
+    <div class="prod-wrap">
+      <div class="pchips" id="prod-chips"></div>
 
-    <div class="ppanel">
-      <div class="pp-left">
+      <div class="pd">
         <h3 id="pp-name">—</h3>
-        <p id="pp-desc">—</p>
-        <h5 data-i18n="prod.hSpeed">Варианты скорости</h5>
-        <ul class="pp-speeds" id="pp-speeds"></ul>
-      </div>
-      <div class="pp-right">
-        <h5 data-i18n="prod.hHandling">Особенности перевозки</h5>
-        <ul class="checklist" id="pp-handling"></ul>
-        <h5 class="second" data-i18n="prod.hDocs">Документы</h5>
-        <ul class="checklist" id="pp-docs"></ul>
-        <label class="pp-eu"><input type="checkbox" id="eu"><span data-i18n="prod.eu">Груз следует в страны ЕС — добавить данные ICS2</span></label>
+        <p class="pd-desc" id="pp-desc">—</p>
+        <div class="pd-grid">
+          <div>
+            <h5 data-i18n="prod.hSpeed">Варианты скорости</h5>
+            <ul class="pp-speeds" id="pp-speeds"></ul>
+            <h5 style="margin-top:32px;" data-i18n="prod.hHandling">Особенности перевозки</h5>
+            <ul class="checklist" id="pp-handling"></ul>
+          </div>
+          <div>
+            <h5 data-i18n="prod.hDocs">Документы</h5>
+            <ul class="checklist" id="pp-docs"></ul>
+            <label class="pp-eu"><input type="checkbox" id="eu"><span data-i18n="prod.eu">Груз следует в страны ЕС — добавить данные ICS2</span></label>
+          </div>
+        </div>
         <p class="pp-note" data-i18n="prod.note">Условия — концепт: итоговый набор продуктов и гарантии будут определены после получения сертификата эксплуатанта.</p>
-        <button class="btn btn-orange" id="pp-cta" data-i18n="prod.cta">Запросить тариф на этот груз</button>
+        <div class="pd-cta"><button class="btn btn-orange" id="pp-cta" data-i18n="prod.cta">Запросить тариф на этот груз</button></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CALC -->
-<section id="calc" class="alt">
+<section id="calc">
   <div class="container">
     <div class="head">
-      <div class="tag" data-i18n="calc.tag">Полезный инструмент</div>
       <h2 data-i18n="calc.h2">Калькулятор расчётного веса</h2>
       <p class="lede" data-i18n="calc.lede">Авиаперевозчики считают тариф по большему из двух весов: фактического или объёмного (Д × Ш × В в см ÷ 6000). Проверьте, как будет тарифицироваться ваша партия.</p>
     </div>
@@ -639,7 +685,7 @@ footer .brand-sub{color:#7f909c;}
         <div class="out-row big"><span data-i18n="calc.rCharge">Расчётный вес</span><span><b id="r-chg">0</b> <span data-i18n="unit.kg">кг</span></span></div>
         <div class="verdict" id="v-light" hidden data-i18n="calc.verdictLight">Лёгкий груз: тариф считается по объёму.</div>
         <div class="verdict" id="v-dense" hidden data-i18n="calc.verdictDense">Плотный груз: тариф считается по фактическому весу.</div>
-        <p class="note" style="margin-top:14px;" data-i18n="calc.round">Расчётный вес округляется вверх до 0,5 кг.</p>
+        <p class="note" data-i18n="calc.round">Расчётный вес округляется вверх до 0,5 кг.</p>
         <a class="btn btn-orange" href="#quote" data-i18n="calc.cta">Запросить тариф</a>
       </div>
     </div>
@@ -647,54 +693,57 @@ footer .brand-sub{color:#7f909c;}
 </section>
 
 <!-- QUOTE / CHARTER -->
-<section id="quote">
+<section id="quote" class="bg-paper">
   <div class="container">
     <div class="head">
-      <div class="tag" data-i18n="q.tag">Запрос</div>
       <h2 data-i18n="q.h2">Запросить тариф или чартер</h2>
-      <p class="lede" data-i18n="q.lede">Заполните форму — в демо-версии данные никуда не отправляются, но вы увидите весь сценарий.</p>
+      <p class="lede" data-i18n="q.lede">Заполните форму — мы подготовим черновик письма. В демо-версии ничего не отправляется.</p>
     </div>
 
-    <div class="seg" id="q-tabs">
-      <button class="seg-btn active" data-tab="quote" data-i18n="q.tabQ">Тариф на перевозку</button>
-      <button class="seg-btn" data-tab="charter" data-i18n="q.tabC">Чартерный рейс</button>
-    </div>
+    <div class="form-wrap">
+      <div class="seg" id="q-tabs">
+        <button class="seg-btn active" data-tab="quote" data-i18n="q.tabQ">Тариф на перевозку</button>
+        <button class="seg-btn" data-tab="charter" data-i18n="q.tabC">Чартерный рейс</button>
+      </div>
 
-    <div class="form-card">
-      <form id="form-quote" novalidate>
-        <div class="fgrid">
-          <div class="f"><label for="qf-from" data-i18n="q.from">Откуда</label><input id="qf-from" list="places" placeholder="Hong Kong"></div>
-          <div class="f"><label for="qf-to" data-i18n="q.to">Куда</label><input id="qf-to" list="places" placeholder="Karaganda"></div>
-          <div class="f"><label for="q-cargo" data-i18n="q.cargo">Тип груза</label><select id="q-cargo"></select></div>
-          <div class="f"><label for="qf-weight" data-i18n="q.weight">Вес, кг</label><input id="qf-weight" type="number" inputmode="decimal" min="0" placeholder="500"></div>
-          <div class="f full"><label for="qf-email" data-i18n="q.email">Эл. почта</label><input id="qf-email" type="email" placeholder="name@company.com"></div>
+      <div class="form-card">
+        <form id="form-quote" novalidate>
+          <div class="fgrid">
+            <div class="f"><label for="qf-from" data-i18n="q.from">Откуда</label><input id="qf-from" list="places" placeholder="Hong Kong"></div>
+            <div class="f"><label for="qf-to" data-i18n="q.to">Куда</label><input id="qf-to" list="places" placeholder="Karaganda"></div>
+            <div class="f"><label for="q-cargo" data-i18n="q.cargo">Тип груза</label><select id="q-cargo"></select></div>
+            <div class="f"><label for="qf-weight" data-i18n="q.weight">Вес, кг</label><input id="qf-weight" type="number" inputmode="decimal" min="0" placeholder="500"></div>
+            <div class="f full"><label for="qf-email" data-i18n="q.email">Эл. почта</label><input id="qf-email" type="email" placeholder="name@company.com"></div>
+          </div>
+          <p class="form-err" id="qe-req" role="alert" hidden data-i18n="q.errReq">Заполните все обязательные поля.</p>
+          <p class="form-err" id="qe-mail" role="alert" hidden data-i18n="q.errMail">Проверьте адрес электронной почты.</p>
+          <button type="submit" class="btn btn-orange" data-i18n="q.submit">Подготовить заявку</button>
+        </form>
+
+        <form id="form-charter" novalidate hidden>
+          <div class="fgrid">
+            <div class="f"><label for="cf-from" data-i18n="q.from">Откуда</label><input id="cf-from" list="places" placeholder="Hong Kong"></div>
+            <div class="f"><label for="cf-to" data-i18n="q.to">Куда</label><input id="cf-to" list="places" placeholder="Karaganda"></div>
+            <div class="f"><label for="cf-date" data-i18n="q.date">Желаемая дата</label><input id="cf-date" type="date"></div>
+            <div class="f"><label for="cf-payload" data-i18n="q.payload">Загрузка, т</label><input id="cf-payload" type="number" inputmode="decimal" min="0" placeholder="40"></div>
+            <div class="f"><label for="cf-ac" data-i18n="q.aircraft">Тип самолёта</label><select id="cf-ac"><option value="any" data-i18n="q.acAny">Подберёт Alatau</option><option value="767" data-i18n="q.ac767">Boeing 767F (планируется)</option></select></div>
+            <div class="f"><label for="cf-email" data-i18n="q.email">Эл. почта</label><input id="cf-email" type="email" placeholder="name@company.com"></div>
+          </div>
+          <p class="form-err" id="ce-req" role="alert" hidden data-i18n="q.errReq">Заполните все обязательные поля.</p>
+          <p class="form-err" id="ce-mail" role="alert" hidden data-i18n="q.errMail">Проверьте адрес электронной почты.</p>
+          <button type="submit" class="btn btn-orange" data-i18n="q.submit">Подготовить заявку</button>
+        </form>
+
+        <div id="q-ok" hidden>
+          <h3 data-i18n="q.draftT">Черновик заявки готов</h3>
+          <p class="note" data-i18n="q.draftNote">Мы ничего не отправляли: это демо. Откройте черновик в почте или скопируйте текст и отправьте тому, кому нужно.</p>
+          <textarea id="q-draft" readonly rows="8" aria-label="Draft"></textarea>
+          <div class="draft-actions">
+            <a class="btn btn-orange" id="q-mail" href="mailto:" data-i18n="q.draftOpen">Открыть в почте</a>
+            <button type="button" class="btn btn-line" id="q-copy" data-i18n="q.draftCopy">Скопировать</button>
+            <button type="button" class="btn btn-line" id="q-new" data-i18n="q.okNew">Новый запрос</button>
+          </div>
         </div>
-        <p class="form-err" id="qe-req" role="alert" hidden data-i18n="q.errReq">Заполните все обязательные поля.</p>
-        <p class="form-err" id="qe-mail" role="alert" hidden data-i18n="q.errMail">Проверьте адрес электронной почты.</p>
-        <button type="submit" class="btn btn-orange" data-i18n="q.submit">Отправить запрос</button>
-      </form>
-
-      <form id="form-charter" novalidate hidden>
-        <div class="fgrid">
-          <div class="f"><label for="cf-from" data-i18n="q.from">Откуда</label><input id="cf-from" list="places" placeholder="Hong Kong"></div>
-          <div class="f"><label for="cf-to" data-i18n="q.to">Куда</label><input id="cf-to" list="places" placeholder="Karaganda"></div>
-          <div class="f"><label for="cf-date" data-i18n="q.date">Желаемая дата</label><input id="cf-date" type="date"></div>
-          <div class="f"><label for="cf-payload" data-i18n="q.payload">Загрузка, т</label><input id="cf-payload" type="number" inputmode="decimal" min="0" placeholder="40"></div>
-          <div class="f"><label for="cf-ac" data-i18n="q.aircraft">Тип самолёта</label><select id="cf-ac"><option value="any" data-i18n="q.acAny">Подберёт Alatau</option><option value="767" data-i18n="q.ac767">Boeing 767F (планируется)</option></select></div>
-          <div class="f"><label for="cf-email" data-i18n="q.email">Эл. почта</label><input id="cf-email" type="email" placeholder="name@company.com"></div>
-        </div>
-        <p class="form-err" id="ce-req" role="alert" hidden data-i18n="q.errReq">Заполните все обязательные поля.</p>
-        <p class="form-err" id="ce-mail" role="alert" hidden data-i18n="q.errMail">Проверьте адрес электронной почты.</p>
-        <button type="submit" class="btn btn-orange" data-i18n="q.submit">Отправить запрос</button>
-      </form>
-
-      <div id="q-ok" hidden>
-        <div class="ok-ico"><svg class="icon" style="width:26px;height:26px;"><use href="#i-check"/></svg></div>
-        <h3 style="font-size:1.5rem;" data-i18n="q.okT">Запрос принят (демо)</h3>
-        <p class="ok-ref"><span data-i18n="q.okRef">Номер заявки:</span> <span id="q-ref">DEMO-000000</span></p>
-        <p class="ok-sum" id="q-sum">—</p>
-        <p class="note" style="margin-top:0;" data-i18n="q.okNote">Это демонстрация: данные никуда не отправлены. В рабочей версии заявка попадёт в CRM, а менеджер свяжется с вами.</p>
-        <button class="btn btn-dark" id="q-new" data-i18n="q.okNew">Новый запрос</button>
       </div>
     </div>
     <datalist id="places"><option value="Hong Kong"></option><option value="Karaganda"></option><option value="Astana"></option><option value="Almaty"></option><option value="Budapest"></option><option value="Frankfurt"></option><option value="Shanghai"></option></datalist>
@@ -702,10 +751,9 @@ footer .brand-sub{color:#7f909c;}
 </section>
 
 <!-- HUB & FLEET -->
-<section id="hub" class="dark">
+<section id="hub" class="hub">
   <div class="container">
     <div class="head">
-      <div class="tag" data-i18n="hub.tag">Хаб и флот</div>
       <h2 data-i18n="hub.h2">Караганда — узел, где авиа встречается с рельсами</h2>
       <p class="lede" data-i18n="hub.lede">Основной хаб авиакомпании — Караганда; часть грузов планируется перегружать с самолёта на железную дорогу.</p>
     </div>
@@ -721,10 +769,10 @@ footer .brand-sub{color:#7f909c;}
         </ul>
       </div>
       <div>
-        <div class="stats3" style="grid-template-columns:repeat(3,1fr);">
-          <div class="stat"><strong data-i18n="hub.k1v">15 → 200 тыс. т</strong><span data-i18n="hub.k1l">грузов в год через аэропорт Караганды: сегодня и цель программы до 2030 года (акимат, 2024)</span></div>
-          <div class="stat"><strong data-i18n="hub.k2v">~2 000</strong><span data-i18n="hub.k2l">постоянных рабочих мест от проекта хаба (оценка акимата)</span></div>
-          <div class="stat"><strong>2030</strong><span data-i18n="hub.k3l">горизонт программы мультимодального аэрохаба</span></div>
+        <div class="numrow light">
+          <div class="num"><strong data-i18n="hub.k1v">15 → 200 тыс. т</strong><span data-i18n="hub.k1l">грузов в год через аэропорт Караганды: сегодня и цель программы до 2030 года (акимат, 2024)</span></div>
+          <div class="num"><strong data-i18n="hub.k2v">~2 000</strong><span data-i18n="hub.k2l">постоянных рабочих мест от проекта хаба (оценка акимата)</span></div>
+          <div class="num"><strong>2030</strong><span data-i18n="hub.k3l">горизонт программы мультимодального аэрохаба</span></div>
         </div>
         <ul class="hub-bullets">
           <li data-i18n="hub.b1">Мультимодальная схема: часть грузов с самолёта перегружается на железную дорогу и едет дальше.</li>
@@ -739,17 +787,16 @@ footer .brand-sub{color:#7f909c;}
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" class="bg-paper">
   <div class="container">
+    <div class="head">
+      <h2 data-i18n="about.h2">Авиакомпания, которую строят с нуля</h2>
+      <p class="lede" data-i18n="about.p1">Alatau Air Cargo — казахстанский грузовой авиаперевозчик. Компания основана в октябре 2025 года как KTZ Air Cargo, а 10 июня 2026 года получила нынешнее название и перешла на регистрацию в Карагандинской области.</p>
+    </div>
     <div class="about-grid">
       <div>
-        <div class="tag" data-i18n="about.tag">О компании</div>
-        <h2 style="font-size:clamp(1.9rem,3.6vw,2.9rem);margin:14px 0 22px;" data-i18n="about.h2">Авиакомпания, которую строят с нуля</h2>
-        <div class="about-copy">
-          <p data-i18n="about.p1">Alatau Air Cargo — казахстанский грузовой авиаперевозчик. Компания основана в октябре 2025 года как KTZ Air Cargo, а 10 июня 2026 года получила нынешнее название и перешла на регистрацию в Карагандинской области.</p>
-          <div class="mission" data-i18n="about.mission">Миссия: создать собственные провозные мощности Казахстана, чтобы страна меньше зависела от тарифов иностранных перевозчиков, и вырастить новое поколение авиаспециалистов — лётчиков и инженеров.</div>
-          <p data-i18n="about.p2">Сегодня команда выстраивает операционный фундамент: системы, процессы и профессиональные стандарты для безопасной и надёжной работы ещё до первого рейса.</p>
-        </div>
+        <div class="mission" data-i18n="about.mission">Миссия: создать собственные провозные мощности Казахстана, чтобы страна меньше зависела от тарифов иностранных перевозчиков, и вырастить новое поколение авиаспециалистов — лётчиков и инженеров.</div>
+        <div class="about-copy"><p data-i18n="about.p2">Сегодня команда выстраивает операционный фундамент: системы, процессы и профессиональные стандарты для безопасной и надёжной работы ещё до первого рейса.</p></div>
         <div class="values">
           <div class="value"><h4 data-i18n="about.v1t">Безопасность</h4><p data-i18n="about.v1d">Культура безопасности закладывается до первого вылета: ясные стандарты и ответственные решения.</p></div>
           <div class="value"><h4 data-i18n="about.v2t">Операционное совершенство</h4><p data-i18n="about.v2d">Чёткие процессы между лётной, технической, наземной и грузовой службами.</p></div>
@@ -769,13 +816,12 @@ footer .brand-sub{color:#7f909c;}
 </section>
 
 <!-- NEWS -->
-<section id="news" class="alt">
+<section id="news">
   <div class="container">
     <div class="head">
-      <div class="tag" data-i18n="news.tag">Новости</div>
       <h2 data-i18n="news.h2">О компании и отрасли</h2>
-    </div>
-    <div class="news-grid">
+          </div>
+    <div class="news-list">
       <article class="news">
         <div class="meta"><span>15.10.2026</span><span>Avianews.kz</span></div>
         <h4 data-i18n="news.n1">Alatau Air Cargo планирует начать полёты в начале 2027 года: первое направление — Гонконг, а флот может вырасти до десяти широкофюзеляжных самолётов</h4>
@@ -801,12 +847,11 @@ footer .brand-sub{color:#7f909c;}
 </section>
 
 <!-- FAQ -->
-<section id="faq">
+<section id="faq" class="bg-paper">
   <div class="container">
     <div class="head">
-      <div class="tag" data-i18n="faq.tag">Частые вопросы</div>
       <h2 data-i18n="faq.h2">Вопросы и ответы</h2>
-    </div>
+          </div>
     <div class="faq-list">
       <details class="faq" name="faq" open><summary><span data-i18n="faq1.q">Когда начнутся рейсы?</span><svg class="icon chev"><use href="#i-chev"/></svg></summary><div class="faq-body" data-i18n="faq1.a">По планам компании, коммерческие полёты начнутся в начале 2027 года; первое направление — Гонконг. Расписание и даты пока не опубликованы.</div></details>
       <details class="faq" name="faq"><summary><span data-i18n="faq2.q">Откуда будут летать самолёты?</span><svg class="icon chev"><use href="#i-chev"/></svg></summary><div class="faq-body" data-i18n="faq2.a">Главный хаб — Караганда. Часть грузов планируется перегружать с самолёта на железную дорогу.</div></details>
@@ -818,10 +863,9 @@ footer .brand-sub{color:#7f909c;}
 </section>
 
 <!-- CAREERS -->
-<section id="careers" class="dark">
+<section id="careers" class="careers">
   <div class="container">
     <div class="head">
-      <div class="tag" data-i18n="car.tag">Мы набираем команду</div>
       <h2 data-i18n="car.h2">Постройте авиакомпанию с первого рейса</h2>
       <p class="lede" data-i18n="car.lede">Мы приглашаем авиационных профессионалов, для которых безопасность и операционное совершенство — не слова, а ежедневная практика.</p>
     </div>
@@ -833,7 +877,7 @@ footer .brand-sub{color:#7f909c;}
       <span data-i18n="car.c5">Безопасность и качество</span>
       <span data-i18n="car.c6">Лётная годность и технические услуги</span>
     </div>
-    <a class="btn btn-orange" href="mailto:career@alatauaircargo.kz"><svg class="icon"><use href="#i-mail"/></svg><span data-i18n="car.btn">Отправить резюме</span></a>
+    <a class="btn btn-dark" href="mailto:career@alatauaircargo.kz"><svg class="icon"><use href="#i-mail"/></svg><span data-i18n="car.btn">Отправить резюме</span></a>
     <span class="mail">career@alatauaircargo.kz</span>
   </div>
 </section>
@@ -841,20 +885,11 @@ footer .brand-sub{color:#7f909c;}
 <!-- FOOTER -->
 <footer class="site">
   <div class="container">
-    <div class="sub-band">
-      <h4 data-i18n="foot.subT">Новости компании</h4>
-      <form class="sub-form" id="sub-form" novalidate>
-        <input id="sub-email" type="email" placeholder="name@company.com" aria-label="Email">
-        <button type="submit" class="btn btn-orange" data-i18n="foot.subBtn">Подписаться</button>
-        <p class="sub-msg" id="sub-ok" hidden style="color:#7fe0b0;" data-i18n="foot.subOk">Спасибо! Это демо — адрес не сохранён.</p>
-        <p class="sub-msg" id="sub-err" hidden style="color:#ff8f86;" data-i18n="foot.subErr">Проверьте адрес электронной почты.</p>
-      </form>
-    </div>
     <div class="foot-grid">
       <div>
         <a class="brand" href="#top">
-          <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="9" fill="#1a232c"/><path d="M5 27L13 14l5 7 5-9 8 15z" fill="#fff"/><circle cx="26" cy="9" r="3" fill="#f0561d"/></svg>
-          <span class="brand-text"><span class="brand-name">ALATAU</span><span class="brand-sub">AIR CARGO</span></span>
+          <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="#18212a"/><path d="M5 27L13 14l5 7 5-9 8 15z" fill="#fff"/><circle cx="26" cy="9" r="3" fill="#f0561d"/></svg>
+          <span class="brand-name">Alatau <span>Air Cargo</span></span>
         </a>
         <p class="foot-about" data-i18n="foot.about">Демо-концепция сайта грузовой авиакомпании. Не является официальным сайтом АО «Alatau Air Cargo».</p>
       </div>
@@ -891,6 +926,7 @@ footer .brand-sub{color:#7f909c;}
 </div>
 
 <script>
+
 (function(){
   var $ = function(id){ return document.getElementById(id); };
   var lang = 'ru';
@@ -922,9 +958,11 @@ footer .brand-sub{color:#7f909c;}
     "ast.q3":"Какие нужны документы?","ast.a3":"Выберите тип груза в разделе «Продукты» — покажу чек-лист документов.",
     "ast.q4":"Как считается вес?","ast.a4":"По большему из фактического и объёмного веса (Д × Ш × В в см ÷ 6000). Проверьте партию в калькуляторе.",
     "ast.q5":"Как запросить тариф?","ast.a5":"Заполните форму в разделе «Запрос». В демо данные никуда не отправляются.",
-    "ast.go":"Перейти к разделу"
+    "ast.go":"Перейти к разделу",
+    "q.draftCopied":"Скопировано","q.subjQ":"Запрос тарифа — Alatau Air Cargo (демо)","q.subjC":"Запрос чартера — Alatau Air Cargo (демо)"
   },
   kk: {
+    "q.draftT":"Өтінім жобасы дайын","q.draftNote":"Біз ештеңе жібермедік: бұл — демо. Жобаны поштада ашыңыз немесе мәтінді көшіріп, керекті адамға жіберіңіз.","q.draftOpen":"Поштада ашу","q.draftCopy":"Көшіру","q.draftCopied":"Көшірілді","q.subjQ":"Тариф сұрауы — Alatau Air Cargo (демо)","q.subjC":"Чартер сұрауы — Alatau Air Cargo (демо)",
     "p.gen.n":"Жалпы жүктер","p.gen.d":"Сақтау мен тасымалдауда ерекше талаптары жоқ стандартты партиялар — коммерциялық жүктеменің негізі.","p.gen.h1":"Стандартты рәсімдер бойынша өңдеу","p.gen.h2":"Хабта шоғырландыруға ыңғайлы",
     "p.exp.n":"Шұғыл жүктер","p.exp.d":"Уақыт бойынша маңызды жөнелтімдер: қосалқы бөлшектер, құжаттар, шұғыл партиялар.","p.exp.h1":"Басымдықпен тиеу және қысқа ауыстыру уақыты","p.exp.h2":"Әр кезеңде мәртебені бақылау",
     "p.eco.n":"E-commerce","p.eco.d":"Азиядан Еуропаға ұсақ жөнелтімдердің үлкен ағындары.","p.eco.h1":"Хабта шоғырландыру және жылдам өңдеу","p.eco.h2":"Әр жөнелтімді бастан-аяқ бақылау",
@@ -971,9 +1009,9 @@ footer .brand-sub{color:#7f909c;}
     "calc.pieces":"Орын саны","calc.len":"Ұзындығы, см","calc.wid":"Ені, см","calc.hei":"Биіктігі, см","calc.weight":"Партияның нақты салмағы, кг","calc.hint":"Өлшемдер — бір орынға.",
     "calc.rActual":"Нақты салмақ","calc.rVol":"Көлемдік салмақ","calc.rDensity":"Жүк тығыздығы","calc.rCharge":"Есептік салмақ","unit.kg":"кг","unit.density":"кг/м³",
     "calc.verdictLight":"Жеңіл жүк: тариф көлем бойынша есептеледі.","calc.verdictDense":"Тығыз жүк: тариф нақты салмақ бойынша есептеледі.","calc.round":"Есептік салмақ 0,5 кг-ға дейін жоғары қарай дөңгелектенеді.","calc.cta":"Тариф сұрау",
-    "q.tag":"Сұрау","q.h2":"Тариф немесе чартер сұрау","q.lede":"Форманы толтырыңыз — демо-нұсқада деректер ешқайда жіберілмейді, бірақ бүкіл сценарийді көресіз.",
+    "q.tag":"Сұрау","q.h2":"Тариф немесе чартер сұрау","q.lede":"Форманы толтырыңыз — біз хат жобасын дайындаймыз. Демо-нұсқада ештеңе жіберілмейді.",
     "q.tabQ":"Тасымал тарифі","q.tabC":"Чартерлік рейс","q.from":"Қайдан","q.to":"Қайда","q.cargo":"Жүк түрі","q.weight":"Салмағы, кг","q.email":"Эл. пошта","q.date":"Қалаулы күн","q.payload":"Жүктеме, т","q.aircraft":"Ұшақ түрі","q.acAny":"Alatau таңдайды","q.ac767":"Boeing 767F (жоспарланған)",
-    "q.submit":"Сұрауды жіберу","q.errReq":"Барлық міндетті өрістерді толтырыңыз.","q.errMail":"Электрондық пошта мекенжайын тексеріңіз.","q.okT":"Сұрау қабылданды (демо)","q.okRef":"Өтінім нөмірі:","q.okNote":"Бұл — демонстрация: деректер ешқайда жіберілмеген. Жұмыс нұсқасында өтінім CRM-ге түседі, менеджер сізбен байланысады.","q.okNew":"Жаңа сұрау",
+    "q.submit":"Өтінімді дайындау","q.errReq":"Барлық міндетті өрістерді толтырыңыз.","q.errMail":"Электрондық пошта мекенжайын тексеріңіз.","q.okT":"Сұрау қабылданды (демо)","q.okRef":"Өтінім нөмірі:","q.okNote":"Бұл — демонстрация: деректер ешқайда жіберілмеген. Жұмыс нұсқасында өтінім CRM-ге түседі, менеджер сізбен байланысады.","q.okNew":"Жаңа сұрау",
     "hub.tag":"Хаб және флот","hub.h2":"Қарағанды — авиа мен рельс түйісетін торап","hub.lede":"Авиакомпанияның негізгі хабы — Қарағанды; жүктің бір бөлігін ұшақтан теміржолға қайта тиеу жоспарланған.",
     "fl.h":"Флот жоспары","fl.1d":"2026 соңы","fl.1t":"Алғашқы жүк Boeing 767 күтілуде (Көлік министрлігі деректері бойынша)","fl.2d":"2027 басы","fl.2t":"Коммерциялық рейстер басталады — алғашқы бағыт Гонконг","fl.3d":"Содан кейін","fl.3t":"Материктік Қытай бағыттары — рұқсаттарға байланысты көбірек уақыт қажет","fl.4d":"Перспектива","fl.4t":"10-ға дейін кең фюзеляжды ұшақ",
     "hub.k1v":"15 → 200 мың т","hub.k1l":"жылына Қарағанды әуежайы арқылы өтетін жүк: бүгінгі көрсеткіш және 2030 жылға дейінгі бағдарлама мақсаты (әкімдік, 2024)","hub.k2v":"~2 000","hub.k2l":"хаб жобасынан тұрақты жұмыс орындары (әкімдік бағасы)","hub.k3l":"мультимодальды аэрохаб бағдарламасының көкжиегі",
@@ -1007,6 +1045,7 @@ footer .brand-sub{color:#7f909c;}
     "ast.label":"Көмекші","ast.t":"Демо-көмекші","ast.s":"Дайын сценарийлер, ЖИ емес","ast.hi":"Сәлеметсіз бе! Сайттан не қайдан табуға болатынын айтамын. Сұрақты таңдаңыз:"
   },
   en: {
+    "q.draftT":"Request draft is ready","q.draftNote":"We have not sent anything: this is a demo. Open the draft in your mail app, or copy the text and send it to whoever needs it.","q.draftOpen":"Open in mail","q.draftCopy":"Copy","q.draftCopied":"Copied","q.subjQ":"Freight quote request — Alatau Air Cargo (demo)","q.subjC":"Charter request — Alatau Air Cargo (demo)",
     "p.gen.n":"General cargo","p.gen.d":"Standard consignments with no special handling needs — the backbone of commercial load.","p.gen.h1":"Handled under standard procedures","p.gen.h2":"Suitable for consolidation at the hub",
     "p.exp.n":"Urgent cargo","p.exp.d":"Time-critical shipments: spare parts, documents, urgent consignments.","p.exp.h1":"Priority loading and shorter connection times","p.exp.h2":"Status monitoring at every stage",
     "p.eco.n":"E-commerce","p.eco.d":"High volumes of small parcels from Asia to Europe.","p.eco.h1":"Consolidation and fast handling at the hub","p.eco.h2":"End-to-end tracking of each parcel",
@@ -1053,9 +1092,9 @@ footer .brand-sub{color:#7f909c;}
     "calc.pieces":"Number of pieces","calc.len":"Length, cm","calc.wid":"Width, cm","calc.hei":"Height, cm","calc.weight":"Actual shipment weight, kg","calc.hint":"Dimensions are per piece.",
     "calc.rActual":"Actual weight","calc.rVol":"Volumetric weight","calc.rDensity":"Cargo density","calc.rCharge":"Chargeable weight","unit.kg":"kg","unit.density":"kg/m³",
     "calc.verdictLight":"Light cargo: charged by volume.","calc.verdictDense":"Dense cargo: charged by actual weight.","calc.round":"Chargeable weight is rounded up to the nearest 0.5 kg.","calc.cta":"Request a quote",
-    "q.tag":"Request","q.h2":"Request a quote or a charter","q.lede":"Fill in the form — in this demo nothing is sent anywhere, but you will see the whole flow.",
+    "q.tag":"Request","q.h2":"Request a quote or a charter","q.lede":"Fill in the form and we will prepare a draft email. Nothing is sent in this demo.",
     "q.tabQ":"Freight quote","q.tabC":"Charter flight","q.from":"From","q.to":"To","q.cargo":"Cargo type","q.weight":"Weight, kg","q.email":"Email","q.date":"Preferred date","q.payload":"Payload, t","q.aircraft":"Aircraft type","q.acAny":"Alatau will propose","q.ac767":"Boeing 767F (planned)",
-    "q.submit":"Send request","q.errReq":"Please fill in all required fields.","q.errMail":"Please check the email address.","q.okT":"Request received (demo)","q.okRef":"Request number:","q.okNote":"This is a demonstration: nothing was sent. In the live version the request goes to the CRM and a manager gets in touch.","q.okNew":"New request",
+    "q.submit":"Prepare request","q.errReq":"Please fill in all required fields.","q.errMail":"Please check the email address.","q.okT":"Request received (demo)","q.okRef":"Request number:","q.okNote":"This is a demonstration: nothing was sent. In the live version the request goes to the CRM and a manager gets in touch.","q.okNew":"New request",
     "hub.tag":"Hub & fleet","hub.h2":"Karaganda — where air meets rail","hub.lede":"The airline's main hub is Karaganda; part of the cargo is planned to move from aircraft to rail.",
     "fl.h":"Fleet plan","fl.1d":"End of 2026","fl.1t":"First Boeing 767 freighter expected (per the Ministry of Transport)","fl.2d":"Early 2027","fl.2t":"Commercial flights start — Hong Kong first","fl.3d":"Then","fl.3t":"Mainland China routes — these need more time because of permits","fl.4d":"Longer term","fl.4t":"Up to 10 widebody aircraft",
     "hub.k1v":"15 → 200k t","hub.k1l":"of cargo a year through Karaganda Airport: today and the programme target to 2030 (regional akimat, 2024)","hub.k2v":"~2,000","hub.k2l":"permanent jobs from the hub project (akimat estimate)","hub.k3l":"horizon of the multimodal air hub programme",
@@ -1137,6 +1176,13 @@ footer .brand-sub{color:#7f909c;}
   }
   $('awb-form').addEventListener('submit', function(e){ e.preventDefault(); track(); });
   $('awb-example').addEventListener('click', function(){ input.value = '000-12345675'; track(); });
+  var heroInput = $('hero-awb');
+  function heroTrack(){
+    input.value = heroInput.value; track();
+    if($('result').hidden) $('track').scrollIntoView({behavior:'smooth'});
+  }
+  $('hero-form').addEventListener('submit', function(e){ e.preventDefault(); heroTrack(); });
+  $('hero-example').addEventListener('click', function(){ heroInput.value = '000-12345675'; heroTrack(); });
 
   /* ====================== network ====================== */
   var NODES = ['hkg','cn','kgf','eu','ca'];
@@ -1229,7 +1275,7 @@ footer .brand-sub{color:#7f909c;}
   ['c-pcs','c-len','c-wid','c-hei','c-wt'].forEach(function(id){ $(id).addEventListener('input', calc); });
   calc();
 
-  /* ====================== quote / charter ====================== */
+  /* ====================== quote / charter (honest draft, nothing is sent) ====================== */
   var curTab = 'quote';
   function setTab(t){
     curTab = t;
@@ -1238,9 +1284,10 @@ footer .brand-sub{color:#7f909c;}
   }
   document.querySelectorAll('#q-tabs .seg-btn').forEach(function(b){ b.addEventListener('click', function(){ setTab(b.getAttribute('data-tab')); }); });
   var mailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  function done(summary){
-    $('q-ref').textContent = 'DEMO-' + (100000 + Math.floor(Math.random() * 900000));
-    $('q-sum').textContent = summary;
+  function done(subjKey, lines){
+    var subject = tr(subjKey), body = lines.join('\n');
+    $('q-draft').value = subject + '\n\n' + body;
+    $('q-mail').href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     $('form-quote').hidden = true; $('form-charter').hidden = true; $('q-ok').hidden = false;
   }
   $('form-quote').addEventListener('submit', function(e){
@@ -1249,7 +1296,13 @@ footer .brand-sub{color:#7f909c;}
     $('qe-req').hidden = true; $('qe-mail').hidden = true;
     if(!f || !t || !(w > 0) || !m){ $('qe-req').hidden = false; return; }
     if(!mailRe.test(m)){ $('qe-mail').hidden = false; return; }
-    done(f + ' → ' + t + ' · ' + tr('p.'+$('q-cargo').value+'.n') + ' · ' + w + ' ' + tr('unit.kg'));
+    done('q.subjQ', [
+      tr('q.from') + ': ' + f,
+      tr('q.to') + ': ' + t,
+      tr('q.cargo') + ': ' + tr('p.' + $('q-cargo').value + '.n'),
+      tr('q.weight') + ': ' + w,
+      tr('q.email') + ': ' + m
+    ]);
   });
   $('form-charter').addEventListener('submit', function(e){
     e.preventDefault();
@@ -1257,19 +1310,25 @@ footer .brand-sub{color:#7f909c;}
     $('ce-req').hidden = true; $('ce-mail').hidden = true;
     if(!f || !t || !dt || !(p > 0) || !m){ $('ce-req').hidden = false; return; }
     if(!mailRe.test(m)){ $('ce-mail').hidden = false; return; }
-    done(f + ' → ' + t + ' · ' + dt + ' · ' + p + ' t');
+    var ac = $('cf-ac');
+    done('q.subjC', [
+      tr('q.from') + ': ' + f,
+      tr('q.to') + ': ' + t,
+      tr('q.date') + ': ' + dt,
+      tr('q.payload') + ': ' + p,
+      tr('q.aircraft') + ': ' + ac.options[ac.selectedIndex].textContent,
+      tr('q.email') + ': ' + m
+    ]);
   });
   $('q-new').addEventListener('click', function(){
     $('form-quote').reset(); $('form-charter').reset(); setTab(curTab);
   });
-
-  /* ====================== subscribe ====================== */
-  $('sub-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    var v = $('sub-email').value.trim();
-    $('sub-ok').hidden = true; $('sub-err').hidden = true;
-    if(!mailRe.test(v)){ $('sub-err').hidden = false; return; }
-    $('sub-email').value = ''; $('sub-ok').hidden = false;
+  var copyBtn = $('q-copy');
+  copyBtn.addEventListener('click', function(){
+    var txt = $('q-draft').value;
+    function shown(){ setKey(copyBtn, 'q.draftCopied'); setTimeout(function(){ setKey(copyBtn, 'q.draftCopy'); }, 1800); }
+    function fallback(){ var ta = $('q-draft'); ta.select(); try{ if(document.execCommand('copy')) shown(); }catch(err){} }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(shown, fallback); } else { fallback(); }
   });
 
   /* ====================== assistant ====================== */
@@ -1310,6 +1369,7 @@ footer .brand-sub{color:#7f909c;}
     b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
   });
 })();
+
 </script>
 </body>
 </html>
